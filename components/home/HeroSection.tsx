@@ -48,36 +48,37 @@ export default function HeroSection() {
         </h1>
 
         {/* Minimal Subhead */}
-        <p className="text-slate-400 text-base md:text-xl max-w-2xl mb-16 leading-relaxed font-medium">
+        <p className="text-slate-400 text-base md:text-xl max-w-2xl mb-24 leading-relaxed font-medium">
           The SADC region's premier institutional marketplace for verified mineral assets and high-stakes mining ventures.
         </p>
 
         {/* ── BIG WIDTH, SMALL HEIGHT Search Bar ── */}
-        <div className="w-full max-w-5xl group mb-20">
-          <div className="relative flex items-center h-14 sm:h-16 w-full rounded-2xl border border-white/10 bg-white/5 backdrop-blur-2xl shadow-2xl transition-all duration-500 group-focus-within:border-orange-500/50 group-focus-within:ring-4 group-focus-within:ring-orange-500/10 group-hover:bg-white/[0.08]">
+        <div className="w-full max-w-5xl group mb-20 px-4">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full">
             
-            <div className="flex items-center gap-4 flex-1 h-full pl-6 md:pl-8">
-              <Search className="text-slate-500 group-focus-within:text-orange-500 transition-colors" size={20} />
+            <div className="flex-1 relative flex items-center h-16 sm:h-18 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-2xl shadow-2xl transition-all duration-500 focus-within:border-orange-500/50 px-6 sm:px-8">
+              <Search className="text-slate-500 shrink-0" size={22} />
               <Input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                placeholder="Search by commodity, country or project name..."
-                className="flex-1 bg-transparent border-none shadow-none focus-visible:ring-0 text-white text-base md:text-lg placeholder:text-slate-500 font-semibold h-full px-0"
+                placeholder="Search assets, commodities, locations..."
+                className="flex-1 bg-transparent border-none shadow-none focus-visible:ring-0 text-white text-lg md:text-xl placeholder:text-slate-500 font-bold h-full"
               />
             </div>
 
-            <button
+            <Button
               onClick={handleSearch}
-              className="h-[calc(100%-12px)] mr-1.5 px-6 sm:px-10 rounded-xl bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white font-black text-xs sm:text-sm uppercase tracking-widest transition-all duration-300 shadow-lg active:scale-95"
+              size="lg"
+              className="h-16 sm:h-18 px-10 sm:px-14 rounded-2xl bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white font-black text-base sm:text-lg transition-all duration-300 shadow-xl active:scale-95 border-none"
             >
               Search
-            </button>
+            </Button>
           </div>
 
           {/* Location Hints */}
-          <div className="mt-6 flex flex-wrap justify-center gap-6 opacity-60 hover:opacity-100 transition-opacity">
+          <div className="mt-10 flex flex-wrap justify-center gap-8 opacity-60 hover:opacity-100 transition-opacity">
             {["South Africa", "Namibia", "Botswana", "Zimbabwe", "Zambia"].map((loc) => (
               <button 
                 key={loc}

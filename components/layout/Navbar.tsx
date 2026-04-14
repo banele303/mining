@@ -46,10 +46,10 @@ export default function Navbar() {
           : "bg-slate-950/95 backdrop-blur-2xl border-b border-white/8 shadow-2xl"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-10 md:px-20 h-16 flex items-center justify-between gap-8">
+      <div className="w-full px-12 md:px-24 h-16 flex items-center justify-between gap-8">
 
         {/* ── Logo ── */}
-        <Link href="/" className="flex items-center gap-4 shrink-0 group ml-4">
+        <Link href="/" className="flex items-center gap-4 shrink-0 group pl-6">
           <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center overflow-hidden transition-all ${
             transparentNav ? "bg-white/10 border-white/20" : "bg-orange-500 border-orange-400 shadow-lg shadow-orange-500/30"
           }`}>
