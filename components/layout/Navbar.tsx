@@ -68,16 +68,15 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* ── Desktop Nav Links ── */}
-        <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-12 bg-white/10 px-12 py-4 rounded-full border border-white/15 backdrop-blur-xl">
+        <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-10">
           {navLinks.map((link) => {
             const isActive = pathname === link.href.split("?")[0];
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-[15px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${
-                  isActive ? 'text-orange-500 scale-105' : 'text-slate-100 hover:text-white hover:scale-110'
+                className={`text-[14px] font-bold uppercase tracking-[0.1em] transition-colors hover:-translate-y-0.5 ${
+                  isActive ? 'text-orange-500' : 'text-slate-200 hover:text-white'
                 }`}
               >
                 {link.label}
