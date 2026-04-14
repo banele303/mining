@@ -53,27 +53,26 @@ export default function HeroSection() {
         </p>
 
         {/* ── BIG WIDTH, SMALL HEIGHT Search Bar ── */}
-        <div className="w-full max-w-4xl group mb-12 px-2">
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full">
+        <div className="w-full max-w-6xl group mb-16 px-6">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full">
             
-            <div className="flex-1 relative flex items-center h-12 sm:h-16 rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 backdrop-blur-2xl shadow-xl transition-all duration-500 focus-within:border-orange-500/50 px-4 sm:px-8">
-              <Search className="text-slate-500 shrink-0" size={18} />
+            <div className="flex-1 relative flex items-center h-14 sm:h-16 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-3xl shadow-2xl transition-all duration-500 focus-within:border-orange-500 px-6 sm:px-10">
+              <Search className="text-slate-400 shrink-0" size={24} />
               <Input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                placeholder="Search..."
-                className="flex-1 bg-transparent border-none shadow-none focus-visible:ring-0 text-white text-sm sm:text-lg placeholder:text-slate-500 font-bold h-full"
+                placeholder="Search resources, projects, or locations..."
+                className="flex-1 bg-transparent border-none shadow-none focus-visible:ring-0 text-white text-base sm:text-xl placeholder:text-slate-500 font-bold h-full ml-2"
               />
             </div>
 
             <Button
               onClick={handleSearch}
-              size="sm"
-              className="h-12 sm:h-16 px-6 sm:px-14 rounded-xl sm:rounded-2xl bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white font-black text-xs sm:text-lg transition-all duration-300 shadow-xl active:scale-95 border-none"
+              className="h-14 sm:h-16 px-10 sm:px-20 rounded-2xl bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white font-black text-sm sm:text-xl transition-all duration-300 shadow-2xl shadow-orange-500/20 active:scale-95 border-none shrink-0"
             >
-              Search
+              Search Assets
             </Button>
           </div>
 
