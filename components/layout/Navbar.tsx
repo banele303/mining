@@ -42,8 +42,8 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 w-full z-[999] transition-all duration-300 ${
         transparentNav
-          ? "bg-transparent py-6"
-          : "bg-slate-950/80 backdrop-blur-xl border-b border-white/10 shadow-xl py-4"
+          ? "bg-transparent py-10"
+          : "bg-slate-950/90 backdrop-blur-2xl border-b border-white/10 shadow-2xl py-6"
       }`}
     >
       <div 
@@ -69,15 +69,15 @@ export default function Navbar() {
         </Link>
 
         {/* ── Desktop Nav Links ── */}
-        <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-8 bg-white/5 px-8 md:px-10 py-3 rounded-full border border-white/10 backdrop-blur-md">
+        <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-12 bg-white/10 px-12 py-4 rounded-full border border-white/15 backdrop-blur-xl">
           {navLinks.map((link) => {
             const isActive = pathname === link.href.split("?")[0];
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-[13px] font-extrabold uppercase tracking-widest transition-colors ${
-                  isActive ? 'text-orange-500' : 'text-slate-300 hover:text-white'
+                className={`text-[15px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${
+                  isActive ? 'text-orange-500 scale-105' : 'text-slate-100 hover:text-white hover:scale-110'
                 }`}
               >
                 {link.label}

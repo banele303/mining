@@ -53,10 +53,12 @@ export default function HeroSection() {
         </p>
 
         {/* ── UNIFIED SLEEK SEARCH PILL ── */}
-        <div className="w-full max-w-4xl relative mt-4 mb-16">
-          <div className="relative flex items-center h-16 sm:h-20 w-full rounded-full border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl transition-all duration-500 focus-within:border-orange-500/80 focus-within:bg-slate-950/40 focus-within:ring-4 focus-within:ring-orange-500/20">
+        <div className="w-full max-w-4xl relative mt-4 mb-20 px-4">
+          <div className="relative flex items-center h-14 sm:h-16 w-full rounded-full border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl transition-all duration-500 focus-within:border-orange-500/80 focus-within:bg-slate-950/40 focus-within:ring-4 focus-within:ring-orange-500/10">
             
-            <Search className="text-slate-300 shrink-0 ml-6 sm:ml-8" size={24} />
+            <div className="pl-6 sm:pl-8 text-slate-300">
+              <Search size={20} />
+            </div>
             
             <input
               type="text"
@@ -64,14 +66,14 @@ export default function HeroSection() {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
               placeholder="Search resources, projects, or locations..."
-              className="flex-1 bg-transparent border-none outline-none text-white text-base sm:text-xl placeholder:text-slate-400 font-semibold h-full px-4 sm:px-6 w-full"
+              className="flex-1 bg-transparent border-none outline-none text-white text-sm sm:text-base placeholder:text-slate-400 font-bold h-full px-4 sm:px-6 w-full"
             />
 
             <button
               onClick={handleSearch}
-              className="h-[calc(100%-16px)] mr-2 sm:mr-2.5 px-8 sm:px-12 rounded-full bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white font-bold text-sm sm:text-lg transition-all duration-300 shadow-xl shadow-orange-500/25 active:scale-95 shrink-0"
+              className="h-[calc(100%-12px)] mr-1.5 sm:mr-2 px-6 sm:px-10 rounded-full bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white font-black text-xs sm:text-sm transition-all duration-300 shadow-xl shadow-orange-500/25 active:scale-95 shrink-0 uppercase tracking-widest"
             >
-              Search Assets
+              Search
             </button>
             
           </div>
