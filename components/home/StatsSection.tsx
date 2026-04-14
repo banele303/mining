@@ -14,60 +14,78 @@ function useCounter(end: number, duration = 2000, started: boolean) {
   const [count, setCount] = useState(0);
   useEffect(() => {
     if (!started) return;
-    let start = 0;
-    const step = end / (duration / 16);
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= end) { setCount(end); clearInterval(timer); }
-      else setCount(Number(start.toFixed(end < 10 ? 1 : 0)));
-    }, 16);
-    return () => clearInterval(timer);
+    let startTime: number | null = null;
+    let animationFrame: number;
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = timestamp - startTime;
+      const percentage = Math.min(progress / duration, 1);
+      
+      const currentCount = percentage * end;
+      setCount(currentCount);
+
+      if (percentage < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      } else {
+        setCount(end);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrame);
   }, [end, duration, started]);
+
   return count;
 }
 
 function StatCard({ stat, started }: { stat: typeof stats[0]; started: boolean }) {
   const count = useCounter(stat.end, 2000, started);
+  const displayCount = Number(count.toFixed(stat.end < 10 ? 1 : 0)).toLocaleString();
+
   return (
-    <div className="stat-card">
-      <div className="stat-number">
-        {stat.prefix || ""}{count.toLocaleString()}{stat.suffix}
+    <div className="flex flex-col items-center justify-center p-6 md:p-8 rounded-3xl bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+      <div className="text-3xl md:text-5xl font-black bg-gradient-to-br from-slate-900 to-slate-600 bg-clip-text text-transparent leading-none mb-3">
+        {stat.prefix || ""}{displayCount}{stat.suffix}
       </div>
-      <div className="stat-label">{stat.label}</div>
+      <div className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-slate-400 text-center">
+        {stat.label}
+      </div>
     </div>
   );
 }
 
 export default function StatsSection() {
-  const ref = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [started, setStarted] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setStarted(true); observer.disconnect(); } },
-      { threshold: 0.3 }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStarted(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
     );
-    if (ref.current) observer.observe(ref.current);
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section ref={ref} className="section-sm" style={{ background: "var(--bg-surface)" }}>
-      <div className="container">
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(5, 1fr)",
-          gap: "1rem",
-        }} className="stats-grid">
+    <section ref={sectionRef} className="py-20 bg-slate-50/50">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
           {stats.map((s) => (
             <StatCard key={s.label} stat={s} started={started} />
           ))}
         </div>
       </div>
-      <style>{`
-        @media (max-width: 900px) { .stats-grid { grid-template-columns: repeat(3, 1fr) !important; } }
-        @media (max-width: 600px) { .stats-grid { grid-template-columns: repeat(2, 1fr) !important; } }
-      `}</style>
     </section>
   );
 }

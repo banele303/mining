@@ -3,16 +3,16 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, Pickaxe, LogOut, User } from "lucide-react";
+import { Menu, X, LogOut, User } from "lucide-react";
 import { useConvexAuth, useQuery } from "convex/react";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { api } from "@/convex/_generated/api";
 
 const navLinks = [
-  { label: "Browse by Commodity", href: "/list?view=commodity" },
-  { label: "Browse by Location", href: "/list?view=location" },
-  { label: "List an Asset", href: "/sell" },
-  { label: "Explore", href: "/explore" },
+  { label: "Browse Commodities", href: "/list?view=commodity" },
+  { label: "Regional Locations", href: "/list?view=location" },
+  { label: "Post Asset", href: "/sell" },
+  { label: "Live Map", href: "/explore" },
 ];
 
 export default function Navbar() {
@@ -29,9 +29,6 @@ export default function Navbar() {
   }, []);
 
   const transparentNav = isHome && !scrolled;
-  const textColor = transparentNav ? "#FFFFFF" : "var(--text-primary)";
-  const logoColor = transparentNav ? "#FFFFFF" : "var(--text-primary)";
-
   const { isAuthenticated, isLoading } = useConvexAuth();
   const user = useQuery(api.users.viewer);
 
@@ -40,231 +37,157 @@ export default function Navbar() {
     : user?.email 
       ? user.email.charAt(0).toUpperCase() 
       : "";
-  
-  useEffect(() => {
-    console.log("Navbar Auth State Update:", { isAuthenticated, isLoading, pathname });
-  }, [isAuthenticated, isLoading, pathname]);
 
   return (
     <header
-      id="navbar"
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        zIndex: 999,
-        background: transparentNav
-          ? "transparent"
-          : scrolled
-            ? "rgba(255, 255, 255, 0.95)"
-            : "rgba(255, 255, 255, 0.8)",
-        borderBottom: `1px solid ${scrolled ? "var(--border)" : "transparent"}`,
-        backdropFilter: transparentNav ? "none" : "blur(20px)",
-        WebkitBackdropFilter: transparentNav ? "none" : "blur(20px)",
-        transition: "all 0.3s ease",
-      }}
+      className={`fixed top-0 left-0 w-full z-[999] transition-all duration-300 ${
+        transparentNav 
+          ? "bg-transparent border-transparent" 
+          : "bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-sm"
+      }`}
     >
-      <div className="container" style={{ display: "flex", alignItems: "center", height: "68px" }}>
-        {/* Logo - Icon Only & Large */}
-        <Link href="/" id="nav-logo" style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginRight: "3rem", flexShrink: 0 }}>
-          <div style={{
-            width: "48px", height: "48px",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            overflow: "hidden",
-            transition: "all 0.4s ease",
-          }}>
-            <img src="/images/logo.png" alt="Southern Mines Logo" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+      <div className="container mx-auto px-4 md:px-6 h-[72px] flex items-center justify-between">
+        {/* Logo Section */}
+        <Link href="/" className="flex items-center gap-3 shrink-0 group">
+          <div className={`w-11 h-11 md:w-12 md:h-12 flex items-center justify-center overflow-hidden rounded-xl border transition-all duration-300 ${
+            transparentNav ? "bg-white/10 border-white/20" : "bg-white border-slate-200 shadow-sm"
+          }`}>
+            <img src="/images/logo.png" alt="Logo" className="w-full h-full object-contain p-1" />
           </div>
-          <span style={{ 
-            fontSize: "1.25rem", 
-            fontWeight: 800, 
-            letterSpacing: "-0.02em",
-            color: textColor,
-            fontFamily: "var(--font-inter)"
-          }}>
-            SOUTHERN<span style={{ color: "var(--primary)" }}>MINES</span>
+          <span className={`text-lg md:text-xl font-black tracking-tighter transition-colors ${
+            transparentNav ? "text-white" : "text-slate-900"
+          }`}>
+             SOUTHERN<span className="text-orange-500">MINES</span>
           </span>
         </Link>
 
-        {/* Desktop Nav */}
-        <nav style={{ display: "flex", alignItems: "center", gap: "0.5rem", flex: 1 }} className="desktop-nav">
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center gap-1">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              id={`nav-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
-              style={{
-                padding: "0.5rem 1rem",
-                borderRadius: "var(--radius-sm)",
-                fontSize: "0.9rem",
-                fontWeight: 600,
-                color: pathname === link.href.split("?")[0] ? "var(--primary)" : textColor,
-                transition: "all var(--transition)",
-                whiteSpace: "nowrap",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.color = "var(--primary)";
-                if (!transparentNav) (e.currentTarget as HTMLElement).style.background = "var(--bg-surface-2)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.color =
-                  pathname === link.href.split("?")[0] ? "var(--primary)" : textColor;
-                (e.currentTarget as HTMLElement).style.background = "transparent";
-              }}
+              className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+                pathname === link.href.split("?")[0]
+                  ? "text-orange-500 bg-orange-50/10"
+                  : transparentNav ? "text-white/90 hover:text-white hover:bg-white/10" : "text-slate-600 hover:text-orange-500 hover:bg-slate-50"
+              }`}
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        {/* CTA Buttons */}
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginLeft: "auto" }} className="desktop-cta">
+        {/* User / CTA Section */}
+        <div className="hidden lg:flex items-center gap-4">
           {isLoading ? (
-            <div style={{ width: "100px", height: "30px", background: "var(--bg-surface-2)", borderRadius: "var(--radius-sm)", animation: "pulse 2s infinite" }} />
+            <div className="w-24 h-9 bg-slate-200/50 rounded-lg animate-pulse" />
           ) : isAuthenticated ? (
-            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-              <Link href="/dashboard" style={{
-                display: "flex", alignItems: "center", gap: "0.5rem",
-                padding: "0.4rem 0.875rem",
-                borderRadius: "99px",
-                background: transparentNav ? "rgba(255,255,255,0.15)" : "var(--bg-surface-2)",
-                border: `1px solid ${transparentNav ? "rgba(255,255,255,0.3)" : "var(--border)"}`,
-                color: textColor,
-                fontSize: "0.85rem",
-                fontWeight: 600,
-                transition: "all var(--transition)",
-              }}>
-                <div style={{
-                  width: "28px", height: "28px", 
-                  background: "linear-gradient(135deg, var(--primary), #D97706)", 
-                  borderRadius: "50%", 
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  color: "#fff",
-                  fontSize: "0.75rem",
-                  fontWeight: 700,
-                  boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-                  border: "2px solid #fff"
-                }}>
+            <div className="flex items-center gap-3">
+              <Link href="/dashboard" className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all ${
+                transparentNav 
+                  ? "bg-white/10 border-white/20 text-white" 
+                  : "bg-slate-50 border-slate-200 text-slate-800"
+              }`}>
+                <div className="w-7 h-7 bg-gradient-to-br from-orange-400 to-amber-600 rounded-full flex items-center justify-center text-[11px] font-black text-white border-2 border-white shadow-sm">
                   {userInitial || <User size={14} />}
                 </div>
-                <span style={{ maxWidth: "100px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                <span className="text-sm font-bold truncate max-w-[120px]">
                   {user?.name || "Account"}
                 </span>
               </Link>
               <button
                 onClick={() => void signOut()}
-                className="btn btn-ghost btn-sm"
-                style={{ color: "#EF4444", borderColor: "rgba(239, 68, 68, 0.2)", background: "rgba(239, 68, 68, 0.05)" }}
+                className="p-2 text-rose-500 bg-rose-50 hover:bg-rose-100 rounded-lg border border-rose-100 transition-colors"
+                title="Sign Out"
               >
-                <LogOut size={16} />
+                <LogOut size={18} />
               </button>
             </div>
           ) : (
-            <>
-              <Link href="/auth/sign-in" id="nav-signin" style={{ color: textColor, fontWeight: 600, fontSize: "0.9rem" }}>
-                Sign In
+            <div className="flex items-center gap-2">
+              <Link href="/auth/sign-in" className={`px-4 py-2 text-sm font-bold ${transparentNav ? "text-white" : "text-slate-700"}`}>
+                Log In
               </Link>
-              <Link href="/auth/sign-up" id="nav-join" className="btn btn-primary btn-sm" style={{ padding: "0.5rem 1.5rem" }}>
-                Join Free
+              <Link href="/auth/sign-up" className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-xl text-sm font-bold shadow-lg shadow-orange-500/20 transition-all active:scale-95">
+                Get Started
               </Link>
-            </>
+            </div>
           )}
         </div>
 
-        {/* Mobile Hamburger */}
+        {/* Mobile Toggle */}
         <button
-          id="nav-mobile-toggle"
           onClick={() => setMobileOpen(!mobileOpen)}
-          style={{
-            display: "none",
-            marginLeft: "auto",
-            background: "var(--bg-surface-2)",
-            border: "1px solid var(--border)",
-            borderRadius: "var(--radius-sm)",
-            padding: "0.5rem",
-            cursor: "pointer",
-            color: "var(--text-primary)",
-          }}
-          aria-label="Toggle menu"
-          className="mobile-toggle"
+          className={`lg:hidden p-2.5 rounded-xl border transition-all ${
+            transparentNav 
+              ? "bg-white/10 border-white/20 text-white" 
+              : "bg-slate-50 border-slate-200 text-slate-900"
+          }`}
         >
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Dropdown */}
       {mobileOpen && (
-        <div className="animate-slideDown" style={{
-          background: "var(--bg-surface)",
-          borderTop: "1px solid var(--border)",
-          padding: "1rem",
-        }}>
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              style={{
-                display: "block",
-                padding: "0.875rem 1rem",
-                borderRadius: "var(--radius)",
-                color: "var(--text-secondary)",
-                fontSize: "0.95rem",
-                fontWeight: 500,
-                marginBottom: "0.25rem",
-              }}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <div style={{ padding: "0.75rem 0 0", display: "flex", gap: "0.75rem", flexDirection: "column" }}>
-            {isLoading ? (
-              <div style={{ height: "40px", background: "var(--bg-surface-2)", borderRadius: "var(--radius)", animation: "pulse 2s infinite" }} />
-            ) : isAuthenticated ? (
-              <>
-                <Link href="/dashboard" className="btn btn-ghost" style={{ width: "100%", justifyContent: "flex-start", gap: "0.75rem" }}>
-                  <div style={{
-                    width: "32px", height: "32px", 
-                    background: "linear-gradient(135deg, var(--primary), #D97706)", 
-                    borderRadius: "50%", 
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    color: "#fff",
-                    fontSize: "0.9rem",
-                    fontWeight: 700
-                  }}>
-                    {userInitial || <User size={18} />}
-                  </div>
-                  <div>
-                    <div style={{ fontWeight: 600, fontSize: "0.95rem" }}>{user?.name || "My Account"}</div>
-                    {user?.email && <div style={{ fontSize: "0.75rem", color: "var(--text-tertiary)" }}>{user.email}</div>}
-                  </div>
-                </Link>
-                <button
-                  onClick={() => void signOut()}
-                  className="btn btn-primary"
-                  style={{ width: "100%", justifyContent: "center", gap: "0.75rem" }}
-                >
-                  <LogOut size={18} />
-                  Sign Out
-                </button>
-              </>
-            ) : (
-              <div style={{ display: "flex", gap: "0.75rem" }}>
-                <Link href="/auth/sign-in" className="btn btn-ghost" style={{ flex: 1 }}>Sign In</Link>
-                <Link href="/auth/sign-up" className="btn btn-primary" style={{ flex: 1 }}>Join Free</Link>
-              </div>
-            )}
+        <div className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-slate-200 shadow-2xl animate-in slide-in-from-top-4 duration-300">
+          <div className="p-4 flex flex-col gap-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                className={`flex items-center justify-between p-4 rounded-xl text-base font-bold transition-all ${
+                  pathname === link.href.split("?")[0]
+                    ? "text-orange-600 bg-orange-50"
+                    : "text-slate-700 hover:bg-slate-50"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            
+            <div className="mt-4 pt-4 border-t border-slate-100">
+              {isLoading ? (
+                <div className="h-14 bg-slate-100 rounded-xl animate-pulse" />
+              ) : isAuthenticated ? (
+                <div className="flex flex-col gap-3">
+                  <Link 
+                    href="/dashboard" 
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200"
+                  >
+                    <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-amber-600 rounded-full flex items-center justify-center text-lg font-black text-white border-2 border-white shadow-md">
+                      {userInitial || <User size={24} />}
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="font-bold text-slate-900 text-lg">{user?.name || "Account"}</span>
+                      <span className="text-sm text-slate-500">{user?.email}</span>
+                    </div>
+                  </Link>
+                  <button
+                    onClick={() => { void signOut(); setMobileOpen(false); }}
+                    className="flex items-center justify-center gap-2 p-4 w-full bg-rose-50 text-rose-600 font-bold rounded-xl border border-rose-100 hover:bg-rose-100 transition-colors"
+                  >
+                    <LogOut size={20} />
+                    Sign Out
+                  </button>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-3">
+                  <Link href="/auth/sign-in" onClick={() => setMobileOpen(false)} className="flex items-center justify-center p-4 w-full text-slate-700 font-bold rounded-xl bg-slate-100 hover:bg-slate-200 transition-all">
+                    Log In
+                  </Link>
+                  <Link href="/auth/sign-up" onClick={() => setMobileOpen(false)} className="flex items-center justify-center p-4 w-full bg-orange-500 text-white font-bold rounded-xl shadow-xl shadow-orange-500/20 active:scale-[0.98] transition-all">
+                    Create Free Account
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
-
-      <style>{`
-        @media (max-width: 900px) {
-          .desktop-nav { display: none !important; }
-          .desktop-cta { display: none !important; }
-          .mobile-toggle { display: flex !important; }
-        }
-      `}</style>
     </header>
   );
 }
