@@ -46,14 +46,14 @@ export default function Navbar() {
           : "bg-slate-950/95 backdrop-blur-2xl border-b border-white/8 shadow-2xl"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between gap-8">
+      <div className="max-w-7xl mx-auto px-10 md:px-20 h-20 flex items-center justify-between gap-8">
 
         {/* ── Logo ── */}
-        <Link href="/" className="flex items-center gap-3 shrink-0 group">
+        <Link href="/" className="flex items-center gap-4 shrink-0 group">
           <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center overflow-hidden transition-all ${
             transparentNav ? "bg-white/10 border-white/20" : "bg-orange-500 border-orange-400 shadow-lg shadow-orange-500/30"
           }`}>
-            <img src="/images/logo.png" alt="Southern Mines" className="w-full h-full object-contain p-1.5 group-hover:scale-110 transition-transform duration-300" />
+            <img src="/images/logo.png" alt="Southern Mines" className="w-full h-full object-contain p-2 group-hover:scale-110 transition-transform duration-300" />
           </div>
           <div className="flex flex-col leading-tight">
             <span className="text-2xl font-black tracking-tight text-white font-outfit">SOUTHERN<span className="text-orange-500">MINES</span></span>
