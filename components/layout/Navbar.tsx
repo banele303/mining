@@ -62,24 +62,18 @@ export default function Navbar() {
         </Link>
 
         {/* ── Desktop Nav Links ── */}
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-1.5">
           {navLinks.map((link) => {
             const isActive = pathname === link.href.split("?")[0];
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative px-4 py-2 rounded-lg text-[15px] font-bold transition-all duration-300 ${
-                  isActive
-                    ? "text-orange-400 bg-orange-500/10"
-                    : transparentNav 
-                      ? "text-white hover:text-orange-400" 
-                      : "text-slate-300 hover:text-white hover:bg-white/8"
-                }`}
+                className={`nav-custom-link ${isActive ? 'active' : ''} ${transparentNav ? 'transparent' : 'scrolled'}`}
               >
                 {link.label}
                 {isActive && (
-                  <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-orange-500" />
+                  <span className="nav-custom-indicator" />
                 )}
               </Link>
             );
@@ -94,7 +88,7 @@ export default function Navbar() {
             <>
               <Link
                 href="/dashboard"
-                className="flex items-center gap-2.5 bg-white/8 hover:bg-white/12 border border-white/10 px-4 py-2 rounded-xl text-white transition-all"
+                className="nav-user-btn"
               >
                 <div className="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center text-[11px] font-black text-white shrink-0">
                   {userInitial || <User size={12} />}
@@ -113,13 +107,13 @@ export default function Navbar() {
             <>
               <Link
                 href="/auth/sign-in"
-                className="text-sm font-semibold text-slate-300 hover:text-white px-4 py-2 rounded-xl transition-colors"
+                className={`nav-auth-login ${transparentNav ? 'transparent' : 'scrolled'}`}
               >
                 Log In
               </Link>
               <Link
                 href="/auth/sign-up"
-                className="text-sm font-black text-white bg-orange-500 hover:bg-orange-600 px-5 py-2.5 rounded-xl shadow-lg shadow-orange-500/25 transition-all active:scale-95"
+                className="nav-auth-signup"
               >
                 Join Network
               </Link>
