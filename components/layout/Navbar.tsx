@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, LogOut, User, LayoutDashboard, Globe } from "lucide-react";
+import { Menu, X, LogOut, User, ChevronRight } from "lucide-react";
 import { useConvexAuth, useQuery } from "convex/react";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { api } from "@/convex/_generated/api";
@@ -23,7 +23,7 @@ export default function Navbar() {
   const isHome = pathname === "/";
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -32,136 +32,177 @@ export default function Navbar() {
   const { isAuthenticated, isLoading } = useConvexAuth();
   const user = useQuery(api.users.viewer);
 
-  const userInitial = user?.name 
-    ? user.name.charAt(0).toUpperCase() 
-    : user?.email 
-      ? user.email.charAt(0).toUpperCase() 
-      : "";
+  const userInitial = user?.name
+    ? user.name.charAt(0).toUpperCase()
+    : user?.email
+    ? user.email.charAt(0).toUpperCase()
+    : "";
 
   return (
     <header
       className={`fixed top-0 left-0 w-full z-[999] transition-all duration-500 ${
-        transparentNav 
-          ? "bg-transparent py-6" 
-          : "bg-slate-900/95 backdrop-blur-2xl border-b border-white/5 py-3 shadow-2xl"
+        transparentNav
+          ? "bg-transparent"
+          : "bg-slate-950/95 backdrop-blur-2xl border-b border-white/8 shadow-2xl"
       }`}
     >
-      <div className="container mx-auto px-6 flex items-center justify-between">
-        {/* Logo - Large & Impactful */}
-        <Link href="/" className="flex items-center gap-4 group">
-          <div className={`w-14 h-14 md:w-16 md:h-16 flex items-center justify-center rounded-2xl border transition-all duration-700 overflow-hidden ${
-            transparentNav ? "bg-white/10 border-white/20" : "bg-orange-500 border-orange-400 shadow-lg shadow-orange-500/20"
+      <div className="max-w-7xl mx-auto px-4 md:px-8 h-20 flex items-center justify-between gap-6">
+
+        {/* ── Logo ── */}
+        <Link href="/" className="flex items-center gap-3 shrink-0 group">
+          <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center overflow-hidden transition-all ${
+            transparentNav ? "bg-white/10 border-white/20" : "bg-orange-500 border-orange-400 shadow-lg shadow-orange-500/30"
           }`}>
-            <img src="/images/logo.png" alt="Southern Mines" className="w-full h-full object-contain p-2 group-hover:scale-110 transition-transform" />
+            <img src="/images/logo.png" alt="Southern Mines" className="w-full h-full object-contain p-1.5 group-hover:scale-110 transition-transform duration-300" />
           </div>
-          <div className="flex flex-col">
-            <span className="text-xl md:text-2xl font-black tracking-tighter text-white leading-none">
-              SOUTHERN<span className="text-orange-500">MINES</span>
-            </span>
-            <span className={`text-[10px] font-black uppercase tracking-[0.3em] transition-colors ${
-              transparentNav ? "text-orange-400" : "text-white/40"
-            }`}>SADC Regional Hub</span>
+          <div className="flex flex-col leading-none">
+            <span className="text-xl font-black tracking-tighter text-white">SOUTHERN<span className="text-orange-500">MINES</span></span>
+            <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-orange-400 mt-0.5">SADC Regional Hub</span>
           </div>
         </Link>
 
-        {/* Navigation */}
-        <nav className="hidden lg:flex items-center gap-2">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest transition-all ${
-                pathname === link.href.split("?")[0]
-                  ? "text-orange-500 bg-orange-500/10"
-                  : "text-white/70 hover:text-white hover:bg-white/5"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+        {/* ── Desktop Nav Links ── */}
+        <nav className="hidden lg:flex items-center gap-1">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href.split("?")[0];
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`relative px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                  isActive
+                    ? "text-orange-400 bg-orange-500/10"
+                    : "text-slate-300 hover:text-white hover:bg-white/8"
+                }`}
+              >
+                {link.label}
+                {isActive && (
+                  <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-orange-500" />
+                )}
+              </Link>
+            );
+          })}
         </nav>
 
-        {/* User Actions */}
-        <div className="hidden lg:flex items-center gap-6">
+        {/* ── Desktop Auth ── */}
+        <div className="hidden lg:flex items-center gap-3 shrink-0">
           {isLoading ? (
-             <div className="w-10 h-10 bg-white/5 rounded-full animate-pulse" />
+            <div className="w-32 h-10 rounded-xl bg-white/5 animate-pulse" />
           ) : isAuthenticated ? (
-            <div className="flex items-center gap-4">
-               <Link href="/dashboard" className="flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 rounded-xl text-white group hover:bg-white/10 transition-all">
-                  <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center font-black text-[11px] text-white">
-                    {userInitial || <User size={14} />}
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs font-black truncate max-w-[100px]">{user?.name || "Client"}</span>
-                    <span className="text-[10px] font-bold text-orange-400 uppercase tracking-tighter">Dashboard</span>
-                  </div>
-               </Link>
-               <button onClick={() => void signOut()} className="p-3 text-white/40 hover:text-rose-400 transition-colors">
-                 <LogOut size={20} />
-               </button>
-            </div>
+            <>
+              <Link
+                href="/dashboard"
+                className="flex items-center gap-2.5 bg-white/8 hover:bg-white/12 border border-white/10 px-4 py-2 rounded-xl text-white transition-all"
+              >
+                <div className="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center text-[11px] font-black text-white shrink-0">
+                  {userInitial || <User size={12} />}
+                </div>
+                <span className="text-sm font-bold truncate max-w-[100px]">{user?.name || "Account"}</span>
+              </Link>
+              <button
+                onClick={() => void signOut()}
+                className="p-2.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-xl transition-all"
+                title="Sign Out"
+              >
+                <LogOut size={18} />
+              </button>
+            </>
           ) : (
-            <div className="flex items-center gap-3">
-               <Link href="/auth/sign-in" className="text-white font-black text-xs uppercase tracking-widest px-4">Log In</Link>
-               <Link href="/auth/sign-up" className="bg-orange-500 hover:bg-orange-600 text-white font-black text-xs uppercase tracking-widest px-6 py-3.5 rounded-xl shadow-xl shadow-orange-500/20 active:scale-95 transition-all">
-                 Join Network
-               </Link>
-            </div>
+            <>
+              <Link
+                href="/auth/sign-in"
+                className="text-sm font-semibold text-slate-300 hover:text-white px-4 py-2 rounded-xl transition-colors"
+              >
+                Log In
+              </Link>
+              <Link
+                href="/auth/sign-up"
+                className="text-sm font-black text-white bg-orange-500 hover:bg-orange-600 px-5 py-2.5 rounded-xl shadow-lg shadow-orange-500/25 transition-all active:scale-95"
+              >
+                Join Network
+              </Link>
+            </>
           )}
         </div>
 
-        {/* Mobile Toggle */}
-        <button 
-          onClick={() => setMobileOpen(!mobileOpen)} 
-          className="lg:hidden w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-2xl text-white"
+        {/* ── Mobile Toggle ── */}
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="lg:hidden w-11 h-11 flex items-center justify-center bg-white/8 border border-white/15 rounded-xl text-white transition-colors hover:bg-white/15"
         >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
-      {/* Mobile Overlay Menu */}
+      {/* ── Mobile Menu ── */}
       {mobileOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-slate-900 border-b border-white/5 shadow-2xl p-6 flex flex-col gap-4 animate-in fade-in slide-in-from-top-4">
-           {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-between p-4 bg-white/5 rounded-2xl text-white font-black uppercase tracking-widest text-sm"
-            >
-              {link.label}
-              <Globe size={18} className="text-orange-500" />
-            </Link>
-          ))}
-          
-          <div className="h-px bg-white/5 my-2" />
-          
-          {isAuthenticated ? (
-            <div className="flex flex-col gap-3">
-              <Link href="/dashboard" onClick={() => setMobileOpen(false)} className="flex items-center gap-4 p-4 bg-orange-500 rounded-2xl text-white">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center font-black text-xl">
-                  {userInitial || <User size={24} />}
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-black text-lg">{user?.name || "Client"}</span>
-                  <span className="text-xs text-white/70 font-bold uppercase tracking-widest flex items-center gap-1">
-                    Enter Dashboard <LayoutDashboard size={14} />
-                  </span>
-                </div>
-              </Link>
-              <button 
-                onClick={() => { void signOut(); setMobileOpen(false); }}
-                className="p-4 w-full bg-white/5 text-rose-400 font-black uppercase tracking-widest text-sm rounded-2xl"
-              >
-                Sign Out Terminal
-              </button>
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 gap-3">
-               <Link href="/auth/sign-in" onClick={() => setMobileOpen(false)} className="p-4 bg-white/5 text-white font-black uppercase tracking-widest text-xs text-center rounded-2xl">Log In</Link>
-               <Link href="/auth/sign-up" onClick={() => setMobileOpen(false)} className="p-4 bg-orange-500 text-white font-black uppercase tracking-widest text-xs text-center rounded-2xl">Join Now</Link>
-            </div>
-          )}
+        <div className="lg:hidden bg-slate-950 border-t border-white/8">
+          <div className="max-w-7xl mx-auto px-4 py-5 flex flex-col gap-2">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href.split("?")[0];
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`flex items-center justify-between px-4 py-3.5 rounded-xl font-semibold text-sm transition-all ${
+                    isActive
+                      ? "bg-orange-500/10 text-orange-400"
+                      : "text-slate-300 hover:bg-white/5 hover:text-white"
+                  }`}
+                >
+                  {link.label}
+                  <ChevronRight size={16} className="text-slate-500" />
+                </Link>
+              );
+            })}
+
+            <div className="h-px bg-white/8 my-2" />
+
+            {isLoading ? (
+              <div className="h-14 bg-white/5 rounded-xl animate-pulse" />
+            ) : isAuthenticated ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-4 px-4 py-4 bg-white/5 border border-white/10 rounded-xl"
+                >
+                  <div className="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center text-lg font-black text-white shrink-0">
+                    {userInitial || <User size={20} />}
+                  </div>
+                  <div>
+                    <p className="text-white font-bold">{user?.name || "Account"}</p>
+                    <p className="text-xs text-slate-400">{user?.email}</p>
+                  </div>
+                </Link>
+                <button
+                  onClick={() => { void signOut(); setMobileOpen(false); }}
+                  className="flex items-center justify-center gap-2 w-full px-4 py-3.5 bg-rose-500/10 text-rose-400 rounded-xl font-semibold text-sm"
+                >
+                  <LogOut size={16} />
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <div className="grid grid-cols-2 gap-3 mt-1">
+                <Link
+                  href="/auth/sign-in"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-center py-3.5 rounded-xl bg-white/5 text-white font-semibold text-sm"
+                >
+                  Log In
+                </Link>
+                <Link
+                  href="/auth/sign-up"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-center py-3.5 rounded-xl bg-orange-500 text-white font-black text-sm shadow-lg shadow-orange-500/25"
+                >
+                  Join Network
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </header>
