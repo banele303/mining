@@ -42,8 +42,8 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 w-full z-[999] transition-all duration-300 ${
         transparentNav
-          ? "bg-transparent py-10"
-          : "bg-slate-950/90 backdrop-blur-2xl border-b border-white/10 shadow-2xl py-6"
+          ? "bg-transparent py-12"
+          : "bg-slate-950/90 backdrop-blur-2xl border-b border-white/10 shadow-2xl py-8"
       }`}
     >
       <div 
@@ -75,8 +75,8 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-[14px] font-bold uppercase tracking-[0.1em] transition-colors hover:-translate-y-0.5 ${
-                  isActive ? 'text-orange-500' : 'text-slate-200 hover:text-white'
+                className={`py-4 px-2 text-[14px] font-bold uppercase tracking-[0.1em] transition-colors hover:-translate-y-0.5 ${
+                  isActive ? 'text-orange-500' : 'text-white hover:text-slate-200'
                 }`}
               >
                 {link.label}
