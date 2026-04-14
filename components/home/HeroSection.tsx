@@ -54,9 +54,9 @@ export default function HeroSection() {
 
         {/* ── UNIFIED SLEEK SEARCH BAR ── */}
         <div className="w-full max-w-3xl relative mt-8 mb-16 px-4">
-          <div className="relative flex items-center h-[64px] sm:h-[72px] w-full rounded-2xl bg-white shadow-2xl overflow-hidden focus-within:ring-4 focus-within:ring-orange-500/20 transition-all p-2">
+          <div className="relative flex items-center h-[64px] sm:h-[72px] w-full rounded-2xl bg-white shadow-2xl focus-within:ring-4 focus-within:ring-orange-500/20 transition-all p-2 sm:p-3">
             
-            <div className="flex items-center justify-center w-14 sm:w-16 text-slate-400 shrink-0">
+            <div className="flex items-center justify-center w-12 sm:w-16 text-slate-400 shrink-0">
               <Search size={22} className="sm:w-[24px] sm:h-[24px]" />
             </div>
             
@@ -69,10 +69,10 @@ export default function HeroSection() {
               className="flex-1 bg-transparent border-none outline-none text-slate-900 text-base sm:text-lg placeholder:text-slate-500 font-medium px-2 w-full h-full"
             />
 
-            <div className="shrink-0 pl-2 pr-1 sm:pr-2 flex items-center">
+            <div className="shrink-0 flex items-center pr-1 sm:pr-2">
                <button
                  onClick={handleSearch}
-                 className="py-2.5 px-6 sm:py-3 sm:px-10 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm sm:text-base transition-colors flex items-center justify-center tracking-wide"
+                 className="px-6 sm:px-10 py-2.5 sm:py-3.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm sm:text-base transition-all active:scale-95 shadow-md shadow-orange-500/20 tracking-wide"
                >
                  Search
                </button>

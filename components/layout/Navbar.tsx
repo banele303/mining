@@ -40,10 +40,11 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-[999] transition-all duration-300 ${
+      style={{ minHeight: "100px", padding: "1rem 0" }}
+      className={`fixed top-0 left-0 w-full z-[999] transition-all duration-300 flex items-center ${
         transparentNav
-          ? "bg-transparent py-12"
-          : "bg-slate-950/90 backdrop-blur-2xl border-b border-white/10 shadow-2xl py-8"
+          ? "bg-transparent"
+          : "bg-[#020617] bg-opacity-95 backdrop-blur-2xl border-b border-white/10 shadow-2xl"
       }`}
     >
       <div 
@@ -53,16 +54,16 @@ export default function Navbar() {
 
         {/* ── Logo ── */}
         <Link href="/" className="flex items-center gap-3 shrink-0 group">
-          <div className={`w-11 h-11 rounded-xl flex items-center justify-center overflow-hidden transition-all ${
+          <div className={`w-14 h-14 rounded-xl flex items-center justify-center overflow-hidden transition-all ${
             transparentNav ? "bg-white/10" : "bg-orange-500 shadow-md"
           }`}>
             <img src="/images/logo.png" alt="Southern Mines" className="w-full h-full object-contain p-2 transform group-hover:scale-110 transition-transform duration-300" />
           </div>
           <div className="flex flex-col leading-none">
-            <span className="text-xl md:text-2xl font-black tracking-tight text-white font-outfit">
+            <span className="text-xl md:text-3xl font-black tracking-tight text-white font-outfit" style={{ color: "white" }}>
               SOUTHERN<span className="text-orange-500">MINES</span>
             </span>
-            <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] text-orange-400 mt-1">
+            <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em] text-orange-400 mt-1">
               SADC Regional Hub
             </span>
           </div>
@@ -75,9 +76,8 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`py-4 px-2 text-[14px] font-bold uppercase tracking-[0.1em] transition-colors hover:-translate-y-0.5 ${
-                  isActive ? 'text-orange-500' : 'text-white hover:text-slate-200'
-                }`}
+                style={{ color: isActive ? "#F59E0B" : "#FFFFFF", padding: "1.5rem 0" }}
+                className={`text-[15px] font-bold uppercase tracking-[0.1em] transition-colors hover:-translate-y-0.5`}
               >
                 {link.label}
               </Link>
@@ -88,37 +88,40 @@ export default function Navbar() {
         {/* ── Desktop Auth ── */}
         <div className="hidden lg:flex items-center gap-4 shrink-0">
           {isLoading ? (
-            <div className="w-24 h-11 rounded-full bg-white/10 animate-pulse" />
+            <div className="w-24 h-12 rounded-full bg-white/10 animate-pulse" />
           ) : isAuthenticated ? (
             <div className="flex items-center gap-3">
               <Link
                 href="/dashboard"
+                style={{ color: "white" }}
                 className="flex items-center gap-3 bg-white/10 hover:bg-white/20 border border-white/10 p-1.5 pr-4 rounded-full transition-all"
               >
-                <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center text-xs font-bold text-white shrink-0">
+                <div className="w-9 h-9 rounded-full bg-orange-500 flex items-center justify-center text-sm font-bold text-white shrink-0">
                   {userInitial || <User size={14} />}
                 </div>
-                <span className="text-sm font-bold text-white leading-none pt-[1px]">{user?.name || "Dashboard"}</span>
+                <span className="text-sm font-bold leading-none pt-[1px]">{user?.name || "Dashboard"}</span>
               </Link>
               <button
                 onClick={() => void signOut()}
-                className="w-11 h-11 flex items-center justify-center text-slate-400 hover:text-rose-400 hover:bg-rose-500/20 bg-white/5 border border-white/10 rounded-full transition-all"
+                className="w-12 h-12 flex items-center justify-center text-slate-300 hover:text-rose-400 hover:bg-rose-500/20 bg-white/5 border border-white/10 rounded-full transition-all"
                 title="Sign Out"
               >
-                <LogOut size={16} />
+                <LogOut size={18} />
               </button>
             </div>
           ) : (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <Link
                 href="/auth/sign-in"
-                className="text-sm font-bold text-white hover:text-orange-400 transition-colors px-4 py-2"
+                style={{ color: "white" }}
+                className="text-sm font-bold hover:text-orange-400 transition-colors px-4 py-2"
               >
                 Log In
               </Link>
               <Link
                 href="/auth/sign-up"
-                className="bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold uppercase tracking-widest px-7 py-3 rounded-full shadow-lg shadow-orange-500/30 transition-all active:scale-95 border border-orange-400"
+                style={{ color: "white", padding: "0.875rem 2rem" }}
+                className="bg-orange-500 hover:bg-orange-600 text-sm font-bold uppercase tracking-widest rounded-full shadow-lg shadow-orange-500/30 transition-all active:scale-95 border border-orange-400"
               >
                 Join Free
               </Link>
