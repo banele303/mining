@@ -11,12 +11,14 @@ import {
   Mail, Phone, Share2, Bookmark, Eye, ChevronRight, X
 } from "lucide-react";
 
-function formatPrice(min?: number, max?: number) {
+function formatPrice(min?: number, max?: number, currency = "USD") {
+  const symbolMap: Record<string, string> = { ZAR: "R", USD: "$", AUD: "A$", CAD: "C$", GBP: "£", EUR: "€" };
+  const symbol = symbolMap[currency] || "$";
   const fmt = (n: number) => {
-    if (n >= 1_000_000_000) return `$${(n / 1_000_000_000).toFixed(1)}B`;
-    if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`;
-    if (n >= 1_000) return `$${(n / 1_000).toFixed(0)}K`;
-    return `$${n.toLocaleString()}`;
+    if (n >= 1_000_000_000) return `${symbol}${(n / 1_000_000_000).toFixed(1)}B`;
+    if (n >= 1_000_000) return `${symbol}${(n / 1_000_000).toFixed(1)}M`;
+    if (n >= 1_000) return `${symbol}${(n / 1_000).toFixed(0)}K`;
+    return `${symbol}${n.toLocaleString()}`;
   };
   if (min && max) return `${fmt(min)} – ${fmt(max)}`;
   if (min) return `From ${fmt(min)}`;
@@ -233,7 +235,7 @@ export default function ListingDetailPage() {
                 { icon: <Layers size={16} />, label: "Commodity", value: listing.commodity },
                 { icon: <MapPin size={16} />, label: "Location", value: [listing.region, listing.country].filter(Boolean).join(", ") },
                 { icon: <Pickaxe size={16} />, label: "Stage", value: listing.stage },
-                { icon: <DollarSign size={16} />, label: "Price Range", value: formatPrice(listing.priceMin, listing.priceMax), highlight: true },
+                { icon: <DollarSign size={16} />, label: "Price Range", value: formatPrice(listing.priceMin, listing.priceMax, listing.currency), highlight: true },
               ].map((s) => (
                 <div key={s.label} style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
                   <span style={{ color: "var(--text-muted)", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 600 }}>{s.label}</span>
@@ -314,7 +316,7 @@ export default function ListingDetailPage() {
               }}>
                 <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "0.25rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>Asking Price</p>
                 <p style={{ fontSize: "1.5rem", fontWeight: 800, color: "var(--primary-light)" }}>
-                  {formatPrice(listing.priceMin, listing.priceMax)}
+                  {formatPrice(listing.priceMin, listing.priceMax, listing.currency)}
                 </p>
                 <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.75rem" }}>
                   <span className="badge badge-commodity">{listing.intention}</span>

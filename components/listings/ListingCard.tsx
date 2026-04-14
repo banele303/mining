@@ -23,17 +23,20 @@ type Listing = {
 };
 
 function formatPrice(min?: number, max?: number, currency = "USD") {
+  const symbolMap: Record<string, string> = { ZAR: "R", USD: "$", AUD: "A$", CAD: "C$", GBP: "£", EUR: "€" };
+  const symbol = symbolMap[currency] || "$";
   const fmt = (n: number) => {
-    if (n >= 1_000_000_000) return `$${(n / 1_000_000_000).toFixed(1)}B`;
-    if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`;
-    if (n >= 1_000) return `$${(n / 1_000).toFixed(0)}K`;
-    return `$${n.toLocaleString()}`;
+    if (n >= 1_000_000_000) return `${symbol}${(n / 1_000_000_000).toFixed(1)}B`;
+    if (n >= 1_000_000) return `${symbol}${(n / 1_000_000).toFixed(1)}M`;
+    if (n >= 1_000) return `${symbol}${(n / 1_000).toFixed(0)}K`;
+    return `${symbol}${n.toLocaleString()}`;
   };
   if (min && max) return `${fmt(min)} – ${fmt(max)}`;
   if (min) return `From ${fmt(min)}`;
   if (max) return `Up to ${fmt(max)}`;
   return "Price on Application";
 }
+
 
 function StatusBadge({ status }: { status: string }) {
   const map: Record<string, { label: string; className: string }> = {

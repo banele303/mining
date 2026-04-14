@@ -238,6 +238,7 @@ export default function SellPage() {
                 <label className="label">Currency</label>
                 <select className="select" value={form.currency} onChange={set("currency")}>
                   <option value="USD">USD — US Dollar</option>
+                  <option value="ZAR">ZAR — South African Rand</option>
                   <option value="AUD">AUD — Australian Dollar</option>
                   <option value="CAD">CAD — Canadian Dollar</option>
                   <option value="GBP">GBP — British Pound</option>
