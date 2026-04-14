@@ -30,67 +30,68 @@ export default function HeroSection() {
       <div className="absolute bottom-[-150px] right-[-100px] w-[500px] h-[500px] rounded-full bg-amber-500/10 blur-[100px] pointer-events-none" />
 
       {/* ── Main Content ── */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12 flex flex-col items-center text-center pt-32 pb-24 md:pt-44 md:pb-32">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center text-center pt-40 pb-28 md:pt-56 md:pb-40">
 
         {/* Live Badge */}
-        <div className="inline-flex items-center gap-3 px-5 py-2.5 mb-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl text-orange-400 text-[11px] md:text-xs font-black uppercase tracking-[0.25em] shadow-2xl">
+        <div className="inline-flex items-center gap-3 px-6 py-3 mb-16 rounded-full border border-white/10 bg-white/5 backdrop-blur-2xl text-orange-400 text-[11px] md:text-sm font-black uppercase tracking-[0.3em] shadow-2xl">
           <span className="relative flex h-2.5 w-2.5 shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-500 opacity-75"></span>
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-orange-500"></span>
           </span>
-          Global Mining Project Network
+          Exclusive SADC Mining Network
         </div>
 
         {/* Headline */}
-        <h1 className="text-[3.25rem] sm:text-7xl md:text-8xl lg:text-[110px] font-black text-white leading-[0.95] md:leading-[0.85] tracking-tight mb-10 font-outfit">
-          The Hub of{" "}
+        <h1 className="text-[3.5rem] sm:text-7xl md:text-8xl lg:text-[120px] font-black text-white leading-[0.9] md:leading-[0.8] tracking-tight mb-12 font-outfit">
+          The Future of{" "}
           <br className="hidden lg:block" />
           <span className="bg-gradient-to-r from-orange-500 via-amber-300 to-orange-400 bg-clip-text text-transparent">
-            Southern Mining
+            African Mining
           </span>
         </h1>
 
         {/* Subheadline */}
-        <p className="text-slate-300 text-base md:text-2xl max-w-3xl mb-14 leading-relaxed font-medium">
-          Connecting institutional capital with verified mineral assets across the SADC region. The premier gateway for high-stakes mining project transactions.
+        <p className="text-slate-300 text-lg md:text-2xl max-w-4xl mb-16 leading-relaxed font-medium px-4 opacity-90">
+          The premier institutional gateway connecting verified mineral assets with global capital across the SADC region. 
+          Unlocking the potential of Southern Africa's mineral wealth.
         </p>
 
         {/* ── Search Bar ── */}
-        <div className="w-full max-w-4xl group">
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-0 sm:items-center sm:p-3 sm:rounded-full sm:bg-white/5 sm:border sm:border-white/10 sm:backdrop-blur-3xl sm:shadow-[0_0_80px_rgba(0,0,0,0.5)] group-hover:border-orange-500/30 transition-all duration-500">
+        <div className="w-full max-w-5xl group px-4">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-0 md:items-center p-2 md:p-2.5 rounded-[2.5rem] md:rounded-full bg-white/5 border border-white/10 backdrop-blur-3xl shadow-[0_30px_100px_rgba(0,0,0,0.6)] group-hover:border-orange-500/40 group-hover:shadow-orange-500/10 transition-all duration-700">
 
             {/* Input row */}
-            <div className="flex items-center gap-4 bg-white/5 border border-white/10 backdrop-blur-3xl rounded-3xl sm:rounded-none sm:bg-transparent sm:border-0 sm:backdrop-blur-none flex-1 px-6 py-5 sm:py-0 sm:px-6">
-              <Search className="text-orange-500 shrink-0" size={26} strokeWidth={2.5} />
+            <div className="flex items-center gap-4 flex-1 px-8 py-6 md:py-2 md:px-8">
+              <Search className="text-orange-500 shrink-0" size={28} strokeWidth={2.5} />
               <Input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                placeholder="Search assets, commodities, locations..."
-                className="flex-1 bg-transparent border-none shadow-none focus-visible:ring-0 text-white text-lg md:text-xl placeholder:text-slate-500 font-bold min-w-0"
+                placeholder="Search resources, commodities, mines..."
+                className="flex-1 bg-transparent border-none shadow-none focus-visible:ring-0 text-white text-xl md:text-2xl placeholder:text-slate-500 font-bold min-w-0"
               />
             </div>
 
             {/* Button */}
             <Button
               onClick={handleSearch}
-              className="flex items-center justify-center gap-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 active:scale-[0.96] text-white font-black text-lg px-10 py-8 sm:py-7 sm:px-10 rounded-3xl sm:rounded-full shadow-2xl shadow-orange-500/30 shrink-0 transition-all duration-300 border-none h-auto"
+              className="flex items-center justify-center gap-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 active:scale-[0.98] text-white font-black text-lg md:text-xl px-12 py-9 md:py-6 md:px-14 rounded-[2rem] md:rounded-full shadow-2xl shadow-orange-500/40 shrink-0 transition-all duration-500 border-none h-auto"
             >
-              Explore Assets
-              <ArrowRight size={22} strokeWidth={3.5} />
+              Start Exploring
+              <ArrowRight size={24} strokeWidth={3.5} />
             </Button>
           </div>
 
           {/* Region Tags */}
-          <div className="mt-8 flex flex-wrap justify-center gap-x-8 gap-y-3">
-            {["Witwatersrand", "Copper Belt", "Kalahari", "Bushveld Complex"].map((region) => (
+          <div className="mt-10 flex flex-wrap justify-center gap-x-10 gap-y-4">
+            {["Witwatersrand", "Copper Belt", "Kalahari", "Bushveld Complex", "Damara Belt"].map((region) => (
               <button
                 key={region}
                 onClick={() => setQuery(region)}
-                className="flex items-center gap-2 text-[13px] text-slate-400 hover:text-orange-400 transition-all font-bold tracking-wide group/tag"
+                className="flex items-center gap-2.5 text-[14px] text-slate-400 hover:text-white transition-all font-bold tracking-wider group/tag"
               >
-                <div className="w-1.5 h-1.5 rounded-full bg-orange-600/50 group-hover/tag:bg-orange-500 transition-colors" />
+                <div className="w-2 h-2 rounded-full border border-orange-600/50 group-hover/tag:bg-orange-500 group-hover/tag:border-orange-500 transition-all" />
                 {region}
               </button>
             ))}
@@ -98,7 +99,7 @@ export default function HeroSection() {
         </div>
 
         {/* Trust Indicators */}
-        <div className="mt-20 flex flex-wrap items-center justify-center gap-10 md:gap-16">
+        <div className="mt-28 flex flex-wrap items-center justify-center gap-12 md:gap-24 opacity-80">
           {[
             { value: "R150B+", label: "Asset Value" },
             { value: "4,200+", label: "Projects" },
@@ -106,8 +107,8 @@ export default function HeroSection() {
             { value: "9,000+", label: "Members" },
           ].map((stat) => (
             <div key={stat.label} className="flex flex-col items-center">
-              <span className="text-3xl md:text-4xl font-black text-white font-outfit">{stat.value}</span>
-              <span className="text-[11px] font-black uppercase tracking-[0.2em] text-orange-500/80 mt-1">{stat.label}</span>
+              <span className="text-4xl md:text-5xl font-black text-white font-outfit tracking-tight">{stat.value}</span>
+              <span className="text-[12px] font-black uppercase tracking-[0.3em] text-orange-500/90 mt-2">{stat.label}</span>
             </div>
           ))}
         </div>

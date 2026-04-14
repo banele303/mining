@@ -102,7 +102,7 @@ export default function StatsSection() {
               Define Our Market
             </span>
           </h2>
-          <p className="mt-3 text-slate-500 text-base max-w-xl mx-auto">
+          <p className="mt-6 mb-8 text-slate-500 text-lg max-w-3xl mx-auto bg-slate-50/80 border border-slate-100 rounded-2xl py-4 px-10 inline-block shadow-sm tracking-wide leading-relaxed">
             Southern Africa's most comprehensive and verified mining asset network.
           </p>
         </div>
