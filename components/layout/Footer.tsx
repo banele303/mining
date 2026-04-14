@@ -50,15 +50,14 @@ export default function Footer() {
           <div>
             <Link href="/" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem" }}>
               <div style={{
-                width: "36px", height: "36px",
-                background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
-                borderRadius: "8px",
+                width: "40px", height: "40px",
                 display: "flex", alignItems: "center", justifyContent: "center",
+                overflow: "hidden"
               }}>
-                <Pickaxe size={20} color="#fff" strokeWidth={2.5} />
+                <img src="/images/logo.png" alt="Southern Mines Logo" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
               </div>
-              <span style={{ fontWeight: 800, fontSize: "1.15rem" }}>
-                Mine<span className="text-gold">Xchange</span>
+              <span style={{ fontWeight: 800, fontSize: "1.15rem", letterSpacing: "-0.01em" }}>
+                Southern <span className="text-gold">Mines</span>
               </span>
             </Link>
             <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", lineHeight: 1.7, maxWidth: "300px" }}>
@@ -69,7 +68,7 @@ export default function Footer() {
                 { icon: <Globe size={16} />, href: "#", label: "Twitter" },
                 { icon: <Globe size={16} />, href: "#", label: "LinkedIn" },
                 { icon: <Globe size={16} />, href: "#", label: "Website" },
-                { icon: <Mail size={16} />, href: "mailto:hello@minexchange.com", label: "Email" },
+                { icon: <Mail size={16} />, href: "mailto:hello@southernmines.com", label: "Email" },
               ].map((s) => (
                 <a
                   key={s.label}
@@ -163,7 +162,7 @@ export default function Footer() {
           gap: "1rem",
         }}>
           <p style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>
-            © {new Date().getFullYear()} MineXchange. All rights reserved.
+            © {new Date().getFullYear()} Southern Mines. All rights reserved.
           </p>
           <div style={{ display: "flex", gap: "1.5rem" }}>
             {["Privacy Policy", "Terms of Service", "Cookie Policy"].map((t) => (

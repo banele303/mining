@@ -12,15 +12,15 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "MineXchange | Southern Africa's Leading Mining Asset Marketplace",
+  title: "Southern Mines | Southern Africa's Leading Mining Asset Marketplace",
   description:
     "The specialized marketplace for buying, selling and leasing mining projects in Southern Africa. Browse verified mining assets in South Africa, Namibia, Botswana, Zimbabwe, and Mozambique.",
   keywords: "mining assets South Africa, mines for sale Namibia, gold mines Botswana, mining projects Southern Africa, Southern Africa mining marketplace",
   openGraph: {
-    title: "MineXchange | Southern Africa Mining Marketplace",
+    title: "Southern Mines | Southern Africa Mining Marketplace",
     description: "Browse thousands of mining projects across Southern Africa.",
     type: "website",
-    url: "https://minexchange.com",
+    url: "https://southernmines.com",
   },
 };
 

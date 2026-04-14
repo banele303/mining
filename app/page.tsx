@@ -35,7 +35,7 @@ export default function HomePage() {
       <CommodityBrowser />
       <MapPreview />
 
-      {/* Why MineXchange */}
+      {/* Why Southern Mines */}
       <section className="section" style={{ background: "var(--bg-surface)" }}>
         <div className="container">
           <div style={{ textAlign: "center", marginBottom: "3rem" }}>

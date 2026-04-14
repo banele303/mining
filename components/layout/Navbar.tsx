@@ -67,15 +67,24 @@ export default function Navbar() {
     >
       <div className="container" style={{ display: "flex", alignItems: "center", height: "68px" }}>
         {/* Logo - Icon Only & Large */}
-        <Link href="/" id="nav-logo" style={{ display: "flex", alignItems: "center", marginRight: "3rem", flexShrink: 0 }}>
+        <Link href="/" id="nav-logo" style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginRight: "3rem", flexShrink: 0 }}>
           <div style={{
-            width: "64px", height: "64px",
+            width: "48px", height: "48px",
             display: "flex", alignItems: "center", justifyContent: "center",
             overflow: "hidden",
             transition: "all 0.4s ease",
           }}>
-            <img src="/images/logo_icon.png" alt="MineXchange Logo" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+            <img src="/images/logo.png" alt="Southern Mines Logo" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
           </div>
+          <span style={{ 
+            fontSize: "1.25rem", 
+            fontWeight: 800, 
+            letterSpacing: "-0.02em",
+            color: textColor,
+            fontFamily: "var(--font-inter)"
+          }}>
+            SOUTHERN<span style={{ color: "var(--primary)" }}>MINES</span>
+          </span>
         </Link>
 
         {/* Desktop Nav */}
