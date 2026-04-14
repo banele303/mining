@@ -94,20 +94,41 @@ export const getListingById = query({
     const listing = await ctx.db.get(args.id);
     if (!listing) return null;
 
-    let coverImageUrl = listing.coverImage;
-    if (listing.coverImage && !listing.coverImage.startsWith("http")) {
-      coverImageUrl = (await ctx.storage.getUrl(listing.coverImage)) || listing.coverImage;
-    }
-
+    // Resolve all images first
     const imageUrls = await Promise.all(
       (listing.images || []).map(async (imgId) => {
+        if (!imgId) return null;
         if (imgId.startsWith("http")) return imgId;
-        const url = await ctx.storage.getUrl(imgId);
-        return url || imgId;
+        try {
+          return await ctx.storage.getUrl(imgId);
+        } catch (e) {
+          return null;
+        }
       })
     );
 
-    return { ...listing, coverImageUrl, imageUrls };
+    const filteredImageUrls = imageUrls.filter((url): url is string => !!url);
+
+    // Resolve cover image
+    let coverImageUrl = null;
+    if (listing.coverImage) {
+      if (listing.coverImage.startsWith("http")) {
+        coverImageUrl = listing.coverImage;
+      } else {
+        coverImageUrl = await ctx.storage.getUrl(listing.coverImage);
+      }
+    }
+
+    // Fallback: if no coverImageUrl, use the first image from the array
+    if (!coverImageUrl && filteredImageUrls.length > 0) {
+      coverImageUrl = filteredImageUrls[0];
+    }
+
+    return { 
+      ...listing, 
+      coverImageUrl, 
+      imageUrls: filteredImageUrls 
+    };
   },
 });
 
