@@ -46,7 +46,7 @@ export default function Navbar() {
           : "bg-slate-950/95 backdrop-blur-2xl border-b border-white/8 shadow-2xl"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-8 h-20 flex items-center justify-between gap-6">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between gap-8">
 
         {/* ── Logo ── */}
         <Link href="/" className="flex items-center gap-3 shrink-0 group">
@@ -55,9 +55,9 @@ export default function Navbar() {
           }`}>
             <img src="/images/logo.png" alt="Southern Mines" className="w-full h-full object-contain p-1.5 group-hover:scale-110 transition-transform duration-300" />
           </div>
-          <div className="flex flex-col leading-none">
-            <span className="text-xl font-black tracking-tighter text-white">SOUTHERN<span className="text-orange-500">MINES</span></span>
-            <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-orange-400 mt-0.5">SADC Regional Hub</span>
+          <div className="flex flex-col leading-tight">
+            <span className="text-2xl font-black tracking-tight text-white font-outfit">SOUTHERN<span className="text-orange-500">MINES</span></span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-orange-400/90 mt-0.5">SADC Regional Hub</span>
           </div>
         </Link>
 
@@ -69,10 +69,12 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                className={`relative px-4 py-2 rounded-lg text-[15px] font-bold transition-all duration-300 ${
                   isActive
                     ? "text-orange-400 bg-orange-500/10"
-                    : "text-slate-300 hover:text-white hover:bg-white/8"
+                    : transparentNav 
+                      ? "text-white hover:text-orange-400" 
+                      : "text-slate-300 hover:text-white hover:bg-white/8"
                 }`}
               >
                 {link.label}
