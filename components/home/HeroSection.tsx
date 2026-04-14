@@ -54,25 +54,24 @@ export default function HeroSection() {
 
         {/* ── UNIFIED SLEEK SEARCH BAR ── */}
         <div className="w-full max-w-4xl relative mt-8 mb-16 px-4">
-          <div className="relative flex items-center h-[64px] sm:h-[80px] w-full rounded-xl bg-white shadow-2xl focus-within:ring-4 focus-within:ring-orange-500/20 transition-all p-1.5 sm:p-2">
+          <div className="relative flex items-center h-[56px] sm:h-[68px] w-full rounded-xl bg-white shadow-2xl focus-within:ring-4 focus-within:ring-orange-500/20 transition-all p-1.5">
             
-            <div className="flex items-center justify-center w-12 sm:w-16 text-slate-400 shrink-0">
-              <Search size={22} className="sm:w-[26px] sm:h-[26px]" />
+            <div className="flex items-center justify-center w-12 sm:w-14 text-slate-400 shrink-0">
+              <Search size={20} className="sm:w-[24px] sm:h-[24px]" />
             </div>
-            
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
               placeholder="Search resources, projects, or locations..."
-              className="flex-1 bg-transparent border-none outline-none text-slate-900 text-base sm:text-xl placeholder:text-slate-500 font-medium px-2 w-full h-full"
+              className="flex-1 bg-transparent border-none outline-none text-slate-900 text-sm sm:text-lg placeholder:text-slate-500 font-medium px-2 w-full h-full"
             />
-
-            <div className="shrink-0 h-full flex items-center pr-1">
+            
+            <div className="shrink-0 h-full flex items-center">
                <button
                  onClick={handleSearch}
-                 className="h-full px-10 sm:px-20 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-black text-sm sm:text-lg uppercase tracking-widest transition-all active:scale-95 shadow-lg shadow-orange-500/20"
+                 className="h-full px-8 sm:px-14 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-black text-xs sm:text-base uppercase tracking-widest transition-all active:scale-95 shadow-lg shadow-orange-500/20"
                >
                  Search
                </button>
