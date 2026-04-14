@@ -198,7 +198,15 @@ export default function ListingDetailPage() {
               overflow: "hidden",
               border: "1px solid var(--border)",
             }}>
-              {imgIcon}
+              {listing.coverImageUrl ? (
+                <img 
+                  src={listing.coverImageUrl} 
+                  alt={listing.title} 
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }} 
+                />
+              ) : (
+                imgIcon
+              )}
               {/* Status */}
               <div style={{ position: "absolute", top: "1rem", left: "1rem" }}>
                 <span className={`badge ${listing.status === "sold" ? "badge-sold" : listing.status === "pending" ? "badge-pending" : "badge-active"}`} style={{ fontSize: "0.8rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>

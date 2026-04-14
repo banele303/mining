@@ -91,7 +91,23 @@ export const getFeaturedListings = query({
 export const getListingById = query({
   args: { id: v.id("listings") },
   handler: async (ctx, args) => {
-    return await ctx.db.get(args.id);
+    const listing = await ctx.db.get(args.id);
+    if (!listing) return null;
+
+    let coverImageUrl = listing.coverImage;
+    if (listing.coverImage && !listing.coverImage.startsWith("http")) {
+      coverImageUrl = (await ctx.storage.getUrl(listing.coverImage)) || listing.coverImage;
+    }
+
+    const imageUrls = await Promise.all(
+      (listing.images || []).map(async (imgId) => {
+        if (imgId.startsWith("http")) return imgId;
+        const url = await ctx.storage.getUrl(imgId);
+        return url || imgId;
+      })
+    );
+
+    return { ...listing, coverImageUrl, imageUrls };
   },
 });
 
