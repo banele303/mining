@@ -190,17 +190,18 @@ export default function ListingDetailPage() {
             <div style={{
               background: imgBg,
               borderRadius: "var(--radius-xl)",
-              height: "360px",
+              height: "440px",
               display: "flex", alignItems: "center", justifyContent: "center",
               fontSize: "5rem",
-              marginBottom: "2rem",
+              marginBottom: "1rem",
               position: "relative",
               overflow: "hidden",
               border: "1px solid var(--border)",
+              boxShadow: "var(--shadow-lg)",
             }}>
-              {listing.coverImageUrl ? (
+              {(listing.coverImageUrl || (listing.imageUrls && listing.imageUrls[0])) ? (
                 <img 
-                  src={listing.coverImageUrl} 
+                  src={listing.coverImageUrl || listing.imageUrls[0]} 
                   alt={listing.title} 
                   style={{ width: "100%", height: "100%", objectFit: "cover" }} 
                 />
@@ -208,17 +209,40 @@ export default function ListingDetailPage() {
                 imgIcon
               )}
               {/* Status */}
-              <div style={{ position: "absolute", top: "1rem", left: "1rem" }}>
-                <span className={`badge ${listing.status === "sold" ? "badge-sold" : listing.status === "pending" ? "badge-pending" : "badge-active"}`} style={{ fontSize: "0.8rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
-                  <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "currentColor" }} />
-                  {listing.status.charAt(0).toUpperCase() + listing.status.slice(1)}
+              <div style={{ position: "absolute", top: "1.25rem", left: "1.25rem" }}>
+                <span className={`badge ${listing.status === "sold" ? "badge-sold" : listing.status === "pending" ? "badge-pending" : "badge-active"}`} style={{ fontSize: "0.85rem", padding: "0.5rem 1rem", backdropFilter: "blur(8px)", background: "rgba(0,0,0,0.6)", color: "white", border: "1px solid rgba(255,255,255,0.1)" }}>
+                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "currentColor", marginRight: "0.4rem" }} />
+                  {listing.status.toUpperCase()}
                 </span>
               </div>
-              {/* Views */}
-              <div style={{ position: "absolute", top: "1rem", right: "1rem", display: "flex", alignItems: "center", gap: "0.4rem", background: "rgba(0,0,0,0.5)", backdropFilter: "blur(4px)", borderRadius: "99px", padding: "0.25rem 0.75rem", fontSize: "0.78rem", color: "var(--text-muted)" }}>
-                <Eye size={12} /> {listing.views.toLocaleString()} views
-              </div>
             </div>
+
+            {/* Gallery Section */}
+            {listing.imageUrls && listing.imageUrls.length > 1 && (
+              <div style={{ display: "flex", gap: "0.75rem", overflowX: "auto", paddingBottom: "1.5rem", marginBottom: "1rem" }} className="scroll-x">
+                {listing.imageUrls.map((url: string, i: number) => (
+                  <div 
+                    key={i} 
+                    style={{ 
+                      flexShrink: 0, 
+                      width: "120px", 
+                      height: "80px", 
+                      borderRadius: "var(--radius-lg)", 
+                      overflow: "hidden", 
+                      border: "1px solid var(--border)",
+                      background: "var(--bg-surface-2)",
+                      cursor: "pointer",
+                      transition: "transform 0.2s"
+                    }}
+                    onClick={() => {
+                        // In a real app we'd swap the main image, but for now just showing they exist
+                    }}
+                  >
+                    <img src={url} alt={`Gallery ${i}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* Tags + Title */}
             <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.875rem" }}>
