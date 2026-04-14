@@ -76,23 +76,23 @@ export default function HeroSection() {
             
           </div>
         </div>
-          {/* Location Hints */}
-          <div className="mt-10 flex flex-wrap justify-center gap-8 opacity-60 hover:opacity-100 transition-opacity">
-            {["South Africa", "Namibia", "Botswana", "Zimbabwe", "Zambia"].map((loc) => (
-              <button 
-                key={loc}
-                onClick={() => setQuery(loc)}
-                className="flex items-center gap-1.5 text-[11px] font-bold text-slate-400 hover:text-orange-400 transition-colors tracking-widest uppercase"
-              >
-                <MapPin size={10} />
-                {loc}
-              </button>
-            ))}
-          </div>
+
+        {/* Location Hints */}
+        <div className="mb-10 flex flex-wrap justify-center gap-8 opacity-60 hover:opacity-100 transition-opacity">
+          {["South Africa", "Namibia", "Botswana", "Zimbabwe", "Zambia"].map((loc) => (
+            <button 
+              key={loc}
+              onClick={() => setQuery(loc)}
+              className="flex items-center gap-1.5 text-[11px] font-bold text-slate-400 hover:text-orange-400 transition-colors tracking-widest uppercase"
+            >
+              <MapPin size={10} />
+              {loc}
+            </button>
+          ))}
         </div>
 
         {/* ── Bottom Section: Minimal Trust ── */}
-        <div className="w-full pt-10 border-t border-white/5 flex flex-wrap justify-center gap-x-16 gap-y-6">
+        <div className="w-full pt-10 border-t border-white/5 flex flex-wrap justify-center gap-x-16 gap-y-6 mt-10">
           <div className="flex flex-col items-center">
             <span className="text-2xl font-black text-white">4.2K+</span>
             <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 mt-1">Verified Assets</span>
@@ -106,6 +106,7 @@ export default function HeroSection() {
             <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 mt-1">SADC Coverage</span>
           </div>
         </div>
+      </div>
 
       {/* Decorative Shimmer */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-orange-500/20 to-transparent" />
