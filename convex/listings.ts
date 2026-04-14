@@ -253,9 +253,11 @@ export const submitInquiry = mutation({
 export const seedListings = mutation({
   args: {},
   handler: async (ctx) => {
-    // Only seed if empty
-    const existing = await ctx.db.query("listings").first();
-    if (existing) return "Already seeded";
+    // Clear existing data for a fresh seed with images
+    const existing = await ctx.db.query("listings").collect();
+    for (const doc of existing) {
+      await ctx.db.delete(doc._id);
+    }
 
     const samples = [
       {
@@ -277,6 +279,7 @@ export const seedListings = mutation({
         priceMax: 25000000,
         currency: "USD",
         images: [],
+        coverImageUrl: "https://images.unsplash.com/photo-1590486803833-ffc6dc08b6fe?q=80&w=1000",
         status: "active",
         featured: true,
         ownerName: "Robert Mbeki",
@@ -305,6 +308,7 @@ export const seedListings = mutation({
         priceMax: 7000000,
         currency: "USD",
         images: [],
+        coverImageUrl: "https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?q=80&w=1000",
         status: "active",
         featured: true,
         ownerName: "Johan van der Merwe",
@@ -333,6 +337,7 @@ export const seedListings = mutation({
         priceMax: 120000000,
         currency: "USD",
         images: [],
+        coverImageUrl: "https://images.unsplash.com/photo-1518391846015-55a9cc003b25?q=80&w=1000",
         status: "active",
         featured: true,
         ownerName: "Chanda Mwewa",
@@ -361,6 +366,7 @@ export const seedListings = mutation({
         priceMax: 5000000,
         currency: "USD",
         images: [],
+        coverImageUrl: "https://images.unsplash.com/photo-1599420186946-7b6fb4e297f0?q=80&w=1000",
         status: "active",
         featured: false,
         ownerName: "Tshepo Modise",
@@ -389,6 +395,7 @@ export const seedListings = mutation({
         priceMax: 20000000,
         currency: "USD",
         images: [],
+        coverImageUrl: "https://images.unsplash.com/photo-1528642466245-28260135d962?q=80&w=1000",
         status: "active",
         featured: false,
         ownerName: "Mateus Silva",
