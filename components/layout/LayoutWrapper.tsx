@@ -15,7 +15,11 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
   return (
     <>
       <Navbar />
-      <div className="pt-[72px]">{children}</div>
+      {/* The Hero section needs to go to the very top, so we only apply top padding on non-home pages if needed, or let individual pages handle it. 
+           Since globals.css removed body padding, we apply it here for non-home pages. */}
+      <div className={pathname === '/' ? "" : "pt-[80px]"}>
+        {children}
+      </div>
       <Footer />
     </>
   );
