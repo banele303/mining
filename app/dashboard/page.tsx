@@ -1,11 +1,22 @@
 'use client';
 
-import { useQuery, useMutation } from "convex/react";
+import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
 import { useState } from "react";
 import Link from "next/link";
-import { Plus, Eye, Trash2, Edit, MapPin, DollarSign, BarChart2, Layers } from "lucide-react";
+import { 
+  Plus, 
+  Eye, 
+  Trash2, 
+  Edit, 
+  MapPin, 
+  DollarSign, 
+  BarChart2, 
+  Layers, 
+  Search,
+  Filter,
+  ArrowUpRight
+} from "lucide-react";
 
 const TABS = ["My Listings", "Saved Listings", "Profile"];
 
@@ -22,9 +33,8 @@ function formatPrice(min?: number, max?: number) {
 
 export default function DashboardPage() {
   const [tab, setTab] = useState(0);
-
-  // For demo — show all listings as "my listings"
   const listings = useQuery(api.listings.getListings, {});
+  const user = useQuery(api.users.viewer);
 
   const stats = listings
     ? {
@@ -36,224 +46,223 @@ export default function DashboardPage() {
     : { total: 0, active: 0, sold: 0, views: 0 };
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg-base)" }}>
-      {/* Header */}
-      <div style={{ background: "var(--bg-surface)", borderBottom: "1px solid var(--border)", padding: "2.5rem 0 0" }}>
-        <div className="container">
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-              <div style={{ width: "52px", height: "52px", borderRadius: "50%", background: "linear-gradient(135deg, var(--primary), var(--primary-light))", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.3rem", fontWeight: 700, color: "#fff" }}>
-                J
-              </div>
-              <div>
-                <h1 style={{ fontSize: "1.4rem", marginBottom: "0.1rem" }}>John Smith</h1>
-                <p style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>Mining Corp Ltd. · Seller & Buyer</p>
-              </div>
-            </div>
-            <Link href="/sell" className="btn btn-primary" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <Plus size={16} /> List an Asset
-            </Link>
+    <div className="space-y-8 animate-in fade-in duration-700">
+      {/* Welcome Header */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-black text-slate-900 tracking-tight">
+            Welcome back, <span className="text-orange-500">{user?.name || "Member"}</span>
+          </h1>
+          <p className="text-slate-500 font-medium">Manage your mining portfolio and market activities.</p>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-xl shadow-sm text-sm font-bold text-slate-600">
+            <div className="w-2 h-2 rounded-full bg-green-500" />
+            Live Market: Operational
           </div>
-
-          {/* Stats row */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", marginBottom: "1.5rem" }} className="dash-stats">
-            {[
-              { icon: <Layers size={18} />, label: "Total Listings", value: stats.total },
-              { icon: <BarChart2 size={18} />, label: "Active", value: stats.active, color: "#22C55E" },
-              { icon: <DollarSign size={18} />, label: "Sold", value: stats.sold, color: "#F59E0B" },
-              { icon: <Eye size={18} />, label: "Total Views", value: stats.views.toLocaleString() },
-            ].map((s) => (
-              <div key={s.label} style={{ background: "var(--bg-surface-2)", border: "1px solid var(--border)", borderRadius: "var(--radius-lg)", padding: "1rem 1.25rem", display: "flex", alignItems: "center", gap: "0.875rem" }}>
-                <div style={{ color: s.color || "var(--primary-light)" }}>{s.icon}</div>
-                <div>
-                  <p style={{ fontSize: "1.3rem", fontWeight: 800, color: s.color || "var(--text-primary)", lineHeight: 1.1 }}>{listings === undefined ? "..." : s.value}</p>
-                  <p style={{ fontSize: "0.72rem", color: "var(--text-muted)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em" }}>{s.label}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Tabs */}
-          <div style={{ display: "flex", gap: "0" }}>
-            {TABS.map((t, i) => (
-              <button
-                key={t}
-                id={`dashboard-tab-${t.toLowerCase().replace(/\s+/g, "-")}`}
-                onClick={() => setTab(i)}
-                style={{
-                  padding: "0.75rem 1.5rem",
-                  background: "none",
-                  border: "none",
-                  borderBottom: `2px solid ${tab === i ? "var(--primary)" : "transparent"}`,
-                  color: tab === i ? "var(--primary-light)" : "var(--text-muted)",
-                  fontWeight: tab === i ? 700 : 400,
-                  fontSize: "0.9rem",
-                  cursor: "pointer",
-                  fontFamily: "inherit",
-                  transition: "all var(--transition)",
-                }}
-              >{t}</button>
-            ))}
-          </div>
+          <Link href="/sell" className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg shadow-slate-900/10 active:scale-95">
+            <Plus size={18} strokeWidth={3} />
+            List Asset
+          </Link>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="container" style={{ padding: "2rem 1.5rem" }}>
-        {/* MY LISTINGS */}
-        {tab === 0 && (
-          <div>
-            {listings === undefined ? (
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                {[...Array(4)].map((_, i) => <div key={i} className="skeleton" style={{ height: "80px", borderRadius: "var(--radius-lg)" }} />)}
-              </div>
-            ) : listings.length === 0 ? (
-              <div className="empty-state">
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" />
-                </svg>
-                <h3 style={{ marginBottom: "0.5rem" }}>No listings yet</h3>
-                <p>Create your first mining asset listing to get started.</p>
-                <Link href="/sell" className="btn btn-primary" style={{ marginTop: "1.5rem", display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
-                  <Plus size={16} /> List an Asset
-                </Link>
-              </div>
-            ) : (
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                {/* Table header */}
-                <div style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 140px 120px 80px 100px 120px",
-                  gap: "1rem",
-                  padding: "0.75rem 1.25rem",
-                  fontSize: "0.72rem",
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.08em",
-                  color: "var(--text-muted)",
-                  background: "var(--bg-surface)",
-                  borderRadius: "var(--radius)",
-                  border: "1px solid var(--border)",
-                }} className="dash-table">
-                  <span>Title</span>
-                  <span>Commodity</span>
-                  <span>Location</span>
-                  <span>Views</span>
-                  <span>Status</span>
-                  <span>Actions</span>
-                </div>
-
-                {listings.map((listing) => (
-                  <div
-                    key={listing._id}
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "1fr 140px 120px 80px 100px 120px",
-                      gap: "1rem",
-                      alignItems: "center",
-                      padding: "1rem 1.25rem",
-                      background: "var(--bg-card)",
-                      border: "1px solid var(--border)",
-                      borderRadius: "var(--radius-lg)",
-                      transition: "all var(--transition)",
-                    }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--border-light)"; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"; }}
-                    className="dash-table"
-                  >
-                    {/* Title */}
-                    <div>
-                      <p style={{ fontWeight: 600, fontSize: "0.875rem", color: "var(--text-primary)", marginBottom: "0.2rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: "280px" }}>
-                        {listing.title}
-                      </p>
-                      <p style={{ fontSize: "0.72rem", color: "var(--text-muted)" }}>{listing.stage}</p>
-                    </div>
-
-                    {/* Commodity */}
-                    <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)" }}>{listing.commodity}</p>
-
-                    {/* Location */}
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
-                      <MapPin size={12} color="var(--text-muted)" />
-                      <p style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>{listing.country}</p>
-                    </div>
-
-                    {/* Views */}
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
-                      <Eye size={12} color="var(--text-muted)" />
-                      <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)" }}>{listing.views}</p>
-                    </div>
-
-                    {/* Status */}
-                    <span className={`badge ${listing.status === "sold" ? "badge-sold" : listing.status === "pending" ? "badge-pending" : "badge-active"}`}>
-                      {listing.status}
-                    </span>
-
-                    {/* Actions */}
-                    <div style={{ display: "flex", gap: "0.4rem" }}>
-                      <Link href={`/listing/${listing._id}`} className="btn btn-ghost btn-sm" style={{ padding: "0.35rem 0.6rem" }} title="View">
-                        <Eye size={13} />
-                      </Link>
-                      <button className="btn btn-ghost btn-sm" style={{ padding: "0.35rem 0.6rem" }} title="Edit">
-                        <Edit size={13} />
-                      </button>
-                      <button className="btn btn-ghost btn-sm" style={{ padding: "0.35rem 0.6rem", color: "#F87171" }} title="Delete">
-                        <Trash2 size={13} />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* SAVED LISTINGS */}
-        {tab === 1 && (
-          <div className="empty-state" style={{ paddingTop: "4rem" }}>
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-              <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
-            </svg>
-            <h3 style={{ marginBottom: "0.5rem" }}>No saved listings yet</h3>
-            <p>Bookmark assets you're interested in to track them here.</p>
-            <Link href="/list" className="btn btn-primary" style={{ marginTop: "1.5rem" }}>Browse Listings</Link>
-          </div>
-        )}
-
-        {/* PROFILE */}
-        {tab === 2 && (
-          <div style={{ maxWidth: "600px" }}>
-            <div style={{ background: "var(--bg-surface)", border: "1px solid var(--border)", borderRadius: "var(--radius-xl)", padding: "2rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-              <h2 style={{ fontSize: "1.1rem" }}>Profile Settings</h2>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-                <div><label className="label">Full Name</label><input className="input" defaultValue="John Smith" /></div>
-                <div><label className="label">Company</label><input className="input" defaultValue="Mining Corp Ltd." /></div>
-              </div>
-              <div><label className="label">Email</label><input type="email" className="input" defaultValue="john@miningcorp.com" /></div>
-              <div><label className="label">Phone</label><input className="input" placeholder="+1 555 000 0000" /></div>
-              <div><label className="label">Role</label>
-                <select className="select" defaultValue="both">
-                  <option value="buyer">Buyer</option>
-                  <option value="seller">Seller</option>
-                  <option value="both">Buyer & Seller</option>
-                </select>
-              </div>
-              <button className="btn btn-primary" style={{ alignSelf: "flex-start" }}>Save Changes</button>
+      {/* Stats Summary Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {[
+          { label: "Active Listings", value: stats.active, icon: Layers, color: "orange" },
+          { label: "Market Success", value: stats.sold, icon: DollarSign, color: "green" },
+          { label: "Project Views", value: stats.views.toLocaleString(), icon: Eye, color: "blue" },
+          { label: "Growth Rate", value: "+12.4%", icon: BarChart2, color: "amber" },
+        ].map((s) => (
+          <div key={s.label} className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4 group hover:border-orange-200 transition-colors">
+            <div className={`w-12 h-12 rounded-xl flex items-center justify-center bg-${s.color}-50 text-${s.color}-500 group-hover:scale-110 transition-transform`}>
+              <s.icon size={24} strokeWidth={2.5} />
+            </div>
+            <div>
+              <p className="text-2xl font-black text-slate-900">{listings === undefined ? "..." : s.value}</p>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">{s.label}</p>
             </div>
           </div>
-        )}
+        ))}
       </div>
 
-      <style>{`
-        @media (max-width: 900px) {
-          .dash-stats { grid-template-columns: repeat(2, 1fr) !important; }
-          .dash-table { grid-template-columns: 1fr auto auto !important; }
-        }
-        @media (max-width: 540px) {
-          .dash-stats { grid-template-columns: 1fr 1fr !important; }
-          .dash-table { grid-template-columns: 1fr auto !important; }
-        }
-      `}</style>
+      {/* Main Content Card */}
+      <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
+        {/* Tabs & Search */}
+        <div className="border-b border-slate-100 bg-slate-50/30 p-2 md:p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex p-1 bg-slate-100 rounded-xl self-start">
+            {TABS.map((t, i) => (
+              <button
+                key={t}
+                onClick={() => setTab(i)}
+                className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${
+                  tab === i ? "bg-white text-orange-500 shadow-sm" : "text-slate-500 hover:text-slate-700"
+                }`}
+              >
+                {t}
+              </button>
+            ))}
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="relative flex-1">
+              <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input 
+                placeholder="Search listings..." 
+                className="pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500/20 w-full md:w-64 transition-all"
+              />
+            </div>
+            <button className="p-2 bg-white border border-slate-200 rounded-xl text-slate-500 hover:bg-slate-50 transition-colors">
+              <Filter size={18} />
+            </button>
+          </div>
+        </div>
+
+        {/* Dynamic View Area */}
+        <div className="p-4 md:p-6 min-h-[400px]">
+          {tab === 0 && (
+            <div className="space-y-4">
+              {listings === undefined ? (
+                <div className="space-y-3">
+                  {[...Array(3)].map((_, i) => <div key={i} className="h-20 bg-slate-50 animate-pulse rounded-2xl" />)}
+                </div>
+              ) : listings.length === 0 ? (
+                <div className="flex flex-col items-center justify-center pt-20 pb-20 text-center animate-in fade-in zoom-in-95 duration-500">
+                   <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-300 mb-4">
+                      <Layers size={32} />
+                   </div>
+                   <h3 className="text-xl font-bold text-slate-900 mb-2">No listings found</h3>
+                   <p className="text-slate-500 max-w-xs mb-6 font-medium">You haven't posted any mining assets yet. Start reaching global buyers today.</p>
+                   <Link href="/sell" className="bg-orange-500 text-white font-bold px-6 py-3 rounded-xl shadow-lg shadow-orange-500/10">
+                    Create New Listing
+                   </Link>
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left">
+                    <thead>
+                      <tr className="border-b border-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                        <th className="pb-4 pl-2">Project Details</th>
+                        <th className="pb-4">Region</th>
+                        <th className="pb-4">Stage</th>
+                        <th className="pb-4">Views</th>
+                        <th className="pb-4">Status</th>
+                        <th className="pb-4 text-right pr-2">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-50">
+                      {listings.map((l) => (
+                        <tr key={l._id} className="group hover:bg-slate-50/50 transition-colors">
+                          <td className="py-4 pl-2">
+                            <div className="flex items-center gap-4">
+                               <div className="w-12 h-12 bg-slate-100 rounded-xl overflow-hidden flex items-center justify-center text-slate-400 text-xs shrink-0">
+                                  {l.images?.[0] ? <img src={l.images[0]} className="w-full h-full object-cover" /> : <Layers size={20} />}
+                               </div>
+                               <div>
+                                 <p className="font-bold text-slate-900 group-hover:text-orange-600 transition-colors">{l.title}</p>
+                                 <p className="text-xs text-slate-400 font-medium italic">{l.commodity}</p>
+                               </div>
+                            </div>
+                          </td>
+                          <td className="py-4">
+                            <div className="flex items-center gap-1.5 text-slate-500 font-bold text-sm">
+                              <MapPin size={14} className="text-orange-400" />
+                              {l.country}
+                            </div>
+                          </td>
+                          <td className="py-4">
+                            <span className="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-1 rounded-md">{l.stage}</span>
+                          </td>
+                          <td className="py-4">
+                            <span className="text-sm font-black text-slate-700">{l.views.toLocaleString()}</span>
+                          </td>
+                          <td className="py-4">
+                            <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase ${
+                              l.status === 'active' ? 'bg-green-100 text-green-600' : 'bg-orange-100 text-orange-600'
+                            }`}>
+                              <span className={`w-1.5 h-1.5 rounded-full ${l.status === 'active' ? 'bg-green-500' : 'bg-orange-500'}`} />
+                              {l.status}
+                            </div>
+                          </td>
+                          <td className="py-4 text-right pr-2">
+                             <div className="flex items-center justify-end gap-2">
+                               <Link href={`/listing/${l._id}`} className="p-2 text-slate-400 hover:text-slate-900 hover:bg-white rounded-lg transition-all">
+                                 <ArrowUpRight size={18} />
+                               </Link>
+                               <button className="p-2 text-slate-400 hover:text-slate-900 hover:bg-white rounded-lg transition-all">
+                                 <Edit size={18} />
+                               </button>
+                               <button className="p-2 text-rose-300 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-all">
+                                 <Trash2 size={18} />
+                               </button>
+                             </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          )}
+
+          {tab === 1 && (
+             <div className="flex flex-col items-center justify-center pt-20 pb-20 text-center animate-in fade-in duration-500">
+               <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-300 mb-4">
+                  <DollarSign size={32} />
+               </div>
+               <h3 className="text-xl font-bold text-slate-900 mb-2">No saved assets</h3>
+               <p className="text-slate-500 max-w-xs mb-6 font-medium">Bookmark projects while browsing to keep them here for quick access.</p>
+               <Link href="/list" className="text-orange-500 font-bold text-sm hover:underline">
+                 Start Browsing Market
+               </Link>
+             </div>
+          )}
+
+          {tab === 2 && (
+             <div className="max-w-2xl mx-auto py-8">
+                <div className="bg-slate-50/50 rounded-3xl p-8 border border-slate-100">
+                   <h3 className="text-xl font-black text-slate-900 mb-6 flex items-center gap-2">
+                    <UserCircle size={24} className="text-orange-500" />
+                    Security & Account
+                   </h3>
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                         <label className="text-[10px] uppercase font-black tracking-widest text-slate-400">Display Name</label>
+                         <input className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500/20 outline-none font-bold" defaultValue={user?.name || ""} />
+                      </div>
+                      <div className="space-y-2">
+                         <label className="text-[10px] uppercase font-black tracking-widest text-slate-400">Email Address</label>
+                         <input className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500/20 outline-none font-bold opacity-60" defaultValue={user?.email || ""} readOnly />
+                      </div>
+                   </div>
+                   <button className="mt-8 bg-slate-900 text-white px-8 py-3 rounded-xl font-bold active:scale-95 transition-all shadow-lg shadow-slate-900/10">
+                    Update Account
+                   </button>
+                </div>
+             </div>
+          )}
+        </div>
+      </div>
     </div>
+  );
+}
+
+function UserCircle({ size, className }: { size: number, className: string }) {
+  return (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      width={size} 
+      height={size} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2.5" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      className={className}
+    >
+      <circle cx="12" cy="12" r="10"/><path d="M12 16a4 4 0 0 0-4-4h0a4 4 0 0 0 4 4z"/><path d="M8 21a4 4 0 0 1 8 0"/>
+    </svg>
   );
 }
