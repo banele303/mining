@@ -107,8 +107,6 @@ export default function HeroSection() {
           </div>
         </div>
 
-      </div>
-
       {/* Decorative Shimmer */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-orange-500/20 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#020617] to-transparent" />
