@@ -94,12 +94,12 @@ export default function Navbar() {
               <Link
                 href="/dashboard"
                 style={{ color: "white" }}
-                className="flex items-center gap-3 bg-white/10 hover:bg-white/20 border border-white/10 p-1.5 pr-4 rounded-full transition-all"
+                className="flex items-center gap-4 bg-white/10 hover:bg-white/20 border border-white/10 p-2 px-6 rounded-full transition-all"
               >
-                <div className="w-9 h-9 rounded-full bg-orange-500 flex items-center justify-center text-sm font-bold text-white shrink-0">
-                  {userInitial || <User size={14} />}
+                <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-sm font-bold text-white shrink-0">
+                  {userInitial || <User size={16} />}
                 </div>
-                <span className="text-sm font-bold leading-none pt-[1px]">{user?.name || "Dashboard"}</span>
+                <span className="text-base font-bold leading-none pt-[1px]">{user?.name || "Dashboard"}</span>
               </Link>
               <button
                 onClick={() => void signOut()}
