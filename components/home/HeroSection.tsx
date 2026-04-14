@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { Search, ArrowRight, MapPin } from "lucide-react";
+import { Search, MapPin, Globe, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -15,107 +15,103 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative w-full min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden bg-[#05080E]">
-
-      {/* ── Background Image ── */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: 'url("/images/hero_dark.png")' }}
-      >
-        <div className="absolute inset-0 bg-[#05080E]/65" />
+    <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center bg-[#020617] overflow-hidden pt-20">
+      
+      {/* ── Background Layer ── */}
+      <div className="absolute inset-0 z-0">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40 scale-105"
+          style={{ backgroundImage: 'url("/images/hero_dark.png")' }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/80 via-[#020617]/40 to-[#020617]" />
       </div>
 
-      {/* ── Ambient Glow Blobs ── */}
-      <div className="absolute top-[-100px] left-[-100px] w-[600px] h-[600px] rounded-full bg-orange-600/15 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-150px] right-[-100px] w-[500px] h-[500px] rounded-full bg-amber-500/10 blur-[100px] pointer-events-none" />
+      {/* ── Decorative Elements ── */}
+      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-orange-600/10 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-amber-500/10 blur-[150px] rounded-full pointer-events-none" />
 
-      {/* ── Main Content ── */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center text-center pt-40 pb-28 md:pt-56 md:pb-40">
-
-        {/* Live Badge */}
-        <div className="inline-flex items-center gap-3 px-6 py-3 mb-16 rounded-full border border-white/10 bg-white/5 backdrop-blur-2xl text-orange-400 text-[11px] md:text-sm font-black uppercase tracking-[0.3em] shadow-2xl">
-          <span className="relative flex h-2.5 w-2.5 shrink-0">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-500 opacity-75"></span>
-            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-orange-500"></span>
-          </span>
-          Exclusive SADC Mining Network
+      {/* ── Content Wrapper ── */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-8 md:px-16 flex flex-col items-center text-center">
+        
+        {/* Floating Badge */}
+        <div className="animate-fadeIn flex items-center gap-3 px-4 py-1.5 rounded-full border border-white/5 bg-white/5 backdrop-blur-md text-orange-400 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] mb-12 shadow-sm">
+          <Globe size={14} className="animate-pulse" />
+          Connecting Global Capital to Southern Africa
         </div>
 
-        {/* Headline */}
-        <h1 className="text-[3.5rem] sm:text-7xl md:text-8xl lg:text-[120px] font-black text-white leading-[0.9] md:leading-[0.8] tracking-tight mb-12 font-outfit">
-          The Future of{" "}
-          <br className="hidden lg:block" />
-          <span className="bg-gradient-to-r from-orange-500 via-amber-300 to-orange-400 bg-clip-text text-transparent">
-            African Mining
+        {/* Master Headline */}
+        <h1 className="text-[3rem] sm:text-6xl md:text-8xl font-black text-white leading-[1.05] tracking-tight mb-8 font-outfit">
+          Discover the Next <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-200 to-orange-500">
+            Mining Frontier
           </span>
         </h1>
 
-        {/* Subheadline */}
-        <p className="text-slate-300 text-lg md:text-2xl max-w-4xl mb-16 leading-relaxed font-medium px-4 opacity-90">
-          The premier institutional gateway connecting verified mineral assets with global capital across the SADC region. 
-          Unlocking the potential of Southern Africa's mineral wealth.
+        {/* Minimal Subhead */}
+        <p className="text-slate-400 text-base md:text-xl max-w-2xl mb-16 leading-relaxed font-medium">
+          The SADC region's premier institutional marketplace for verified mineral assets and high-stakes mining ventures.
         </p>
 
-        {/* ── Search Bar ── */}
-        <div className="w-full max-w-5xl group px-4">
-          <div className="flex flex-col md:flex-row gap-4 md:gap-0 md:items-center p-2 md:p-2.5 rounded-[2.5rem] md:rounded-full bg-white/5 border border-white/10 backdrop-blur-3xl shadow-[0_30px_100px_rgba(0,0,0,0.6)] group-hover:border-orange-500/40 group-hover:shadow-orange-500/10 transition-all duration-700">
-
-            {/* Input row */}
-            <div className="flex items-center gap-4 flex-1 px-8 py-6 md:py-2 md:px-8">
-              <Search className="text-orange-500 shrink-0" size={28} strokeWidth={2.5} />
+        {/* ── BIG WIDTH, SMALL HEIGHT Search Bar ── */}
+        <div className="w-full max-w-5xl group mb-20">
+          <div className="relative flex items-center h-14 sm:h-16 w-full rounded-2xl border border-white/10 bg-white/5 backdrop-blur-2xl shadow-2xl transition-all duration-500 group-focus-within:border-orange-500/50 group-focus-within:ring-4 group-focus-within:ring-orange-500/10 group-hover:bg-white/[0.08]">
+            
+            <div className="flex items-center gap-4 flex-1 h-full pl-6 md:pl-8">
+              <Search className="text-slate-500 group-focus-within:text-orange-500 transition-colors" size={20} />
               <Input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                placeholder="Search resources, commodities, mines..."
-                className="flex-1 bg-transparent border-none shadow-none focus-visible:ring-0 text-white text-xl md:text-2xl placeholder:text-slate-500 font-bold min-w-0"
+                placeholder="Search by commodity, country or project name..."
+                className="flex-1 bg-transparent border-none shadow-none focus-visible:ring-0 text-white text-base md:text-lg placeholder:text-slate-500 font-semibold h-full px-0"
               />
             </div>
 
-            {/* Button */}
-            <Button
+            <button
               onClick={handleSearch}
-              className="flex items-center justify-center gap-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 active:scale-[0.98] text-white font-black text-lg md:text-xl px-12 py-9 md:py-6 md:px-14 rounded-[2rem] md:rounded-full shadow-2xl shadow-orange-500/40 shrink-0 transition-all duration-500 border-none h-auto"
+              className="h-[calc(100%-12px)] mr-1.5 px-6 sm:px-10 rounded-xl bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white font-black text-xs sm:text-sm uppercase tracking-widest transition-all duration-300 shadow-lg active:scale-95"
             >
-              Start Exploring
-              <ArrowRight size={24} strokeWidth={3.5} />
-            </Button>
+              Search
+            </button>
           </div>
 
-          {/* Region Tags */}
-          <div className="mt-10 flex flex-wrap justify-center gap-x-10 gap-y-4">
-            {["Witwatersrand", "Copper Belt", "Kalahari", "Bushveld Complex", "Damara Belt"].map((region) => (
-              <button
-                key={region}
-                onClick={() => setQuery(region)}
-                className="flex items-center gap-2.5 text-[14px] text-slate-400 hover:text-white transition-all font-bold tracking-wider group/tag"
+          {/* Location Hints */}
+          <div className="mt-6 flex flex-wrap justify-center gap-6 opacity-60 hover:opacity-100 transition-opacity">
+            {["South Africa", "Namibia", "Botswana", "Zimbabwe", "Zambia"].map((loc) => (
+              <button 
+                key={loc}
+                onClick={() => setQuery(loc)}
+                className="flex items-center gap-1.5 text-[11px] font-bold text-slate-400 hover:text-orange-400 transition-colors tracking-widest uppercase"
               >
-                <div className="w-2 h-2 rounded-full border border-orange-600/50 group-hover/tag:bg-orange-500 group-hover/tag:border-orange-500 transition-all" />
-                {region}
+                <MapPin size={10} />
+                {loc}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Trust Indicators */}
-        <div className="mt-28 flex flex-wrap items-center justify-center gap-12 md:gap-24 opacity-80">
-          {[
-            { value: "R150B+", label: "Asset Value" },
-            { value: "4,200+", label: "Projects" },
-            { value: "8", label: "Nations" },
-            { value: "9,000+", label: "Members" },
-          ].map((stat) => (
-            <div key={stat.label} className="flex flex-col items-center">
-              <span className="text-4xl md:text-5xl font-black text-white font-outfit tracking-tight">{stat.value}</span>
-              <span className="text-[12px] font-black uppercase tracking-[0.3em] text-orange-500/90 mt-2">{stat.label}</span>
-            </div>
-          ))}
+        {/* ── Bottom Section: Minimal Trust ── */}
+        <div className="w-full pt-10 border-t border-white/5 flex flex-wrap justify-center gap-x-16 gap-y-6">
+          <div className="flex flex-col items-center">
+            <span className="text-2xl font-black text-white">4.2K+</span>
+            <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 mt-1">Verified Assets</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-2xl font-black text-white">R150B</span>
+            <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 mt-1">Total Pipeline</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-2xl font-black text-white">100%</span>
+            <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 mt-1">SADC Coverage</span>
+          </div>
         </div>
+
       </div>
 
-      {/* ── Bottom fade ── */}
-      <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-white to-transparent pointer-events-none" />
+      {/* Decorative Shimmer */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-orange-500/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#020617] to-transparent" />
     </section>
   );
 }

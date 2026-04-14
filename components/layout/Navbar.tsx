@@ -46,14 +46,14 @@ export default function Navbar() {
           : "bg-slate-950/95 backdrop-blur-2xl border-b border-white/8 shadow-2xl"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-10 md:px-20 h-20 flex items-center justify-between gap-8">
+      <div className="max-w-7xl mx-auto px-10 md:px-20 h-16 flex items-center justify-between gap-8">
 
         {/* ── Logo ── */}
-        <Link href="/" className="flex items-center gap-4 shrink-0 group">
+        <Link href="/" className="flex items-center gap-4 shrink-0 group ml-4">
           <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center overflow-hidden transition-all ${
             transparentNav ? "bg-white/10 border-white/20" : "bg-orange-500 border-orange-400 shadow-lg shadow-orange-500/30"
           }`}>
-            <img src="/images/logo.png" alt="Southern Mines" className="w-full h-full object-contain p-2 group-hover:scale-110 transition-transform duration-300" />
+            <img src="/images/logo.png" alt="Southern Mines" className="w-full h-full object-contain p-3 group-hover:scale-110 transition-transform duration-300" />
           </div>
           <div className="flex flex-col leading-tight">
             <span className="text-2xl font-black tracking-tight text-white font-outfit">SOUTHERN<span className="text-orange-500">MINES</span></span>
@@ -132,7 +132,7 @@ export default function Navbar() {
 
       {/* ── Mobile Menu Overlay ── */}
       <div 
-        className={`lg:hidden fixed inset-0 top-[80px] bg-slate-950/60 backdrop-blur-sm z-[998] transition-all duration-300 ${
+        className={`lg:hidden fixed inset-0 top-[64px] bg-slate-950/60 backdrop-blur-sm z-[998] transition-all duration-300 ${
           mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setMobileOpen(false)}
@@ -140,7 +140,7 @@ export default function Navbar() {
 
       {/* ── Mobile Menu Drawer ── */}
       <div 
-        className={`lg:hidden fixed top-[80px] left-0 w-full bg-slate-950 border-b border-white/8 z-[999] transition-all duration-500 transform shadow-2xl ${
+        className={`lg:hidden fixed top-[64px] left-0 w-full bg-slate-950 border-b border-white/8 z-[999] transition-all duration-500 transform shadow-2xl ${
           mobileOpen ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0 pointer-events-none"
         }`}
       >
