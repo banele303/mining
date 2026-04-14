@@ -42,11 +42,14 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 w-full z-[999] transition-all duration-300 ${
         transparentNav
-          ? "bg-transparent py-5"
-          : "bg-slate-950/80 backdrop-blur-xl border-b border-white/10 shadow-xl py-3"
+          ? "bg-transparent py-6"
+          : "bg-slate-950/80 backdrop-blur-xl border-b border-white/10 shadow-xl py-4"
       }`}
     >
-      <div className="max-w-[1500px] w-full mx-auto px-6 md:px-12 flex items-center justify-between">
+      <div 
+        className="w-full mx-auto flex items-center justify-between" 
+        style={{ maxWidth: '1600px', paddingLeft: 'clamp(2rem, 5vw, 6rem)', paddingRight: 'clamp(2rem, 5vw, 6rem)' }}
+      >
 
         {/* ── Logo ── */}
         <Link href="/" className="flex items-center gap-3 shrink-0 group">

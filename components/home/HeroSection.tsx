@@ -52,30 +52,30 @@ export default function HeroSection() {
           The SADC region's premier institutional marketplace for verified mineral assets and high-stakes mining ventures.
         </p>
 
-        {/* ── BIG WIDTH, SMALL HEIGHT Search Bar ── */}
-        <div className="w-full max-w-6xl group mb-16 px-6">
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full">
+        {/* ── UNIFIED SLEEK SEARCH PILL ── */}
+        <div className="w-full max-w-4xl relative mt-4 mb-16">
+          <div className="relative flex items-center h-16 sm:h-20 w-full rounded-full border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl transition-all duration-500 focus-within:border-orange-500/80 focus-within:bg-slate-950/40 focus-within:ring-4 focus-within:ring-orange-500/20">
             
-            <div className="flex-1 relative flex items-center h-14 sm:h-16 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-3xl shadow-2xl transition-all duration-500 focus-within:border-orange-500 px-6 sm:px-10">
-              <Search className="text-slate-400 shrink-0" size={24} />
-              <Input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                placeholder="Search resources, projects, or locations..."
-                className="flex-1 bg-transparent border-none shadow-none focus-visible:ring-0 text-white text-base sm:text-xl placeholder:text-slate-500 font-bold h-full ml-2"
-              />
-            </div>
+            <Search className="text-slate-300 shrink-0 ml-6 sm:ml-8" size={24} />
+            
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+              placeholder="Search resources, projects, or locations..."
+              className="flex-1 bg-transparent border-none outline-none text-white text-base sm:text-xl placeholder:text-slate-400 font-semibold h-full px-4 sm:px-6 w-full"
+            />
 
-            <Button
+            <button
               onClick={handleSearch}
-              className="h-14 sm:h-16 px-10 sm:px-20 rounded-2xl bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white font-black text-sm sm:text-xl transition-all duration-300 shadow-2xl shadow-orange-500/20 active:scale-95 border-none shrink-0"
+              className="h-[calc(100%-16px)] mr-2 sm:mr-2.5 px-8 sm:px-12 rounded-full bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white font-bold text-sm sm:text-lg transition-all duration-300 shadow-xl shadow-orange-500/25 active:scale-95 shrink-0"
             >
               Search Assets
-            </Button>
+            </button>
+            
           </div>
-
+        </div>
           {/* Location Hints */}
           <div className="mt-10 flex flex-wrap justify-center gap-8 opacity-60 hover:opacity-100 transition-opacity">
             {["South Africa", "Namibia", "Botswana", "Zimbabwe", "Zambia"].map((loc) => (
