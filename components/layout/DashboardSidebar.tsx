@@ -51,15 +51,15 @@ export default function DashboardSidebar() {
       <div className="px-6 pt-8 pb-4">
         <div className="flex items-center justify-between w-full px-4 py-3 hover:bg-gray-200/50 rounded-lg cursor-pointer transition-colors border border-transparent hover:border-gray-200">
           <div className="flex items-center gap-4">
-            <div className="w-8 h-8 rounded-md bg-black shadow-sm flex items-center justify-center shrink-0">
-              <Compass size={16} className="text-white" />
+            <div className="w-10 h-10 rounded-lg bg-black shadow-sm flex items-center justify-center shrink-0">
+              <Compass size={20} className="text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="text-[15px] font-semibold tracking-tight text-gray-900 leading-none">Southern Mines</span>
-              <span className="text-[12px] font-medium text-gray-500 mt-1">Institutional</span>
+              <span className="text-base font-bold tracking-tight text-gray-900 leading-none">Southern Mines</span>
+              <span className="text-[13px] font-medium text-gray-500 mt-1">Institutional</span>
             </div>
           </div>
-          <ChevronsUpDown size={16} className="text-gray-400" />
+          <ChevronsUpDown size={18} className="text-gray-400" />
         </div>
       </div>
 
@@ -67,7 +67,7 @@ export default function DashboardSidebar() {
       <div className="flex-1 px-6 py-4 flex flex-col gap-8 overflow-y-auto">
         {sidebarLinks.map((section, idx) => (
           <div key={idx} className="flex flex-col gap-2">
-            <p className="px-4 text-[12px] font-semibold text-gray-400 uppercase tracking-wider mb-2">
+            <p className="px-4 text-[13px] font-bold text-gray-400 uppercase tracking-wider mb-2">
               {section.group}
             </p>
             
@@ -78,7 +78,7 @@ export default function DashboardSidebar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`flex items-center gap-4 px-4 py-3 rounded-md transition-all text-[14px] font-medium group
+                  className={`flex items-center gap-4 px-4 py-3 rounded-lg transition-all text-[15px] font-semibold group
                     ${isActive 
                       ? "bg-gray-200/60 text-black shadow-sm" 
                       : "text-gray-600 hover:bg-gray-200/40 hover:text-gray-900"
@@ -86,7 +86,7 @@ export default function DashboardSidebar() {
                   `}
                 >
                   <Icon 
-                    size={18} 
+                    size={20} 
                     className={`transition-colors ${isActive ? "text-black" : "text-gray-400 group-hover:text-gray-600"}`} 
                     strokeWidth={isActive ? 2.5 : 2}
                   />
@@ -102,9 +102,9 @@ export default function DashboardSidebar() {
       <div className="p-6">
         <button
           onClick={() => void signOut()}
-          className="w-full flex items-center gap-4 px-4 py-3 text-[14px] font-medium text-gray-500 hover:bg-red-50 hover:text-red-600 rounded-md transition-colors group"
+          className="w-full flex items-center gap-4 px-4 py-3 text-[15px] font-semibold text-gray-500 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors group"
         >
-          <LogOut size={18} className="text-gray-400 group-hover:text-red-500 transition-colors" />
+          <LogOut size={20} className="text-gray-400 group-hover:text-red-500 transition-colors" />
           <span>Sign out</span>
         </button>
       </div>
