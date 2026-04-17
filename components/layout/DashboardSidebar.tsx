@@ -46,7 +46,7 @@ export default function DashboardSidebar() {
   }, [pathname]);
 
   const SidebarContent = () => (
-    <div className="flex flex-col h-full bg-[#FAFAFA] text-[#111827]">
+    <div className="flex flex-col h-full bg-slate-50 text-[#111827]">
       {/* Workspace Switcher / Header */}
       <div className="px-6 pt-8 pb-4">
         <div className="flex items-center justify-between w-full px-4 py-3 hover:bg-gray-200/50 rounded-lg cursor-pointer transition-colors border border-transparent hover:border-gray-200">
@@ -139,7 +139,7 @@ export default function DashboardSidebar() {
 
       {/* Mobile Sidebar */}
       <aside 
-        className={`fixed top-16 left-0 bottom-0 w-[280px] bg-[#FAFAFA] z-40 transform transition-transform duration-200 ease-in-out md:hidden border-r border-gray-200 shadow-xl
+        className={`fixed top-16 left-0 bottom-0 w-[280px] bg-slate-50 z-40 transform transition-transform duration-200 ease-in-out md:hidden border-r border-gray-200 shadow-xl
           ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
@@ -147,7 +147,7 @@ export default function DashboardSidebar() {
       </aside>
 
       {/* Desktop Sidebar (Sticky, takes up layout space) */}
-      <aside className="hidden md:flex flex-col sticky top-0 w-[280px] h-screen border-r border-gray-200 shrink-0 bg-[#FAFAFA]">
+      <aside className="hidden md:flex flex-col sticky top-0 w-[280px] h-screen border-r border-gray-200 shrink-0 bg-slate-50">
         <SidebarContent />
       </aside>
     </>
