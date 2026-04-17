@@ -29,16 +29,16 @@ export default function AnalyticsPage() {
           { label: "Portfolio Value", value: `$${(totalValue / 1_000_000).toFixed(0)}M`,  icon: DollarSign, change: "Market estimate" },
           { label: "Markets Covered", value: countries.length,            icon: Globe,     change: "Countries" },
         ].map((k, i) => (
-          <div key={i} className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex flex-col gap-3">
+          <div key={i} className="bg-white border border-gray-200 rounded-xl p-7 shadow-sm flex flex-col gap-5">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{k.label}</span>
-              <div className="w-8 h-8 bg-gray-50 border border-gray-100 rounded-lg flex items-center justify-center">
-                <k.icon size={15} className="text-gray-400" />
+              <div className="w-9 h-9 bg-gray-50 border border-gray-100 rounded-lg flex items-center justify-center">
+                <k.icon size={17} className="text-gray-400" />
               </div>
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">{listings === undefined ? "—" : k.value}</p>
-              <p className="text-xs text-gray-400 mt-0.5">{k.change}</p>
+              <p className="text-3xl font-bold text-gray-900">{listings === undefined ? "—" : k.value}</p>
+              <p className="text-xs text-gray-400 mt-1">{k.change}</p>
             </div>
           </div>
         ))}
@@ -46,7 +46,7 @@ export default function AnalyticsPage() {
 
       {/* Top Performing Assets */}
       <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+        <div className="px-7 py-5 border-b border-gray-100 flex items-center justify-between">
           <div>
             <h2 className="text-sm font-bold text-gray-900">Top Performing Assets</h2>
             <p className="text-xs text-gray-500 mt-0.5">Ranked by engagement and view count</p>
@@ -57,7 +57,7 @@ export default function AnalyticsPage() {
         <div className="flex flex-col divide-y divide-gray-100">
           {listings === undefined ? (
             [...Array(4)].map((_, i) => (
-              <div key={i} className="flex items-center justify-between px-6 py-4">
+              <div key={i} className="flex items-center justify-between px-7 py-5">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-gray-100 rounded-lg animate-pulse" />
                   <div className="space-y-1.5">
@@ -73,7 +73,7 @@ export default function AnalyticsPage() {
               .sort((a, b) => b.views - a.views)
               .slice(0, 6)
               .map((l, i) => (
-                <div key={l._id} className="flex items-center justify-between px-6 py-4 hover:bg-gray-50 transition-colors">
+                <div key={l._id} className="flex items-center justify-between px-7 py-5 hover:bg-gray-50 transition-colors">
                   <div className="flex items-center gap-4">
                     <span className="text-xs font-bold text-gray-400 w-5 text-center">#{i + 1}</span>
                     <div>
@@ -98,11 +98,11 @@ export default function AnalyticsPage() {
 
       {/* Geographic Spread */}
       <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100">
+        <div className="px-7 py-5 border-b border-gray-100">
           <h2 className="text-sm font-bold text-gray-900">Geographic Spread</h2>
           <p className="text-xs text-gray-500 mt-0.5">Asset distribution across markets</p>
         </div>
-        <div className="p-6 flex flex-wrap gap-2">
+        <div className="p-7 flex flex-wrap gap-2">
           {listings === undefined ? (
             [...Array(6)].map((_, i) => <div key={i} className="h-8 w-24 bg-gray-100 animate-pulse rounded-full" />)
           ) : (

@@ -20,12 +20,12 @@ export default function SettingsPage() {
 
       {/* Account Section */}
       <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-2">
+        <div className="px-7 py-5 border-b border-gray-100 flex items-center gap-2">
           <Settings size={16} className="text-gray-400" />
           <h2 className="text-sm font-bold text-gray-900">Account</h2>
         </div>
         <div className="flex flex-col divide-y divide-gray-100">
-          <div className="flex items-center justify-between px-6 py-4">
+          <div className="flex items-center justify-between px-7 py-5">
             <div>
               <p className="text-sm font-semibold text-gray-900">Account Name</p>
               <p className="text-xs text-gray-500 mt-0.5">{user?.name || "Not set"}</p>
@@ -34,14 +34,14 @@ export default function SettingsPage() {
               Edit
             </button>
           </div>
-          <div className="flex items-center justify-between px-6 py-4">
+          <div className="flex items-center justify-between px-7 py-5">
             <div>
               <p className="text-sm font-semibold text-gray-900">Email Address</p>
               <p className="text-xs text-gray-500 mt-0.5">{user?.email || "—"}</p>
             </div>
             <span className="px-2.5 py-1 text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-full">Verified</span>
           </div>
-          <div className="flex items-center justify-between px-6 py-4">
+          <div className="flex items-center justify-between px-7 py-5">
             <div>
               <p className="text-sm font-semibold text-gray-900">Account Type</p>
               <p className="text-xs text-gray-500 mt-0.5">Institutional Seller</p>
@@ -53,12 +53,12 @@ export default function SettingsPage() {
 
       {/* Security Section */}
       <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-2">
+        <div className="px-7 py-5 border-b border-gray-100 flex items-center gap-2">
           <Shield size={16} className="text-gray-400" />
           <h2 className="text-sm font-bold text-gray-900">Security</h2>
         </div>
         <div className="flex flex-col divide-y divide-gray-100">
-          <div className="flex items-center justify-between px-6 py-4">
+          <div className="flex items-center justify-between px-7 py-5">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center">
                 <Key size={15} className="text-gray-400" />
@@ -72,7 +72,7 @@ export default function SettingsPage() {
               Update
             </button>
           </div>
-          <div className="flex items-center justify-between px-6 py-4">
+          <div className="flex items-center justify-between px-7 py-5">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center">
                 <Shield size={15} className="text-gray-400" />
@@ -91,11 +91,11 @@ export default function SettingsPage() {
 
       {/* Preferences */}
       <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-2">
+        <div className="px-7 py-5 border-b border-gray-100 flex items-center gap-2">
           <Globe size={16} className="text-gray-400" />
           <h2 className="text-sm font-bold text-gray-900">Preferences</h2>
         </div>
-        <div className="p-6 flex flex-col gap-5">
+        <div className="p-7 flex flex-col gap-6">
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Default Currency</label>
             <select className="h-10 px-4 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900/10 focus:border-gray-400 transition shadow-sm">
@@ -124,11 +124,11 @@ export default function SettingsPage() {
 
       {/* Billing placeholder */}
       <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-2">
+        <div className="px-7 py-5 border-b border-gray-100 flex items-center gap-2">
           <CreditCard size={16} className="text-gray-400" />
           <h2 className="text-sm font-bold text-gray-900">Billing</h2>
         </div>
-        <div className="p-6 flex flex-col items-center gap-3 text-center py-10">
+        <div className="p-7 flex flex-col items-center gap-4 text-center py-12">
           <div className="w-12 h-12 bg-gray-50 border border-gray-200 rounded-xl flex items-center justify-center">
             <CreditCard size={20} className="text-gray-400" />
           </div>
@@ -144,12 +144,12 @@ export default function SettingsPage() {
 
       {/* Danger Zone */}
       <div className="bg-white border border-red-200 rounded-xl shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-red-100 flex items-center gap-2">
+        <div className="px-7 py-5 border-b border-red-100 flex items-center gap-2">
           <AlertTriangle size={16} className="text-red-400" />
           <h2 className="text-sm font-bold text-red-700">Danger Zone</h2>
         </div>
         <div className="flex flex-col divide-y divide-red-50">
-          <div className="flex items-center justify-between px-6 py-4">
+          <div className="flex items-center justify-between px-7 py-5">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 bg-red-50 border border-red-100 rounded-lg flex items-center justify-center">
                 <LogOut size={15} className="text-red-400" />
@@ -166,7 +166,7 @@ export default function SettingsPage() {
               Sign Out
             </button>
           </div>
-          <div className="flex items-center justify-between px-6 py-4">
+          <div className="flex items-center justify-between px-7 py-5">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 bg-red-50 border border-red-100 rounded-lg flex items-center justify-center">
                 <Trash2 size={15} className="text-red-400" />

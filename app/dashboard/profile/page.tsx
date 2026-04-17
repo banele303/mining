@@ -17,7 +17,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Avatar + Name */}
-      <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 flex items-center gap-5">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-7 flex items-center gap-6">
         <div className="w-16 h-16 rounded-full bg-gray-900 flex items-center justify-center text-white text-2xl font-bold shrink-0">
           {user?.name?.charAt(0)?.toUpperCase() || <User size={28} />}
         </div>
@@ -40,11 +40,11 @@ export default function ProfilePage() {
 
       {/* Personal Info */}
       <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-2">
+        <div className="px-7 py-5 border-b border-gray-100 flex items-center gap-2">
           <User size={16} className="text-gray-400" />
           <h2 className="text-sm font-bold text-gray-900">Personal Information</h2>
         </div>
-        <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="p-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Full Name</label>
             <input
@@ -76,7 +76,7 @@ export default function ProfilePage() {
             />
           </div>
         </div>
-        <div className="px-6 py-4 border-t border-gray-100 flex items-center gap-3 bg-gray-50/50">
+        <div className="px-7 py-5 border-t border-gray-100 flex items-center gap-3 bg-gray-50/50">
           <button className="flex items-center gap-2 h-9 px-4 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-black transition-colors">
             <Save size={14} /> Save Changes
           </button>
@@ -88,11 +88,11 @@ export default function ProfilePage() {
 
       {/* Email / Auth */}
       <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-2">
+        <div className="px-7 py-5 border-b border-gray-100 flex items-center gap-2">
           <Mail size={16} className="text-gray-400" />
           <h2 className="text-sm font-bold text-gray-900">Email & Authentication</h2>
         </div>
-        <div className="p-6 flex flex-col gap-4">
+        <div className="p-7 flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Verified Email</label>
             <input
@@ -107,11 +107,11 @@ export default function ProfilePage() {
 
       {/* Notifications */}
       <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-2">
+        <div className="px-7 py-5 border-b border-gray-100 flex items-center gap-2">
           <Bell size={16} className="text-gray-400" />
           <h2 className="text-sm font-bold text-gray-900">Notification Preferences</h2>
         </div>
-        <div className="p-6 flex flex-col divide-y divide-gray-100">
+        <div className="p-7 flex flex-col divide-y divide-gray-100">
           {[
             { label: "New buyer inquiries",       desc: "Get notified when a buyer contacts you about your assets." },
             { label: "Price updates",             desc: "Receive alerts when comparable assets change pricing."      },

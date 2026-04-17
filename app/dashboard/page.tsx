@@ -55,23 +55,23 @@ export default function DashboardPage() {
       </div>
 
       {/* ── Stats ── */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
         {[
           { label: "Active Assets",   value: listings ? stats.active          : "—", icon: Briefcase,  trend: "+2 this month" },
           { label: "Portfolio Value", value: listings ? "$142M"               : "—", icon: DollarSign, trend: "Market est."  },
           { label: "Global Views",   value: listings ? stats.views.toLocaleString() : "—", icon: Globe, trend: "Unique views" },
           { label: "Growth Index",   value: listings ? "84.2"                : "—", icon: BarChart3,  trend: "Inst. tier"   },
         ].map((s, i) => (
-          <div key={i} className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex flex-col gap-3 hover:shadow-md transition-shadow">
+          <div key={i} className="bg-white border border-gray-200 rounded-xl p-7 shadow-sm flex flex-col gap-5 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{s.label}</span>
-              <div className="w-8 h-8 bg-gray-50 border border-gray-100 rounded-lg flex items-center justify-center">
-                <s.icon size={15} className="text-gray-400" />
+              <div className="w-9 h-9 bg-gray-50 border border-gray-100 rounded-lg flex items-center justify-center">
+                <s.icon size={17} className="text-gray-400" />
               </div>
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900 tracking-tight">{s.value}</p>
-              <p className="text-xs text-gray-400 mt-0.5">{s.trend}</p>
+              <p className="text-3xl font-bold text-gray-900 tracking-tight">{s.value}</p>
+              <p className="text-xs text-gray-400 mt-1">{s.trend}</p>
             </div>
           </div>
         ))}

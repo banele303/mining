@@ -26,7 +26,7 @@ export default function MyAssetsPage() {
       </div>
 
       {/* Summary bar */}
-      <div className="flex items-center gap-6 px-5 py-3 bg-white border border-gray-200 rounded-xl shadow-sm">
+      <div className="flex items-center gap-6 px-7 py-5 bg-white border border-gray-200 rounded-xl shadow-sm">
         <div className="flex flex-col">
           <span className="text-xs text-gray-500 font-medium">Total</span>
           <span className="text-lg font-bold text-gray-900">{listings?.length ?? "—"}</span>
@@ -54,7 +54,7 @@ export default function MyAssetsPage() {
           {[...Array(6)].map((_, i) => (
             <div key={i} className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
               <div className="h-40 bg-gray-100 animate-pulse" />
-              <div className="p-4 space-y-2">
+              <div className="p-6 space-y-2">
                 <div className="h-4 bg-gray-100 animate-pulse rounded w-3/4" />
                 <div className="h-3 bg-gray-100 animate-pulse rounded w-1/2" />
               </div>
@@ -99,7 +99,7 @@ export default function MyAssetsPage() {
               </div>
 
               {/* Info */}
-              <div className="p-4 flex flex-col gap-3">
+              <div className="p-6 flex flex-col gap-4">
                 <div>
                   <p className="text-sm font-bold text-gray-900 leading-snug">{l.title}</p>
                   <div className="flex items-center gap-1.5 mt-1 text-xs text-gray-500">
@@ -121,15 +121,15 @@ export default function MyAssetsPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 pt-1 border-t border-gray-100">
+                <div className="flex items-center gap-2 pt-2 mt-1 border-t border-gray-100">
                   <Link
                     href={`/listing/${l._id}`}
-                    className="flex-1 flex items-center justify-center gap-1.5 h-8 bg-gray-50 border border-gray-200 text-gray-700 text-xs font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+                    className="flex-1 flex items-center justify-center gap-1.5 h-10 bg-gray-50 border border-gray-200 text-gray-700 text-sm font-semibold rounded-lg hover:bg-gray-100 transition-colors"
                   >
-                    <ArrowUpRight size={13} /> View
+                    <ArrowUpRight size={14} /> View
                   </Link>
-                  <button className="w-8 h-8 flex items-center justify-center bg-gray-50 border border-gray-200 text-gray-500 rounded-lg hover:bg-gray-100 transition-colors">
-                    <MoreHorizontal size={14} />
+                  <button className="w-10 h-10 flex items-center justify-center bg-gray-50 border border-gray-200 text-gray-500 rounded-lg hover:bg-gray-100 transition-colors">
+                    <MoreHorizontal size={16} />
                   </button>
                 </div>
               </div>
