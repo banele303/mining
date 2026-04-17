@@ -54,7 +54,7 @@ export default function BuyerLoginPage() {
               { icon: <Zap size={20} className="text-orange-400" />, title: "Instant Negotiation", desc: "Connect directly with verified sellers worldwide." }
             ].map((feature, i) => (
               <div key={i} style={{ display: "flex", gap: "1rem" }}>
-                <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", shrink: 0 }}>
+                <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   {feature.icon}
                 </div>
                 <div>
