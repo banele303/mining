@@ -55,14 +55,14 @@ export default function DashboardPage() {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <button className="h-9 px-4 bg-white border border-gray-200 text-gray-700 text-[13px] font-medium rounded-md hover:bg-gray-50 transition-colors shadow-sm flex items-center gap-2">
+          <button className="h-10 px-5 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-md hover:bg-gray-50 transition-colors shadow-sm flex items-center gap-2">
             View Analytics
           </button>
           <Link 
             href="/sell" 
-            className="h-9 px-4 bg-black text-white text-[13px] font-medium rounded-md hover:bg-gray-900 transition-colors shadow-sm flex items-center gap-2"
+            className="h-10 px-5 bg-black text-white text-sm font-medium rounded-md hover:bg-gray-900 transition-colors shadow-sm flex items-center gap-2"
           >
-            <Plus size={16} />
+            <Plus size={18} />
             List Asset
           </Link>
         </div>
@@ -76,7 +76,7 @@ export default function DashboardPage() {
           { label: "Global Views", value: stats.views.toLocaleString(), icon: Globe },
           { label: "Growth Index", value: "84.2", icon: BarChart3 },
         ].map((s, i) => (
-          <div key={i} className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm flex flex-col gap-4">
+          <div key={i} className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm flex flex-col gap-6">
             <div className="flex items-center justify-between">
               <span className="text-[13px] font-medium text-gray-500">{s.label}</span>
               <s.icon size={16} className="text-gray-400" />
@@ -120,18 +120,18 @@ export default function DashboardPage() {
             <div className="flex flex-col gap-4">
               
               {/* Filter Bar */}
-              <div className="flex flex-col sm:flex-row gap-3">
-                <div className="relative w-full sm:max-w-xs">
-                  <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="relative w-full sm:max-w-md">
+                  <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                   <input 
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search assets..." 
-                    className="w-full pl-9 pr-3 py-2 bg-white border border-gray-200 rounded-md text-[13px] placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-black focus:border-black transition-shadow shadow-sm"
+                    className="w-full h-11 pl-11 pr-4 bg-white border border-gray-200 rounded-md text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-black focus:border-black transition-shadow shadow-sm"
                   />
                 </div>
-                <button className="h-9 px-3 bg-white border border-gray-200 text-gray-600 text-[13px] font-medium rounded-md hover:bg-gray-50 transition-colors shadow-sm flex items-center gap-2">
-                  <Filter size={14} />
+                <button className="h-11 px-6 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-md hover:bg-gray-50 transition-colors shadow-sm flex items-center gap-2">
+                  <Filter size={16} />
                   Filter
                 </button>
               </div>
@@ -166,7 +166,7 @@ export default function DashboardPage() {
               ) : (
                 <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden flex flex-col">
                   {/* Table Header */}
-                  <div className="grid grid-cols-12 gap-4 px-6 py-3 border-b border-gray-200 bg-gray-50 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">
+                  <div className="grid grid-cols-12 gap-4 px-4 md:px-6 lg:px-8 py-4 border-b border-gray-200 bg-gray-50 text-[12px] font-semibold text-gray-500 uppercase tracking-wider">
                     <div className="col-span-6 md:col-span-5">Asset Name</div>
                     <div className="col-span-3 hidden md:block">Location</div>
                     <div className="col-span-3 hidden md:block">Price</div>
@@ -179,7 +179,7 @@ export default function DashboardPage() {
                       <Link 
                         key={l._id} 
                         href={`/listing/${l._id}`}
-                        className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors items-center group"
+                        className="grid grid-cols-12 gap-4 px-4 md:px-6 lg:px-8 py-6 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors items-center group"
                       >
                         <div className="col-span-6 md:col-span-5 flex items-center gap-4">
                           <div className="w-12 h-12 bg-gray-100 rounded-md overflow-hidden shrink-0 border border-gray-200 flex items-center justify-center">
@@ -206,10 +206,10 @@ export default function DashboardPage() {
                         </div>
 
                         <div className="col-span-6 md:col-span-1 flex items-center justify-end gap-3">
-                          <div className={`px-2 py-0.5 rounded-full text-[10px] font-medium tracking-wide flex items-center gap-1.5
+                          <div className={`px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-wide flex items-center gap-2
                             ${l.status === 'active' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-gray-100 text-gray-600 border border-gray-200'}
                           `}>
-                            <div className={`w-1.5 h-1.5 rounded-full ${l.status === 'active' ? 'bg-emerald-500' : 'bg-gray-400'}`} />
+                            <div className={`w-2 h-2 rounded-full ${l.status === 'active' ? 'bg-emerald-500' : 'bg-gray-400'}`} />
                             <span className="capitalize">{l.status}</span>
                           </div>
                           <button className="text-gray-400 hover:text-gray-900 p-1 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">

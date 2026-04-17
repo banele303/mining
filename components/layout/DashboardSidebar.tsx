@@ -48,26 +48,26 @@ export default function DashboardSidebar() {
   const SidebarContent = () => (
     <div className="flex flex-col h-full bg-[#FAFAFA] text-[#111827]">
       {/* Workspace Switcher / Header */}
-      <div className="px-3 pt-4 pb-2">
-        <div className="flex items-center justify-between w-full px-2 py-2 hover:bg-gray-200/50 rounded-lg cursor-pointer transition-colors border border-transparent hover:border-gray-200">
-          <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-md bg-black shadow-sm flex items-center justify-center shrink-0">
-              <Compass size={14} className="text-white" />
+      <div className="px-6 pt-8 pb-4">
+        <div className="flex items-center justify-between w-full px-4 py-3 hover:bg-gray-200/50 rounded-lg cursor-pointer transition-colors border border-transparent hover:border-gray-200">
+          <div className="flex items-center gap-4">
+            <div className="w-8 h-8 rounded-md bg-black shadow-sm flex items-center justify-center shrink-0">
+              <Compass size={16} className="text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="text-[13px] font-semibold tracking-tight text-gray-900 leading-none">Southern Mines</span>
-              <span className="text-[11px] font-medium text-gray-500 mt-0.5">Institutional</span>
+              <span className="text-[15px] font-semibold tracking-tight text-gray-900 leading-none">Southern Mines</span>
+              <span className="text-[12px] font-medium text-gray-500 mt-1">Institutional</span>
             </div>
           </div>
-          <ChevronsUpDown size={14} className="text-gray-400" />
+          <ChevronsUpDown size={16} className="text-gray-400" />
         </div>
       </div>
 
       {/* Navigation Links */}
-      <div className="flex-1 px-3 py-4 flex flex-col gap-6 overflow-y-auto">
+      <div className="flex-1 px-6 py-4 flex flex-col gap-8 overflow-y-auto">
         {sidebarLinks.map((section, idx) => (
-          <div key={idx} className="flex flex-col gap-1">
-            <p className="px-3 text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-1">
+          <div key={idx} className="flex flex-col gap-2">
+            <p className="px-4 text-[12px] font-semibold text-gray-400 uppercase tracking-wider mb-2">
               {section.group}
             </p>
             
@@ -78,15 +78,15 @@ export default function DashboardSidebar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md transition-all text-[13px] group
+                  className={`flex items-center gap-4 px-4 py-3 rounded-md transition-all text-[14px] font-medium group
                     ${isActive 
-                      ? "bg-gray-200/60 text-black font-semibold shadow-sm" 
-                      : "text-gray-600 hover:bg-gray-200/40 hover:text-gray-900 font-medium"
+                      ? "bg-gray-200/60 text-black shadow-sm" 
+                      : "text-gray-600 hover:bg-gray-200/40 hover:text-gray-900"
                     }
                   `}
                 >
                   <Icon 
-                    size={16} 
+                    size={18} 
                     className={`transition-colors ${isActive ? "text-black" : "text-gray-400 group-hover:text-gray-600"}`} 
                     strokeWidth={isActive ? 2.5 : 2}
                   />
@@ -99,12 +99,12 @@ export default function DashboardSidebar() {
       </div>
 
       {/* Footer / User Profile */}
-      <div className="p-3">
+      <div className="p-6">
         <button
           onClick={() => void signOut()}
-          className="w-full flex items-center gap-3 px-3 py-2 text-[13px] font-medium text-gray-500 hover:bg-red-50 hover:text-red-600 rounded-md transition-colors group"
+          className="w-full flex items-center gap-4 px-4 py-3 text-[14px] font-medium text-gray-500 hover:bg-red-50 hover:text-red-600 rounded-md transition-colors group"
         >
-          <LogOut size={16} className="text-gray-400 group-hover:text-red-500 transition-colors" />
+          <LogOut size={18} className="text-gray-400 group-hover:text-red-500 transition-colors" />
           <span>Sign out</span>
         </button>
       </div>
@@ -114,18 +114,18 @@ export default function DashboardSidebar() {
   return (
     <>
       {/* Mobile Top Nav */}
-      <div className="md:hidden fixed top-0 left-0 right-0 h-14 bg-white border-b border-gray-200 flex items-center justify-between px-4 z-50">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-md bg-black flex items-center justify-center shrink-0">
-            <Compass size={14} className="text-white" />
+      <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 z-50">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-md bg-black flex items-center justify-center shrink-0">
+            <Compass size={16} className="text-white" />
           </div>
-          <span className="text-sm font-semibold text-gray-900 tracking-tight">Southern Mines</span>
+          <span className="text-[15px] font-semibold text-gray-900 tracking-tight">Southern Mines</span>
         </div>
         <button 
           onClick={() => setMobileOpen(!mobileOpen)}
           className="p-2 -mr-2 text-gray-600 hover:bg-gray-100 rounded-md"
         >
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
@@ -139,7 +139,7 @@ export default function DashboardSidebar() {
 
       {/* Mobile Sidebar */}
       <aside 
-        className={`fixed top-14 left-0 bottom-0 w-[260px] bg-[#FAFAFA] z-40 transform transition-transform duration-200 ease-in-out md:hidden border-r border-gray-200 shadow-xl
+        className={`fixed top-16 left-0 bottom-0 w-[280px] bg-[#FAFAFA] z-40 transform transition-transform duration-200 ease-in-out md:hidden border-r border-gray-200 shadow-xl
           ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
@@ -147,7 +147,7 @@ export default function DashboardSidebar() {
       </aside>
 
       {/* Desktop Sidebar (Sticky, takes up layout space) */}
-      <aside className="hidden md:flex flex-col sticky top-0 w-[260px] h-screen border-r border-gray-200 shrink-0 bg-[#FAFAFA]">
+      <aside className="hidden md:flex flex-col sticky top-0 w-[280px] h-screen border-r border-gray-200 shrink-0 bg-[#FAFAFA]">
         <SidebarContent />
       </aside>
     </>
