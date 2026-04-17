@@ -6,13 +6,18 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen bg-slate-50">
-      {/* Sidebar is fixed, so we need a placeholder to push content */}
+    <div className="flex min-h-screen bg-[#F8FAFC]">
       <DashboardSidebar />
-      <div className="flex-1 transition-all duration-300">
-        <main className="pl-20 md:pl-64 h-full">
-          {/* Top header spacing handle if the sidebar is expanded/collapsed is handled by the fixed width of main padding */}
-          <div className="p-4 md:p-8">
+      
+      {/* 
+        The sidebar is fixed. 
+        Desktop: pl-[88px] (collapsed) or pl-[280px] (expanded)
+        We use a simpler approach: let the main container handle the responsive padding 
+        that matches the sidebar's logic.
+      */}
+      <div className="flex-1 transition-all duration-500 md:pl-[88px] xl:pl-[280px]">
+        <main className="min-h-screen">
+          <div className="p-4 sm:p-6 lg:p-10 max-w-[1600px] mx-auto">
             {children}
           </div>
         </main>

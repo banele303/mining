@@ -7,10 +7,10 @@
    DESIGN TOKENS
    ============================================ */
 :root {
-  --primary: #D4840A;
-  --primary-light: #F59E0B;
-  --primary-dark: #B36908;
-  --primary-glow: rgba(212, 132, 10, 0.2);
+  --primary: #10B981; /* Emerald 500 */
+  --primary-light: #34D399; /* Emerald 400 */
+  --primary-dark: #059669; /* Emerald 600 */
+  --primary-glow: rgba(16, 185, 129, 0.2);
 
   --bg-base: #FFFFFF;
   --bg-surface: #F8FAFC;
@@ -24,7 +24,7 @@
   --text-primary: #0F172A;
   --text-secondary: #334155;
   --text-muted: #64748B;
-  --text-accent: #D4840A;
+  --text-accent: #10B981;
 
   --status-active: #16A34A;
   --status-sold: #DC2626;
@@ -35,7 +35,7 @@
   --radius-lg: 16px;
   --radius-xl: 24px;
 
-  --shadow-glow: 0 0 24px rgba(212, 132, 10, 0.1);
+  --shadow-glow: 0 0 24px rgba(16, 185, 129, 0.1);
   --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.05);
   --shadow-elevated: 0 12px 32px rgba(0, 0, 0, 0.08);
 
@@ -118,11 +118,11 @@ img { max-width: 100%; display: block; }
 .btn-primary {
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
   color: #fff;
-  box-shadow: 0 4px 16px rgba(212, 132, 10, 0.35);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35);
 }
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 24px rgba(212, 132, 10, 0.5);
+  box-shadow: 0 6px 24px rgba(16, 185, 129, 0.5);
   filter: brightness(1.1);
 }
 
@@ -184,9 +184,9 @@ img { max-width: 100%; display: block; }
 .badge-sold { background: rgba(239,68,68,0.15); color: #F87171; }
 .badge-pending { background: rgba(245,158,11,0.15); color: #FCD34D; }
 .badge-sector {
-  background: rgba(212,132,10,0.1);
+  background: rgba(16, 185, 129, 0.1);
   color: var(--primary-light);
-  border: 1px solid rgba(212,132,10,0.2);
+  border: 1px solid rgba(16, 185, 129, 0.2);
 }
 .badge-commodity {
   background: var(--bg-surface-3);
@@ -344,8 +344,8 @@ img { max-width: 100%; display: block; }
   to   { opacity: 1; }
 }
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 8px rgba(212,132,10,0.4); }
-  50% { box-shadow: 0 0 20px rgba(212,132,10,0.8); }
+  0%, 100% { box-shadow: 0 0 8px rgba(16,185,129,0.4); }
+  50% { box-shadow: 0 0 20px rgba(16,185,129,0.8); }
 }
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
@@ -582,7 +582,7 @@ input[type="range"]::-webkit-slider-thumb {
   background: var(--primary);
   cursor: pointer;
   border: 2px solid #fff;
-  box-shadow: 0 2px 8px rgba(212,132,10,0.5);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.5);
 }
 
 /* ============================================
@@ -641,7 +641,7 @@ input[type="range"]::-webkit-slider-thumb {
 .nav-logo-box.logo-scrolled {
   background-color: var(--primary);
   border-color: var(--primary-light);
-  box-shadow: 0 10px 15px -3px rgba(212, 132, 10, 0.3);
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
 }
 .nav-logo-img {
   width: 100%;
@@ -677,15 +677,15 @@ input[type="range"]::-webkit-slider-thumb {
   justify-content: center;
 }
 .nav-custom-link.active {
-  color: #fb923c !important; 
-  background-color: rgba(249, 115, 22, 0.1) !important;
-  border: 1px solid rgba(249, 115, 22, 0.2) !important;
+  color: #34d399 !important; 
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  border: 1px solid rgba(16, 185, 129, 0.2) !important;
 }
 .nav-custom-link.transparent:not(.active) {
   color: #ffffff !important;
 }
 .nav-custom-link.transparent:not(.active):hover {
-  color: #fb923c !important;
+  color: #34d399 !important;
 }
 .nav-custom-link.scrolled:not(.active) {
   color: #cbd5e1 !important; 
@@ -702,7 +702,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: 0.4rem;
   height: 0.4rem;
   border-radius: 50%;
-  background-color: #f97316;
+  background-color: #10b981;
 }
 
 .nav-auth-login {
@@ -735,10 +735,10 @@ input[type="range"]::-webkit-slider-thumb {
   font-size: 0.875rem;
   font-weight: 900;
   color: #ffffff !important;
-  background-color: #f97316 !important;
+  background-color: #10b981 !important;
   padding: 0.625rem 1.25rem !important;
   border-radius: 0.75rem;
-  box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.25) !important;
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.25) !important;
   transition: all 0.2s ease;
   text-decoration: none;
   display: inline-flex;
@@ -746,7 +746,7 @@ input[type="range"]::-webkit-slider-thumb {
   justify-content: center;
 }
 .nav-auth-signup:hover {
-  background-color: #ea580c !important;
+  background-color: #059669 !important;
   transform: translateY(-1px);
 }
 .nav-auth-signup:active {

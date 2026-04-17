@@ -6,8 +6,78 @@ import ListingCard from "@/components/listings/ListingCard";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+// Seeded mock data to display the diverse portfolio
+const mockFeaturedListings = [
+  {
+    _id: "mock-1",
+    title: "Premium Commercial Plot - Sandton",
+    commodity: "Commercial Land",
+    commoditySector: "Real Estate",
+    commodityTags: ["Zoned Commercial", "2 Hectares"],
+    country: "South Africa",
+    region: "Johannesburg",
+    stage: "Ready for Development",
+    intention: "For Sale",
+    priceMin: 4500000,
+    currency: "USD",
+    status: "active",
+    images: ["https://images.unsplash.com/photo-1524813686514-a57563d77965?auto=format&fit=crop&q=80&w=800"],
+    featured: true,
+  },
+  {
+    _id: "mock-2",
+    title: "Citrus Export Farm",
+    commodity: "Agricultural",
+    commoditySector: "Farming",
+    commodityTags: ["Export Ready", "Irrigation Rights"],
+    country: "South Africa",
+    region: "Western Cape",
+    stage: "Operational",
+    intention: "For Sale",
+    priceMin: 12200000,
+    currency: "USD",
+    status: "active",
+    images: ["https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=800"],
+    featured: true,
+  },
+  {
+    _id: "mock-3",
+    title: "Caterpillar 797F Haul Truck",
+    commodity: "Heavy Machinery",
+    commoditySector: "Mining Equipment",
+    commodityTags: ["2018 Model", "12,000 hrs"],
+    country: "Australia",
+    region: "Pilbara",
+    stage: "Used - Good Condition",
+    intention: "For Sale",
+    priceMin: 2100000,
+    currency: "USD",
+    status: "active",
+    images: ["https://images.unsplash.com/photo-1581451556094-1b033d4346eb?auto=format&fit=crop&q=80&w=800"],
+    featured: true,
+  },
+  {
+    _id: "mock-4",
+    title: "Komatsu PC200 Excavator",
+    commodity: "Construction Fleet",
+    commoditySector: "Heavy Equipment",
+    commodityTags: ["2021 Model", "Ready to deploy"],
+    country: "UAE",
+    region: "Dubai",
+    stage: "Used - Excellent",
+    intention: "For Sale",
+    priceMin: 145000,
+    currency: "USD",
+    status: "active",
+    images: ["https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800"],
+    featured: true,
+  }
+];
+
 export default function FeaturedListings() {
-  const listings = useQuery(api.listings.getFeaturedListings);
+  const dbListings = useQuery(api.listings.getFeaturedListings);
+  
+  const listings = (dbListings && dbListings.length > 0) ? dbListings : mockFeaturedListings;
 
   return (
     <section className="section" style={{ background: "var(--bg-surface)" }}>
@@ -18,7 +88,7 @@ export default function FeaturedListings() {
             <p style={{ fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--primary)", marginBottom: "0.5rem" }}>
               ⭐ Featured
             </p>
-            <h2>Premium Mining Assets</h2>
+            <h2>Premium Assets</h2>
             <p style={{ color: "var(--text-muted)", marginTop: "0.5rem", fontSize: "0.95rem" }}>
               Handpicked, high-quality projects from verified vendors
             </p>
@@ -29,7 +99,7 @@ export default function FeaturedListings() {
         </div>
 
         {/* Loading skeletons */}
-        {listings === undefined && (
+        {dbListings === undefined && (
           <div className="grid-listings">
             {[...Array(4)].map((_, i) => (
               <div key={i} style={{ borderRadius: "var(--radius-lg)", overflow: "hidden" }}>

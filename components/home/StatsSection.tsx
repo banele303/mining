@@ -1,13 +1,14 @@
 'use client';
 
 import { useEffect, useRef, useState } from "react";
+import { Globe, Shield, Activity, Users, FileCheck } from "lucide-react";
 
 const stats = [
-  { end: 4200, suffix: "+", label: "Regional Assets", icon: "🏔" },
-  { end: 8, suffix: "", label: "Member Nations", icon: "🌍" },
-  { end: 150, suffix: "B+", label: "Regional Value", prefix: "R", icon: "💎" },
-  { end: 9000, suffix: "+", label: "Active Members", icon: "🤝" },
-  { end: 420, suffix: "+", label: "Deals Closed", icon: "⚡" },
+  { end: 4200, suffix: "+", label: "Regional Assets", icon: <Globe size={40} className="text-emerald-500" /> },
+  { end: 8, suffix: "", label: "Member Nations", icon: <Shield size={40} className="text-emerald-500" /> },
+  { end: 150, suffix: "B+", label: "Regional Value", prefix: "R", icon: <Activity size={40} className="text-emerald-500" /> },
+  { end: 9000, suffix: "+", label: "Active Members", icon: <Users size={40} className="text-emerald-500" /> },
+  { end: 420, suffix: "+", label: "Deals Closed", icon: <FileCheck size={40} className="text-emerald-500" /> },
 ];
 
 function useCounter(end: number, duration = 2200, started: boolean) {
@@ -30,35 +31,26 @@ function useCounter(end: number, duration = 2200, started: boolean) {
   return count;
 }
 
-function StatCard({ stat, index, started }: { stat: typeof stats[0]; index: number; started: boolean }) {
+function StatCard({ stat, started }: { stat: typeof stats[0]; started: boolean }) {
   const raw = useCounter(stat.end, 2200, started);
   const display = Number(raw.toFixed(stat.end < 10 ? 1 : 0)).toLocaleString();
 
   return (
-    <div
-      className="group relative flex flex-col items-center justify-center p-6 lg:p-8 rounded-3xl bg-white border border-slate-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden"
-      style={{ animationDelay: `${index * 100}ms` }}
-    >
-      {/* Background accent */}
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-50/0 to-orange-50/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-      {/* Top accent line */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-400 to-amber-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left rounded-t-3xl" />
-
-      {/* Emoji icon */}
-      <div className="text-3xl mb-4 select-none grayscale group-hover:grayscale-0 transition-all duration-300">
+    <div className="flex flex-col items-center justify-center py-16 px-8 bg-white rounded-3xl shadow-xl border border-gray-100 hover:border-emerald-500 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center w-full mx-auto">
+      {/* Icon Wrapper */}
+      <div className="flex items-center justify-center w-24 h-24 rounded-full bg-emerald-50 mb-10">
         {stat.icon}
       </div>
 
-      {/* Counter */}
-      <div className="text-4xl lg:text-5xl font-black leading-none mb-3 bg-gradient-to-br from-slate-900 via-slate-700 to-slate-900 bg-clip-text text-transparent">
+      {/* Number */}
+      <h3 className="text-5xl lg:text-5xl font-black text-gray-900 mb-6 tracking-tight leading-normal">
         {stat.prefix || ""}{display}{stat.suffix}
-      </div>
+      </h3>
 
       {/* Label */}
-      <div className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-400 text-center group-hover:text-orange-500 transition-colors duration-300">
+      <p className="text-sm font-bold text-gray-400 tracking-widest uppercase leading-loose mt-2">
         {stat.label}
-      </div>
+      </p>
     </div>
   );
 }
@@ -79,45 +71,40 @@ export default function StatsSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-20 md:py-28 bg-white overflow-hidden">
-      {/* Subtle background pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.025] pointer-events-none"
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, #D4840A 1px, transparent 0)`,
-          backgroundSize: "32px 32px",
-        }}
-      />
-
-      <div className="relative max-w-7xl mx-auto px-8 md:px-16 lg:px-20">
-        {/* Section header */}
-        <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-50 border border-orange-100 text-orange-600 text-[10px] font-black uppercase tracking-[0.2em] mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-orange-500 inline-block" />
+    <section ref={sectionRef} className="py-40 bg-gray-50 flex flex-col items-center justify-center w-full">
+      <div className="max-w-7xl mx-auto px-8 lg:px-12 flex flex-col items-center justify-center w-full">
+        
+        {/* Header Section */}
+        <div className="flex flex-col items-center justify-center text-center mb-32 mx-auto w-full">
+          <span className="px-8 py-3 bg-emerald-100 text-emerald-700 rounded-full text-sm font-black tracking-widest uppercase mb-10 inline-block">
             Platform at a Glance
-          </div>
-          <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
-            Numbers That{" "}
-            <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">
-              Define Our Market
-            </span>
+          </span>
+          <h2 className="text-5xl lg:text-7xl font-black text-gray-900 mb-10 tracking-tight leading-tight max-w-4xl">
+            Numbers That <br className="hidden md:block"/><span className="text-emerald-500">Define Our Market</span>
           </h2>
-          <p className="mt-6 mb-8 text-slate-500 text-lg max-w-3xl mx-auto bg-slate-50/80 border border-slate-100 rounded-2xl py-4 px-10 inline-block shadow-sm tracking-wide leading-relaxed">
+          <p className="text-2xl text-gray-500 max-w-3xl leading-loose">
             Southern Africa's most comprehensive and verified mining asset network.
           </p>
         </div>
 
-        {/* Stats grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12 w-full">
           {stats.map((s, i) => (
-            <StatCard key={s.label} stat={s} index={i} started={started} />
+            <StatCard key={s.label} stat={s} started={started} />
           ))}
         </div>
 
-        {/* Bottom tagline */}
-        <p className="mt-10 text-center text-xs text-slate-400 font-medium tracking-wide">
-          Updated in real-time · Verified listings only · SADC-wide coverage
-        </p>
+        {/* Footer Section */}
+        <div className="mt-32 pt-16 border-t border-gray-200 w-full flex justify-center">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-10 text-base font-bold text-gray-400 uppercase tracking-widest text-center leading-loose">
+            <span>Updated in real-time</span>
+            <span className="hidden sm:block text-emerald-300">•</span>
+            <span>Verified listings only</span>
+            <span className="hidden sm:block text-emerald-300">•</span>
+            <span>SADC-wide coverage</span>
+          </div>
+        </div>
+
       </div>
     </section>
   );

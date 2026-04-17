@@ -150,7 +150,23 @@ export default function ListingCard({ listing }: { listing: Listing }) {
             borderRadius: "var(--radius)",
             boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.05)",
           }}>
-            <PlaceholderImage sector={listing.commoditySector} />
+            {listing.images && listing.images.length > 0 ? (
+              <img 
+                src={listing.images[0]} 
+                alt={listing.title} 
+                className="listing-image"
+                style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s ease" }}
+              />
+            ) : listing.coverImage ? (
+              <img 
+                src={listing.coverImage} 
+                alt={listing.title} 
+                className="listing-image"
+                style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s ease" }}
+              />
+            ) : (
+              <PlaceholderImage sector={listing.commoditySector} />
+            )}
 
             {/* Status badge */}
             <div style={{ position: "absolute", top: "0.75rem", left: "0.75rem" }}>

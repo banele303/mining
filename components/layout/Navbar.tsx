@@ -9,9 +9,9 @@ import { useAuthActions } from "@convex-dev/auth/react";
 import { api } from "@/convex/_generated/api";
 
 const navLinks = [
-  { label: "Commodities", href: "/list?view=commodity" },
-  { label: "Locations", href: "/list?view=location" },
-  { label: "Post Asset", href: "/sell" },
+  { label: "Marketplace", href: "/marketplace" },
+  { label: "Farms", href: "/marketplace?category=farms" },
+  { label: "Mining Eq.", href: "/marketplace?category=mining_eq" },
   { label: "Live GIS", href: "/explore" },
 ];
 
@@ -55,17 +55,9 @@ export default function Navbar() {
         {/* ── Logo ── */}
         <Link href="/" className="flex items-center gap-3 shrink-0 group">
           <div className={`w-14 h-14 rounded-xl flex items-center justify-center overflow-hidden transition-all ${
-            transparentNav ? "bg-white/10" : "bg-orange-500 shadow-md"
+            transparentNav ? "bg-white/10" : "bg-emerald-500 shadow-md"
           }`}>
             <img src="/images/logo.png" alt="Southern Mines" className="w-full h-full object-contain p-2 transform group-hover:scale-110 transition-transform duration-300" />
-          </div>
-          <div className="flex flex-col leading-none">
-            <span className="text-xl md:text-3xl font-black tracking-tight text-white font-outfit" style={{ color: "white" }}>
-              SOUTHERN<span className="text-orange-500">MINES</span>
-            </span>
-            <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em] text-orange-400 mt-1">
-              SADC Regional Hub
-            </span>
           </div>
         </Link>
 
@@ -76,7 +68,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                style={{ color: isActive ? "#F59E0B" : "#FFFFFF", padding: "1.5rem 0" }}
+                style={{ color: isActive ? "#34D399" : "#FFFFFF", padding: "1.5rem 0" }}
                 className={`text-[15px] font-bold uppercase tracking-[0.1em] transition-colors hover:-translate-y-0.5`}
               >
                 {link.label}
@@ -96,7 +88,7 @@ export default function Navbar() {
                 style={{ color: "white" }}
                 className="flex items-center gap-4 bg-white/10 hover:bg-white/20 border border-white/10 p-2 px-6 rounded-full transition-all"
               >
-                <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-sm font-bold text-white shrink-0">
+                <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-sm font-bold text-white shrink-0">
                   {userInitial || <User size={16} />}
                 </div>
                 <span className="text-base font-bold leading-none pt-[1px]">{user?.name || "Dashboard"}</span>
@@ -112,16 +104,23 @@ export default function Navbar() {
           ) : (
             <div className="flex items-center gap-4">
               <Link
+                href="/auth/buyer-login"
+                style={{ color: "white", padding: "0.625rem 1.5rem" }}
+                className="text-sm font-bold text-sky-400 hover:text-sky-300 transition-colors border border-sky-400/30 rounded-full hover:bg-sky-400/10"
+              >
+                Buyer Login
+              </Link>
+              <Link
                 href="/auth/sign-in"
                 style={{ color: "white" }}
-                className="text-sm font-bold hover:text-orange-400 transition-colors px-4 py-2"
+                className="text-sm font-bold hover:text-emerald-400 transition-colors px-2 py-2"
               >
-                Log In
+                Seller Login
               </Link>
               <Link
                 href="/auth/sign-up"
                 style={{ color: "white", padding: "0.875rem 2rem" }}
-                className="bg-orange-500 hover:bg-orange-600 text-sm font-bold uppercase tracking-widest rounded-full shadow-lg shadow-orange-500/30 transition-all active:scale-95 border border-orange-400"
+                className="bg-emerald-500 hover:bg-emerald-600 text-sm font-bold uppercase tracking-widest rounded-full shadow-lg shadow-emerald-500/30 transition-all active:scale-95 border border-emerald-400"
               >
                 Join Free
               </Link>
@@ -165,12 +164,12 @@ export default function Navbar() {
                   onClick={() => setMobileOpen(false)}
                   className={`flex items-center justify-between px-6 py-4 rounded-2xl font-bold text-base transition-all ${
                     isActive
-                      ? "bg-orange-50 text-orange-600 border border-orange-200"
+                      ? "bg-emerald-50 text-emerald-600 border border-emerald-200"
                       : "text-slate-700 bg-slate-50 border border-slate-100 hover:bg-slate-100"
                   }`}
                 >
                   {link.label}
-                  <ChevronRight size={18} className={isActive ? "text-orange-500" : "text-slate-400"} />
+                  <ChevronRight size={18} className={isActive ? "text-emerald-500" : "text-slate-400"} />
                 </Link>
               );
             })}
@@ -189,7 +188,7 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center gap-4 px-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl"
               >
-                <div className="w-14 h-14 rounded-2xl bg-orange-500 flex items-center justify-center text-xl font-black text-white shrink-0 shadow-lg shadow-orange-500/20">
+                <div className="w-14 h-14 rounded-2xl bg-emerald-500 flex items-center justify-center text-xl font-black text-white shrink-0 shadow-lg shadow-emerald-500/20">
                   {userInitial || <User size={24} />}
                 </div>
                 <div className="flex flex-col">
@@ -210,9 +209,16 @@ export default function Navbar() {
               <Link
                 href="/auth/sign-up"
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-center w-full py-5 rounded-2xl bg-orange-500 text-white font-black text-lg shadow-xl shadow-orange-500/20 active:scale-95 transition-all"
+                className="flex items-center justify-center w-full py-5 rounded-2xl bg-emerald-500 text-white font-black text-lg shadow-xl shadow-emerald-500/20 active:scale-95 transition-all"
               >
                 Join the Network
+              </Link>
+              <Link
+                href="/auth/buyer-login"
+                onClick={() => setMobileOpen(false)}
+                className={`flex items-center justify-center w-full py-5 rounded-2xl font-black text-base active:scale-95 transition-all bg-sky-50 text-sky-600 border border-sky-200`}
+              >
+                Buyer Login
               </Link>
               <Link
                 href="/auth/sign-in"
@@ -221,7 +227,7 @@ export default function Navbar() {
                   transparentNav ? "bg-slate-100 text-slate-900" : "bg-white border border-slate-200 text-slate-900"
                 }`}
               >
-                Existing Member Login
+                Seller Login
               </Link>
             </div>
           )}
