@@ -61,7 +61,7 @@ export default function Navbar() {
           </div>
         </Link>
 
-        <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-10">
+        <nav className="hidden lg:flex flex-1 justify-center items-center gap-6 xl:gap-10 px-8">
           {navLinks.map((link) => {
             const isActive = pathname === link.href.split("?")[0];
             return (
