@@ -520,10 +520,10 @@ function PillDropdown({
   );
 }
 
-export default function MarketplacePage() {
+export default function MarketplacePage({ initialCategory, initialIntention }: { initialCategory?: string, initialIntention?: string }) {
   return (
     <Suspense fallback={<div className="min-h-screen bg-[var(--bg-base)]"></div>}>
-      <MarketplaceContent />
+      <MarketplaceContent initialCategory={initialCategory} initialIntention={initialIntention} />
     </Suspense>
   );
 }
