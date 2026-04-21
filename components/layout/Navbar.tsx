@@ -155,7 +155,7 @@ export default function Navbar() {
         {/* ── Mobile Toggle ── */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="lg:hidden w-11 h-11 flex items-center justify-center bg-white/10 border border-white/20 rounded-full text-white transition-colors"
+          className="lg:hidden w-11 h-11 flex items-center justify-center bg-white/10 border border-white/20 rounded-full text-white transition-colors mr-2"
         >
           {mobileOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -169,13 +169,13 @@ export default function Navbar() {
         onClick={() => setMobileOpen(false)}
       />
 
-      {/* ── Mobile Menu Drawer ── */}
+      {/* ── Mobile Menu Drawer (Sidebar Style) ── */}
       <div 
-        className={`lg:hidden fixed top-[76px] left-0 w-full bg-white border-b border-slate-200 z-[999] transition-all duration-500 transform shadow-[0_20px_40px_rgba(0,0,0,0.1)] ${
-          mobileOpen ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0 pointer-events-none"
+        className={`lg:hidden fixed top-[76px] left-0 bottom-0 w-[300px] max-w-[85vw] bg-white border-r border-slate-200 z-[999] transition-all duration-500 transform shadow-[20px_0_40px_rgba(0,0,0,0.1)] overflow-y-auto ${
+          mobileOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="max-w-7xl w-full mx-auto px-6 py-8 flex flex-col gap-4">
+        <div className="flex flex-col gap-4 py-8 pl-6 pr-10">
           <div className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 px-2">Navigation Gateway</div>
           
           <div className="grid grid-cols-1 gap-2.5">
@@ -186,7 +186,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`flex items-center justify-between px-6 py-4 rounded-2xl font-bold text-base transition-all ${
+                  className={`flex items-center justify-between pl-6 pr-8 py-4 rounded-2xl font-bold text-base transition-all ${
                     isActive
                       ? "bg-emerald-50 text-emerald-600 border border-emerald-200"
                       : "text-slate-700 bg-slate-50 border border-slate-100 hover:bg-slate-100"
@@ -202,7 +202,7 @@ export default function Navbar() {
             <Link
               href="/list-asset"
               onClick={() => setMobileOpen(false)}
-              className={`flex items-center justify-between px-6 py-4 rounded-2xl font-bold text-base transition-all ${
+              className={`flex items-center justify-between pl-6 pr-8 py-4 rounded-2xl font-bold text-base transition-all ${
                 isListAsset
                   ? "bg-emerald-500 text-white border border-emerald-400"
                   : "bg-emerald-50 text-emerald-700 border border-emerald-200"
