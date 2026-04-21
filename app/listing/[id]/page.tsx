@@ -174,104 +174,66 @@ export default function ListingDetailPage() {
       </div>
 
       <div className="container" style={{ padding: "2.5rem 1.5rem" }}>
-        {/* Back button */}
-        <Link href="/list" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", color: "var(--text-muted)", fontSize: "0.875rem", marginBottom: "1.5rem", transition: "color var(--transition)" }}
-          onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = "var(--text-primary)"}
-          onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = "var(--text-muted)"}
-        >
-          <ArrowLeft size={15} /> Back to Listings
-        </Link>
+        {/* Header Section: Title and Tags */}
+        <div style={{ marginBottom: "2rem" }}>
+          <Link href="/list" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", color: "var(--text-muted)", fontSize: "0.875rem", marginBottom: "1.25rem", transition: "color var(--transition)" }}
+            onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = "var(--text-primary)"}
+            onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = "var(--text-muted)"}
+          >
+            <ArrowLeft size={15} /> Back to Listings
+          </Link>
+          
+          <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "1rem" }}>
+            <span className="badge badge-active" style={{ background: "rgba(16, 185, 129, 0.1)", color: "var(--primary)" }}>{listing.commoditySector}</span>
+            {listing.commodityTags.map((tag) => (
+              <span key={tag} className="badge badge-commodity">{tag}</span>
+            ))}
+          </div>
+          
+          <h1 style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", marginBottom: "1rem", lineHeight: 1.2, fontWeight: 800 }}>
+            {listing.title}
+          </h1>
+          
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "1.5rem", color: "var(--text-muted)", fontSize: "0.95rem" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <MapPin size={18} className="text-gold" style={{ color: "var(--primary)" }} />
+              <span>{[listing.region, listing.country].filter(Boolean).join(", ")}</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <Layers size={18} style={{ color: "var(--primary)" }} />
+              <span>{listing.commodity}</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <Eye size={18} style={{ color: "var(--primary)" }} />
+              <span>{listing.views || 0} Views</span>
+            </div>
+          </div>
+        </div>
 
         {/* Main grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: "2.5rem", alignItems: "start" }} className="detail-grid">
-          {/* LEFT COLUMN */}
-          <div>
-            {/* Hero Image */}
-            <div style={{
-              background: imgBg,
-              borderRadius: "var(--radius-xl)",
-              height: "440px",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: "5rem",
-              marginBottom: "1rem",
-              position: "relative",
-              overflow: "hidden",
-              border: "1px solid var(--border)",
-              boxShadow: "var(--shadow-lg)",
-            }}>
-              {(listing.coverImageUrl || (listing.imageUrls && listing.imageUrls[0])) ? (
-                <img 
-                  src={listing.coverImageUrl || listing.imageUrls[0]} 
-                  alt={listing.title} 
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }} 
-                />
-              ) : (
-                imgIcon
-              )}
-              {/* Status */}
-              <div style={{ position: "absolute", top: "1.25rem", left: "1.25rem" }}>
-                <span className={`badge ${listing.status === "sold" ? "badge-sold" : listing.status === "pending" ? "badge-pending" : "badge-active"}`} style={{ fontSize: "0.85rem", padding: "0.5rem 1rem", backdropFilter: "blur(8px)", background: "rgba(0,0,0,0.6)", color: "white", border: "1px solid rgba(255,255,255,0.1)" }}>
-                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "currentColor", marginRight: "0.4rem" }} />
-                  {listing.status.toUpperCase()}
-                </span>
-              </div>
-            </div>
-
-            {/* Gallery Section */}
-            {listing.imageUrls && listing.imageUrls.length > 1 && (
-              <div style={{ display: "flex", gap: "0.75rem", overflowX: "auto", paddingBottom: "1.5rem", marginBottom: "1rem" }} className="scroll-x">
-                {listing.imageUrls.map((url: string, i: number) => (
-                  <div 
-                    key={i} 
-                    style={{ 
-                      flexShrink: 0, 
-                      width: "120px", 
-                      height: "80px", 
-                      borderRadius: "var(--radius-lg)", 
-                      overflow: "hidden", 
-                      border: "1px solid var(--border)",
-                      background: "var(--bg-surface-2)",
-                      cursor: "pointer",
-                      transition: "transform 0.2s"
-                    }}
-                    onClick={() => {
-                        // In a real app we'd swap the main image, but for now just showing they exist
-                    }}
-                  >
-                    <img src={url} alt={`Gallery ${i}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Tags + Title */}
-            <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.875rem" }}>
-              {listing.commodityTags.map((tag) => (
-                <span key={tag} className="badge badge-sector">{tag}</span>
-              ))}
-            </div>
-            <h1 style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)", marginBottom: "1.5rem", lineHeight: 1.25 }}>{listing.title}</h1>
-
+        <div className="detail-grid">
+          {/* LEFT COLUMN: Content */}
+          <div style={{ minWidth: 0 }}>
             {/* Key stats row */}
             <div style={{
               display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
+              gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
               gap: "1rem",
               background: "var(--bg-surface)",
               border: "1px solid var(--border)",
               borderRadius: "var(--radius-lg)",
-              padding: "1.25rem",
-              marginBottom: "2rem",
+              padding: "1.5rem",
+              marginBottom: "2.5rem",
             }} className="stats-row">
               {[
-                { icon: <Layers size={16} />, label: "Commodity", value: listing.commodity },
-                { icon: <MapPin size={16} />, label: "Location", value: [listing.region, listing.country].filter(Boolean).join(", ") },
                 { icon: <Pickaxe size={16} />, label: "Stage", value: listing.stage },
-                { icon: <DollarSign size={16} />, label: "Price Range", value: formatPrice(listing.priceMin, listing.priceMax, listing.currency), highlight: true },
+                { icon: <Layers size={16} />, label: "Sector", value: listing.commoditySector },
+                { icon: <DollarSign size={16} />, label: "Intention", value: listing.intention },
+                { icon: <Share2 size={16} />, label: "Region", value: listing.continent },
               ].map((s) => (
-                <div key={s.label} style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-                  <span style={{ color: "var(--text-muted)", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 600 }}>{s.label}</span>
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", color: s.highlight ? "var(--primary-light)" : "var(--text-primary)", fontWeight: 600, fontSize: "0.9rem" }}>
+                <div key={s.label} style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+                  <span style={{ color: "var(--text-muted)", fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 700 }}>{s.label}</span>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "var(--text-primary)", fontWeight: 600, fontSize: "0.95rem" }}>
                     <span style={{ color: "var(--primary)", flexShrink: 0 }}>{s.icon}</span>
                     {s.value}
                   </div>
@@ -281,37 +243,49 @@ export default function ListingDetailPage() {
 
             {/* Description */}
             {listing.description && (
-              <div style={{ marginBottom: "2rem" }}>
-                <h2 style={{ fontSize: "1.15rem", marginBottom: "1rem" }}>About this Asset</h2>
-                <p style={{ color: "var(--text-secondary)", lineHeight: 1.85, fontSize: "0.95rem" }}>{listing.description}</p>
+              <div style={{ marginBottom: "3rem" }}>
+                <h2 style={{ fontSize: "1.25rem", marginBottom: "1.25rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <span style={{ width: "4px", height: "24px", background: "var(--primary)", borderRadius: "2px" }} />
+                  About this Asset
+                </h2>
+                <p style={{ color: "var(--text-secondary)", lineHeight: 1.8, fontSize: "1rem", whiteSpace: "pre-line" }}>
+                  {listing.description}
+                </p>
               </div>
             )}
 
             {/* Highlights */}
             {listing.highlights && listing.highlights.length > 0 && (
               <div style={{
-                background: "var(--bg-surface)",
+                background: "linear-gradient(to bottom right, var(--bg-surface), var(--bg-base))",
                 border: "1px solid var(--border)",
-                borderRadius: "var(--radius-lg)",
-                padding: "1.5rem",
-                marginBottom: "2rem",
+                borderRadius: "var(--radius-xl)",
+                padding: "2rem",
+                marginBottom: "3rem",
               }}>
-                <h2 style={{ fontSize: "1.1rem", marginBottom: "1rem" }}>Key Highlights</h2>
-                <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                <h2 style={{ fontSize: "1.2rem", marginBottom: "1.5rem" }}>Key Highlights</h2>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
                   {listing.highlights.map((h, i) => (
-                    <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", color: "var(--text-secondary)", fontSize: "0.9rem", lineHeight: 1.6 }}>
-                      <span style={{ color: "var(--primary)", fontWeight: 700, flexShrink: 0, marginTop: "2px" }}>✓</span>
-                      {h}
-                    </li>
+                    <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "1rem" }}>
+                      <div style={{ 
+                        width: "24px", height: "24px", borderRadius: "50%", 
+                        background: "var(--primary-glow)", color: "var(--primary)",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        fontSize: "0.8rem", fontWeight: 800, flexShrink: 0, marginTop: "2px"
+                      }}>
+                        ✓
+                      </div>
+                      <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.5 }}>{h}</p>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             )}
 
-            {/* Additional details */}
-            <div style={{ background: "var(--bg-surface)", border: "1px solid var(--border)", borderRadius: "var(--radius-lg)", padding: "1.5rem" }}>
-              <h2 style={{ fontSize: "1.1rem", marginBottom: "1rem" }}>Asset Details</h2>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+            {/* Detailed specs */}
+            <div style={{ background: "var(--bg-surface)", border: "1px solid var(--border)", borderRadius: "var(--radius-xl)", padding: "2rem" }}>
+              <h2 style={{ fontSize: "1.2rem", marginBottom: "1.5rem" }}>Technical Specifications</h2>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "2rem" }}>
                 {[
                   { label: "Continent", value: listing.continent },
                   { label: "Country", value: listing.country },
@@ -322,84 +296,153 @@ export default function ListingDetailPage() {
                   { label: "Sector", value: listing.commoditySector },
                   { label: "Currency", value: listing.currency },
                 ].map((d) => (
-                  <div key={d.label} style={{ display: "flex", flexDirection: "column", gap: "0.2rem" }}>
-                    <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>{d.label}</span>
-                    <span style={{ color: "var(--text-primary)", fontSize: "0.9rem", fontWeight: 500 }}>{d.value}</span>
+                  <div key={d.label} style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                    <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>{d.label}</span>
+                    <span style={{ color: "var(--text-primary)", fontSize: "1rem", fontWeight: 500 }}>{d.value}</span>
                   </div>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* RIGHT COLUMN — Contact card */}
-          <div style={{ position: "sticky", top: "88px" }}>
+          {/* RIGHT COLUMN: Image and Sidebar */}
+          <div className="sidebar-col" style={{ minWidth: 0 }}>
+            {/* Image Section - Now small and on the right */}
+            <div style={{ marginBottom: "2rem" }}>
+              <div style={{
+                background: imgBg,
+                borderRadius: "var(--radius-lg)",
+                aspectRatio: "4/3",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                fontSize: "4rem",
+                position: "relative",
+                overflow: "hidden",
+                border: "1px solid var(--border)",
+                boxShadow: "var(--shadow-card)",
+                marginBottom: "0.75rem"
+              }}>
+                {(listing.coverImageUrl || (listing.imageUrls && listing.imageUrls[0])) ? (
+                  <img 
+                    src={listing.coverImageUrl || listing.imageUrls[0]} 
+                    alt={listing.title} 
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }} 
+                  />
+                ) : (
+                  imgIcon
+                )}
+                <div style={{ position: "absolute", top: "1rem", left: "1rem" }}>
+                  <span className={`badge ${listing.status === "sold" ? "badge-sold" : listing.status === "pending" ? "badge-pending" : "badge-active"}`} style={{ fontSize: "0.75rem", padding: "0.4rem 0.8rem", backdropFilter: "blur(8px)", background: "rgba(0,0,0,0.6)", color: "white", border: "1px solid rgba(255,255,255,0.1)" }}>
+                    {listing.status.toUpperCase()}
+                  </span>
+                </div>
+              </div>
+
+              {/* Thumbnail Gallery */}
+              {listing.imageUrls && listing.imageUrls.length > 1 && (
+                <div style={{ 
+                  display: "flex", 
+                  gap: "0.5rem", 
+                  overflowX: "auto", 
+                  paddingBottom: "0.5rem",
+                  maxWidth: "100%"
+                }} className="scroll-x">
+                  {listing.imageUrls.map((url: string, i: number) => (
+                    <div 
+                      key={i} 
+                      style={{ 
+                        flexShrink: 0, 
+                        width: "80px", 
+                        height: "60px", 
+                        borderRadius: "var(--radius)", 
+                        overflow: "hidden", 
+                        border: "1px solid var(--border)",
+                        background: "var(--bg-surface-2)",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <img src={url} alt={`Gallery ${i}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Price & Contact Card */}
             <div style={{
               background: "var(--bg-surface)",
               border: "1px solid var(--border)",
               borderRadius: "var(--radius-xl)",
               overflow: "hidden",
-              boxShadow: "var(--shadow-card)",
+              boxShadow: "var(--shadow-elevated)",
+              position: "sticky",
+              top: "2rem"
             }}>
-              {/* Price header */}
               <div style={{
-                background: "linear-gradient(135deg, rgba(212,132,10,0.15), rgba(245,158,11,0.08))",
+                background: "linear-gradient(135deg, rgba(16,185,129,0.1), rgba(16,185,129,0.02))",
                 borderBottom: "1px solid var(--border)",
-                padding: "1.5rem",
+                padding: "1.75rem",
               }}>
-                <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "0.25rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>Asking Price</p>
-                <p style={{ fontSize: "1.5rem", fontWeight: 800, color: "var(--primary-light)" }}>
+                <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "0.5rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em" }}>Price Estimate</p>
+                <p style={{ fontSize: "1.75rem", fontWeight: 800, color: "var(--primary-dark)" }}>
                   {formatPrice(listing.priceMin, listing.priceMax, listing.currency)}
                 </p>
-                <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.75rem" }}>
-                  <span className="badge badge-commodity">{listing.intention}</span>
-                  <span className="badge badge-commodity">{listing.stage}</span>
+                <div style={{ display: "flex", gap: "0.5rem", marginTop: "1rem" }}>
+                  <span className="badge badge-commodity" style={{ background: "white" }}>{listing.intention}</span>
+                  <span className="badge badge-commodity" style={{ background: "white" }}>{listing.stage}</span>
                 </div>
               </div>
 
-              {/* Vendor info */}
-              {listing.ownerName && (
-                <div style={{ padding: "1.25rem", borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", gap: "0.875rem" }}>
-                  <div style={{
-                    width: "44px", height: "44px", borderRadius: "50%",
-                    background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: "1.1rem", fontWeight: 700, color: "#fff", flexShrink: 0,
-                  }}>
-                    {listing.ownerName.charAt(0)}
+              <div style={{ padding: "1.5rem" }}>
+                {listing.ownerName && (
+                  <div style={{ marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "1rem" }}>
+                    <div style={{
+                      width: "48px", height: "48px", borderRadius: "14px",
+                      background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: "1.2rem", fontWeight: 800, color: "#fff", flexShrink: 0,
+                    }}>
+                      {listing.ownerName.charAt(0)}
+                    </div>
+                    <div>
+                      <p style={{ fontWeight: 700, fontSize: "0.95rem" }}>{listing.ownerName}</p>
+                      <p style={{ color: "var(--text-muted)", fontSize: "0.8rem" }}>{listing.ownerCompany || "Verified Vendor"}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p style={{ fontWeight: 600, fontSize: "0.9rem" }}>{listing.ownerName}</p>
-                    <p style={{ color: "var(--text-muted)", fontSize: "0.78rem" }}>{listing.ownerCompany || "Verified Vendor"}</p>
+                )}
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+                  <button
+                    className="btn btn-primary btn-lg"
+                    style={{ width: "100%", height: "54px" }}
+                    onClick={() => setInquiryOpen(true)}
+                  >
+                    <Mail size={18} /> Make an Inquiry
+                  </button>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                    <button className="btn btn-ghost" style={{ padding: "0.75rem" }}>
+                      <Bookmark size={16} /> Save
+                    </button>
+                    <button
+                      className="btn btn-ghost"
+                      style={{ padding: "0.75rem" }}
+                      onClick={() => {
+                        navigator.clipboard.writeText(window.location.href);
+                        alert("Link copied!");
+                      }}
+                    >
+                      <Share2 size={16} /> Share
+                    </button>
                   </div>
                 </div>
-              )}
-
-              {/* CTA Buttons */}
-              <div style={{ padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                <button
-                  id="make-inquiry-btn"
-                  className="btn btn-primary btn-lg"
-                  style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}
-                  onClick={() => setInquiryOpen(true)}
-                >
-                  <Mail size={18} /> Make an Inquiry
-                </button>
-                <button className="btn btn-ghost" style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}>
-                  <Bookmark size={16} /> Save this Asset
-                </button>
-                <button
-                  className="btn btn-ghost"
-                  style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}
-                  onClick={() => navigator.clipboard.writeText(window.location.href)}
-                >
-                  <Share2 size={16} /> Share Listing
-                </button>
               </div>
 
-              <div style={{ padding: "1rem 1.25rem", borderTop: "1px solid var(--border)", background: "var(--bg-surface-2)" }}>
-                <p style={{ fontSize: "0.72rem", color: "var(--text-muted)", textAlign: "center", lineHeight: 1.6 }}>
-                  🔒 Your inquiry is confidential. We only share your details with the verified asset owner.
-                </p>
+              <div style={{ padding: "1.25rem", borderTop: "1px solid var(--border)", background: "rgba(16,185,129,0.03)" }}>
+                <div style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
+                  <div style={{ color: "var(--primary)", marginTop: "2px" }}>🛡️</div>
+                  <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", lineHeight: 1.5 }}>
+                    Your details are only shared with the verified owner of this asset.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -416,12 +459,49 @@ export default function ListingDetailPage() {
       )}
 
       <style>{`
-        @media (max-width: 900px) {
-          .detail-grid { grid-template-columns: 1fr !important; }
-          .stats-row { grid-template-columns: 1fr 1fr !important; }
+        .detail-grid {
+          display: grid;
+          grid-template-columns: 1fr 380px;
+          gap: 3rem;
+          align-items: start;
         }
+
+        @media (max-width: 1100px) {
+          .detail-grid {
+            grid-template-columns: 1fr 340px;
+            gap: 2rem;
+          }
+        }
+
+        @media (max-width: 900px) {
+          .detail-grid {
+            display: flex;
+            flex-direction: column;
+          }
+          .sidebar-col {
+            order: -1; /* Image and Price card at top on mobile */
+            width: 100%;
+          }
+          .stats-row {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+
         @media (max-width: 480px) {
-          .stats-row { grid-template-columns: 1fr !important; }
+          .stats-row {
+            grid-template-columns: 1fr !important;
+          }
+          .container {
+            padding: 1.5rem 1rem !important;
+          }
+        }
+
+        .scroll-x::-webkit-scrollbar {
+          height: 4px;
+        }
+        .scroll-x::-webkit-scrollbar-thumb {
+          background: var(--border);
+          border-radius: 10px;
         }
       `}</style>
     </div>
