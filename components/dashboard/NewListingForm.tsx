@@ -88,6 +88,7 @@ export default function NewListingForm({ onComplete }: { onComplete: () => void 
         commodityTags: [],
         images: [], // In a real app, we'd upload images first
         highlights: formData.highlights.filter(h => h.trim() !== ""),
+        featured: false,
       });
       onComplete();
     } catch (err) {
