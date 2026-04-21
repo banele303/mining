@@ -230,7 +230,8 @@ export default function Navbar() {
               <Link
                 href="/dashboard"
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-4 px-6 py-5 bg-slate-50 border border-slate-200 rounded-2xl"
+                className="flex items-center gap-4 bg-gray-50 border border-gray-200 rounded-lg shadow-sm"
+                style={{ padding: '1rem 1.25rem' }}
               >
                 <div className="w-14 h-14 rounded-2xl bg-emerald-500 flex items-center justify-center text-xl font-black text-white shrink-0 shadow-lg shadow-emerald-500/20">
                   {userInitial || <User size={24} />}
@@ -241,10 +242,11 @@ export default function Navbar() {
               </Link>
               <button
                 onClick={() => { void signOut(); setMobileOpen(false); }}
-                className="flex items-center justify-center gap-2 w-full px-5 py-4 bg-rose-50 text-rose-600 rounded-2xl font-black text-sm border border-rose-100 active:scale-95 transition-all"
+                className="flex items-center gap-4 w-full text-[15px] font-bold text-gray-500 bg-red-50 hover:bg-red-100 hover:text-red-600 rounded-lg transition-colors border border-red-100"
+                style={{ padding: '0.875rem 1.25rem' }}
               >
-                <LogOut size={18} />
-                Sign Out Account
+                <LogOut size={20} className="text-gray-400" />
+                <span>Sign Out Account</span>
               </button>
             </div>
           ) : (

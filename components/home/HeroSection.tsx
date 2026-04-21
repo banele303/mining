@@ -31,10 +31,10 @@ export default function HeroSection() {
       <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-emerald-500/10 blur-[150px] rounded-full pointer-events-none" />
 
       {/* ── Content Wrapper ── */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-8 md:px-16 flex flex-col items-center text-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center text-center" style={{ paddingLeft: 'clamp(1.5rem, 5vw, 4rem)', paddingRight: 'clamp(1.5rem, 5vw, 4rem)' }}>
         
         {/* Floating Badge */}
-        <div className="animate-fadeIn flex items-center gap-3 px-4 py-1.5 rounded-full border border-white/5 bg-white/5 backdrop-blur-md text-emerald-400 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] mb-12 shadow-sm">
+        <div className="animate-fadeIn flex items-center gap-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-emerald-400 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] mb-10 shadow-lg" style={{ padding: '0.875rem 1.5rem' }}>
           <Globe size={14} className="animate-pulse" />
           Connecting Global Capital to High-Growth Assets
         </div>
