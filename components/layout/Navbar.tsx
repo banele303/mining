@@ -169,13 +169,14 @@ export default function Navbar() {
         onClick={() => setMobileOpen(false)}
       />
 
-      {/* ── Mobile Menu Drawer (Sidebar Style) ── */}
+      {/* ── Mobile Menu Drawer ── */}
       <div 
-        className={`lg:hidden fixed top-[100px] left-0 bottom-0 w-[300px] max-w-[85vw] bg-white border-r border-slate-200 z-[999] transition-all duration-500 transform shadow-[20px_0_40px_rgba(0,0,0,0.1)] overflow-y-auto ${
-          mobileOpen ? "translate-x-0" : "-translate-x-full"
+        className={`lg:hidden fixed top-[100px] left-0 w-full bg-white border-b border-slate-200 z-[999] transition-all duration-500 transform shadow-[0_20px_40px_rgba(0,0,0,0.1)] overflow-y-auto ${
+          mobileOpen ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0 pointer-events-none"
         }`}
+        style={{ maxHeight: 'calc(100vh - 100px)' }}
       >
-        <div className="flex flex-col gap-4 py-8 pl-6 pr-10">
+        <div className="flex flex-col gap-8 py-8" style={{ paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
           <div className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 px-2">Navigation Gateway</div>
           
           <div className="grid grid-cols-1 gap-2.5">
@@ -186,14 +187,15 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`flex items-center justify-between pl-6 pr-8 py-4 rounded-2xl font-bold text-base transition-all ${
+                  className={`flex items-center justify-between rounded-lg font-bold text-[15px] transition-all ${
                     isActive
-                      ? "bg-emerald-50 text-emerald-600 border border-emerald-200 shadow-sm"
-                      : "text-slate-700 bg-slate-50 border border-slate-100 hover:bg-slate-100"
+                      ? "bg-gray-100 text-emerald-600 border border-gray-200 shadow-sm"
+                      : "text-gray-600 bg-gray-50 border border-gray-100 hover:bg-gray-200/40"
                   }`}
+                  style={{ padding: '0.875rem 1.25rem' }}
                 >
                   {link.label}
-                  <ChevronRight size={18} className={isActive ? "text-emerald-500" : "text-slate-400"} />
+                  <ChevronRight size={18} className={isActive ? "text-emerald-500" : "text-gray-400"} />
                 </Link>
               );
             })}
@@ -202,11 +204,12 @@ export default function Navbar() {
             <Link
               href="/list-asset"
               onClick={() => setMobileOpen(false)}
-              className={`flex items-center justify-between pl-6 pr-8 py-4 rounded-2xl font-bold text-base transition-all ${
+              className={`flex items-center justify-between rounded-lg font-bold text-[15px] transition-all ${
                 isListAsset
                   ? "bg-emerald-500 text-white border border-emerald-400 shadow-lg shadow-emerald-500/20"
                   : "bg-emerald-50 text-emerald-700 border border-emerald-200"
               }`}
+              style={{ padding: '0.875rem 1.25rem' }}
             >
               <span className="flex items-center gap-2">
                 <PlusCircle size={18} />
