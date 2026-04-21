@@ -143,16 +143,16 @@ function EditModal({ listing, onClose }: { listing: Listing; onClose: () => void
             <p style={{ fontSize: "0.75rem", color: "#94A3B8", marginBottom: "0.25rem" }}>First image becomes the cover photo. Drag to reorder.</p>
             <ImageUploader value={images} onChange={setImages} maxFiles={15} />
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
             {field("Status", "status", "text", ["active", "pending", "sold", "draft"])}
             {field("Stage", "stage", "text", ["Exploration", "Advanced Exploration", "Development", "Production", "Care & Maintenance"])}
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
             {field("Intention", "intention", "text", ["Sell", "Buy", "Joint Venture", "Farm-In/Out", "Lease"])}
             {field("Country", "country")}
           </div>
           {field("Region / Province", "region")}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
             {field("Min Price (R)", "priceMin", "number")}
             {field("Max Price (R)", "priceMax", "number")}
           </div>
@@ -256,7 +256,15 @@ export default function MyAssetsPage() {
   const totalViews = listings?.reduce((s, l) => s + l.views, 0) ?? 0;
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+    <div style={{ 
+      maxWidth: "1000px", 
+      margin: "0 auto", 
+      width: "100%", 
+      padding: "0 1rem 2rem",
+      display: "flex", 
+      flexDirection: "column", 
+      gap: "2rem" 
+    }}>
 
       {/* Header */}
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap" }}>
@@ -273,14 +281,23 @@ export default function MyAssetsPage() {
       </div>
 
       {/* Stats bar */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "1px", background: "#E2E8F0", borderRadius: "12px", overflow: "hidden", border: "1px solid #E2E8F0" }}>
+      <div style={{ 
+        display: "grid", 
+        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", 
+        gap: "1px", 
+        background: "#E2E8F0", 
+        borderRadius: "16px", 
+        overflow: "hidden", 
+        border: "1px solid #E2E8F0",
+        boxShadow: "0 4px 20px rgba(0,0,0,0.03)"
+      }}>
         {[
           { label: "Total Assets", value: total, icon: Layers, color: "#0F172A" },
           { label: "Active", value: active, icon: CheckCircle, color: "#10B981" },
           { label: "Sold", value: sold, icon: Tag, color: "#3B82F6" },
           { label: "Total Views", value: totalViews.toLocaleString(), icon: Eye, color: "#8B5CF6" },
         ].map((s) => (
-          <div key={s.label} style={{ flex: "1 1 120px", background: "#fff", padding: "1.25rem 1.5rem", display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+          <div key={s.label} style={{ background: "#fff", padding: "1.5rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", color: "#64748B", fontSize: "0.75rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>
               <s.icon size={13} color={s.color} />
               {s.label}

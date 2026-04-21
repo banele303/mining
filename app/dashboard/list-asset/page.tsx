@@ -169,7 +169,14 @@ export default function ListAssetDashboardPage() {
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+    <div style={{ 
+      maxWidth: "1000px", 
+      margin: "0 auto", 
+      width: "100%", 
+      display: "flex", 
+      flexDirection: "column", 
+      gap: "2rem" 
+    }}>
 
       {/* Page header */}
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", paddingBottom: "1.5rem", borderBottom: "1px solid #F1F5F9" }}>
@@ -252,7 +259,7 @@ export default function ListAssetDashboardPage() {
 
             {/* Mining-specific fields */}
             {form.assetCategory === "mining" && (
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
                 <div>
                   <label style={labelStyle}>Commodity Sector *</label>
                   <select style={inputStyle} value={form.commoditySector} onChange={(e) => setForm((p) => ({ ...p, commoditySector: e.target.value, commodity: "" }))}>
@@ -288,7 +295,7 @@ export default function ListAssetDashboardPage() {
 
             {/* Equipment extra fields */}
             {form.assetCategory === "equipment" && (
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
                 <div>
                   <label style={labelStyle}>Make / Brand</label>
                   <input style={inputStyle} placeholder="E.g. Caterpillar, Komatsu, Sandvik" value={form.commodity} onChange={set("commodity")} />
@@ -344,7 +351,7 @@ export default function ListAssetDashboardPage() {
               <p style={{ fontSize: "0.85rem", color: "#64748B" }}>Where is the asset located and what is the asking price?</p>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
               <div>
                 <label style={labelStyle}>Continent *</label>
                 <select style={inputStyle} value={form.continent} onChange={(e) => setForm((p) => ({ ...p, continent: e.target.value, country: "" }))}>
@@ -435,7 +442,7 @@ export default function ListAssetDashboardPage() {
               <p style={{ fontSize: "0.85rem", color: "#64748B" }}>Add your contact details so qualified buyers can reach you directly.</p>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
               <div>
                 <label style={labelStyle}>Your Name</label>
                 <input style={inputStyle} placeholder="John Smith" value={form.ownerName} onChange={set("ownerName")} />
@@ -445,7 +452,7 @@ export default function ListAssetDashboardPage() {
                 <input style={inputStyle} placeholder="Mining Corp Ltd." value={form.ownerCompany} onChange={set("ownerCompany")} />
               </div>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
               <div>
                 <label style={labelStyle}>Contact Email</label>
                 <input type="email" style={inputStyle} placeholder="john@company.com" value={form.ownerEmail} onChange={set("ownerEmail")} />
