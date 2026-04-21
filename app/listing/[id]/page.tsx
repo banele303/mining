@@ -108,6 +108,14 @@ export default function ListingDetailPage() {
   const listing = useQuery(api.listings.getListingById, { id: id as Id<"listings"> });
   const incrementViews = useMutation(api.listings.incrementViews);
   const [inquiryOpen, setInquiryOpen] = useState(false);
+  const [activeImage, setActiveImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (listing) {
+      setActiveImage(listing.coverImageUrl || (listing.imageUrls && listing.imageUrls[0]) || null);
+    }
+  }, [listing?._id]);
+
 
   useEffect(() => {
     if (listing) incrementViews({ id: id as Id<"listings"> });
@@ -321,9 +329,9 @@ export default function ListingDetailPage() {
                 boxShadow: "var(--shadow-card)",
                 marginBottom: "0.75rem"
               }}>
-                {(listing.coverImageUrl || (listing.imageUrls && listing.imageUrls[0])) ? (
+                {activeImage ? (
                   <img 
-                    src={listing.coverImageUrl || listing.imageUrls[0]} 
+                    src={activeImage} 
                     alt={listing.title} 
                     style={{ width: "100%", height: "100%", objectFit: "cover" }} 
                   />
@@ -349,15 +357,18 @@ export default function ListingDetailPage() {
                   {listing.imageUrls.map((url: string, i: number) => (
                     <div 
                       key={i} 
+                      onClick={() => setActiveImage(url)}
                       style={{ 
                         flexShrink: 0, 
                         width: "80px", 
                         height: "60px", 
                         borderRadius: "var(--radius)", 
                         overflow: "hidden", 
-                        border: "1px solid var(--border)",
+                        border: activeImage === url ? "2px solid var(--primary)" : "1px solid var(--border)",
                         background: "var(--bg-surface-2)",
                         cursor: "pointer",
+                        opacity: activeImage === url ? 1 : 0.7,
+                        transition: "all 0.2s"
                       }}
                     >
                       <img src={url} alt={`Gallery ${i}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -461,14 +472,14 @@ export default function ListingDetailPage() {
       <style>{`
         .detail-grid {
           display: grid;
-          grid-template-columns: 1fr 380px;
+          grid-template-columns: 1fr 1fr;
           gap: 3rem;
           align-items: start;
         }
 
         @media (max-width: 1100px) {
           .detail-grid {
-            grid-template-columns: 1fr 340px;
+            grid-template-columns: 1fr 1fr;
             gap: 2rem;
           }
         }
