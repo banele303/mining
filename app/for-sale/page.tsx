@@ -10,7 +10,7 @@ export default function ForSalePage() {
       <div style={{ paddingTop: '80px' }}>
         <div className="container" style={{ paddingTop: '4rem', paddingBottom: '2rem' }}>
           <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight mb-4">
-            Assets <span className="text-emerald-500">For Sale</span>
+            Buy Mine & <span className="text-emerald-500">Equipment</span>
           </h1>
           <p className="text-slate-500 text-lg max-w-2xl">
             Browse premium mining projects, commercial land, and equipment available for immediate acquisition.

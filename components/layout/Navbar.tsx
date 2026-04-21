@@ -17,7 +17,7 @@ export default function Navbar() {
 
   const navLinks = [
     { label: "Marketplace", href: "/marketplace" },
-    { label: "For Sale", href: "/for-sale" },
+    { label: "Buy Mine & Equipment", href: "/for-sale" },
     { label: "Invest", href: "/invest" },
   ];
 
