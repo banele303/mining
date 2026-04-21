@@ -17,7 +17,7 @@ export default function BuyerLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6 md:p-12 relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6 md:p-12 relative overflow-hidden font-sans" style={{ paddingTop: "clamp(6rem, 10vw, 8rem)" }}>
       
       {/* ── Dynamic Background ── */}
       <div className="absolute inset-0 opacity-60 pointer-events-none">
@@ -37,7 +37,7 @@ export default function BuyerLoginPage() {
       <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 relative z-10">
         
         {/* ── Left Side: Value Prop ── */}
-        <div className="hidden md:flex flex-col justify-center gap-10">
+        <div className="hidden md:flex flex-col justify-center gap-12 py-10">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-400 text-xs font-bold uppercase tracking-widest mb-8 shadow-sm shadow-sky-500/10">
               <ShieldCheck size={16} /> 
@@ -50,18 +50,18 @@ export default function BuyerLoginPage() {
             </h1>
           </div>
 
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-6">
             {[
               { icon: <Globe size={24} className="text-sky-400" />, title: "Premium Assets", desc: "Access high-value plots, farms, and heavy equipment seamlessly." },
               { icon: <Zap size={24} className="text-orange-400" />, title: "Instant Negotiation", desc: "Connect directly with verified sellers worldwide with zero friction." }
             ].map((feature, i) => (
-              <div key={i} className="flex gap-5 items-start">
-                <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 shadow-inner flex items-center justify-center shrink-0">
+              <div key={i} className="flex gap-6 items-start bg-white/5 border border-white/10 p-8 rounded-[28px] backdrop-blur-sm hover:bg-white/10 transition-colors">
+                <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/10 shadow-inner flex items-center justify-center shrink-0">
                   {feature.icon}
                 </div>
                 <div className="flex flex-col pt-1">
                   <h3 className="text-white text-lg font-bold mb-1 tracking-tight">{feature.title}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed max-w-xs">{feature.desc}</p>
+                  <p className="text-slate-400 text-sm leading-relaxed">{feature.desc}</p>
                 </div>
               </div>
             ))}

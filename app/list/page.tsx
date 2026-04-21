@@ -469,7 +469,7 @@ function PillDropdown({
 
       {open && (
         <>
-          <div style={{ position: "fixed", inset: 0, zIndex: 40 }} onClick={() => setOpen(false)} />
+          <div style={{ position: "fixed", inset: 0, zIndex: 199 }} onClick={() => setOpen(false)} />
           <div className="animate-slideDown" style={{
             position: "absolute", top: "calc(100% + 8px)", left: 0,
             background: "var(--bg-surface)",
@@ -477,7 +477,7 @@ function PillDropdown({
             borderRadius: "var(--radius-lg)",
             minWidth: isPrice ? "280px" : "200px",
             boxShadow: "var(--shadow-elevated)",
-            zIndex: 50,
+            zIndex: 200,
             overflow: "hidden",
           }}>
             {isPrice ? (

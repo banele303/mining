@@ -1,8 +1,23 @@
+'use client';
+
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 import RealMap from "@/components/maps/RealMap";
 import Link from "next/link";
 import { MapPin } from "lucide-react";
 
 export default function MapPreview() {
+  const stats = useQuery(api.listings.getGlobalStats);
+
+  const displayStats = [
+    { label: "Total Asset Listings", count: stats?.total ?? 0, color: "var(--primary)" },
+    { label: "Nations Represented", count: stats?.nations ?? 0, color: "#22C55E" },
+    { label: "Mining Projects", count: stats?.mining ?? 0, color: "#3B82F6" },
+    { label: "Agricultural Farms", count: stats?.farming ?? 0, color: "#8B5CF6" },
+    { label: "Commercial Plots", count: stats?.commercial ?? 0, color: "#F59E0B" },
+    { label: "Registered Investors", count: stats?.investors ?? 0, color: "#EF4444" },
+  ];
+
   return (
     <section className="section" id="map-section" style={{ background: "var(--bg-base)", position: "relative", overflow: "hidden" }}>
       <div className="container">
@@ -10,32 +25,27 @@ export default function MapPreview() {
           {/* Text */}
           <div style={{ zIndex: 2 }}>
             <p style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--primary)", marginBottom: "0.5rem" }}>
-              Regional Coverage
+              Global Coverage
             </p>
-            <h2 style={{ marginBottom: "1.25rem", fontSize: "clamp(1.75rem, 5vw, 2.5rem)" }}>Dominating the<br />Southern Africa Belt</h2>
+            <h2 style={{ marginBottom: "1.25rem", fontSize: "clamp(1.75rem, 5vw, 2.5rem)" }}>Dominating the<br />Mining Frontier</h2>
             <p style={{ color: "var(--text-muted)", lineHeight: 1.6, marginBottom: "2rem", fontSize: "0.95rem" }}>
-              Our platform offers a live, interactive GIS view of mining assets across the SADC region. Explore projects in the Witwatersrand Gold Basin, the Kalahari Copper Belt, and beyond.
+              Our platform offers a live, interactive GIS view of mining assets across the globe. Explore projects in key mineral belts, emerging agricultural zones, and commercial hubs.
             </p>
 
             {/* Region stats */}
             <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem", marginBottom: "2.5rem" }}>
-              {[
-                 { label: "South Africa", count: 850, color: "var(--primary)" },
-                 { label: "Namibia", count: 320, color: "#22C55E" },
-                 { label: "Botswana", count: 280, color: "#3B82F6" },
-                 { label: "Zimbabwe", count: 210, color: "#8B5CF6" },
-                 { label: "Mozambique", count: 190, color: "#F59E0B" },
-                 { label: "Zambia", count: 160, color: "#EF4444" },
-              ].map((d) => (
+              {displayStats.map((d) => (
                 <div key={d.label} style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                   <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: d.color, flexShrink: 0 }} />
                   <span style={{ color: "var(--text-secondary)", fontSize: "0.9rem", flex: 1 }}>{d.label}</span>
-                  <span style={{ color: "var(--text-muted)", fontSize: "0.82rem", fontWeight: 700 }}>{d.count}+ assets</span>
+                  <span style={{ color: "var(--text-muted)", fontSize: "0.82rem", fontWeight: 700 }}>
+                    {stats === undefined ? "..." : d.count} assets
+                  </span>
                 </div>
               ))}
             </div>
 
-            <Link href="/explore" className="btn btn-primary btn-lg" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", width: "100%", justifyContent: "center" }}>
+            <Link href="/marketplace" className="btn btn-primary btn-lg" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", width: "100%", justifyContent: "center" }}>
               <MapPin size={18} /> Global Project Map
             </Link>
           </div>
@@ -62,7 +72,7 @@ export default function MapPreview() {
                 textAlign: "center"
               }} className="map-overlay-label">
                 <span>
-                  <strong style={{ color: "var(--primary)" }}>2,100+</strong> regional assets in <strong style={{ color: "var(--text-primary)" }}>8 nations</strong>
+                  <strong style={{ color: "var(--primary)" }}>{stats?.total ?? "..."}</strong> global assets in <strong style={{ color: "var(--text-primary)" }}>{stats?.nations ?? "..."} nations</strong>
                 </span>
               </div>
           </div>

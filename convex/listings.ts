@@ -1,9 +1,43 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 
+// ─── GENERATE UPLOAD URL ──────────────────────────────────────────────────────
+export const generateUploadUrl = mutation({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.storage.generateUploadUrl();
+  },
+});
+
+// ─── GET STORAGE URL ─────────────────────────────────────────────────────────
+export const getStorageUrl = mutation({
+  args: { storageId: v.string() },
+  handler: async (ctx, args) => {
+    return await ctx.storage.getUrl(args.storageId as any);
+  },
+});
+
+// ─── UPDATE LISTING IMAGES ────────────────────────────────────────────────────
+export const updateListingImages = mutation({
+  args: {
+    id: v.id("listings"),
+    images: v.array(v.string()),
+    coverImage: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.id, {
+      images: args.images,
+      coverImage: args.coverImage ?? args.images[0],
+      updatedAt: Date.now(),
+    });
+  },
+});
+
+// Force sync: category support included at top of args
 // ─── GET ALL LISTINGS (filtered + paginated) ─────────────────────────────────
 export const getListings = query({
   args: {
+    category: v.optional(v.string()),
     continent: v.optional(v.string()),
     commoditySector: v.optional(v.string()),
     intention: v.optional(v.string()),
@@ -16,11 +50,20 @@ export const getListings = query({
   handler: async (ctx, args) => {
     let listings = await ctx.db.query("listings").collect();
 
-    // Only show active listings by default
-    if (!args.status) {
-      listings = listings.filter((l) => l.status === "active" || l.status === "sold");
+    // "all" bypasses the default filter (used by dashboard)
+    if (!args.status || args.status === "all") {
+      if (args.status !== "all") {
+        listings = listings.filter((l) => l.status === "active" || l.status === "sold");
+      }
+      // "all" → no filter, keep everything
     } else {
       listings = listings.filter((l) => l.status === args.status);
+    }
+
+    if (args.category) {
+      listings = listings.filter((l) =>
+        l.category?.toLowerCase() === args.category!.toLowerCase()
+      );
     }
 
     if (args.continent) {
@@ -83,7 +126,42 @@ export const getFeaturedListings = query({
       .query("listings")
       .withIndex("by_featured", (q) => q.eq("featured", true))
       .collect();
-    return featured.filter((l) => l.status === "active").slice(0, 6);
+    
+    let results = featured.filter((l) => l.status === "active" || l.status === "pending");
+
+    // Fallback: If no featured listings, just show the latest active/pending ones
+    if (results.length === 0) {
+      results = await ctx.db
+        .query("listings")
+        .order("desc")
+        .take(12);
+      
+      results = results.filter(l => l.status === "active" || l.status === "pending");
+    }
+
+    return results.slice(0, 6);
+  },
+});
+
+export const getGlobalStats = query({
+  args: {},
+  handler: async (ctx) => {
+    const listings = await ctx.db.query("listings").collect();
+    
+    const nations = new Set(listings.map(l => l.country)).size;
+    const mining = listings.filter(l => l.category === "Minerals" || l.category === "equipment").length;
+    const farming = listings.filter(l => (l.category === "Land" || l.category === "Plots") && l.commoditySector?.toLowerCase().includes("farm")).length;
+    const commercial = listings.filter(l => (l.category === "Land" || l.category === "Plots") && l.commoditySector?.toLowerCase().includes("commercial")).length;
+    const total = listings.length;
+
+    return {
+      nations,
+      mining,
+      farming,
+      commercial,
+      total,
+      investors: Math.floor(total * 1.5) + 12, // mock a relationship based on real data
+    };
   },
 });
 
@@ -189,9 +267,11 @@ export const incrementViews = mutation({
 // ─── CREATE LISTING ───────────────────────────────────────────────────────────
 export const createListing = mutation({
   args: {
+    ownerPhone: v.optional(v.string()),
     title: v.string(),
     description: v.string(),
-    highlights: v.array(v.string()),
+    category: v.optional(v.string()),
+    highlights: v.array(v.string()), // list of features
     commodity: v.string(),
     commoditySector: v.string(),
     commodityTags: v.array(v.string()),
@@ -209,6 +289,7 @@ export const createListing = mutation({
     ownerName: v.optional(v.string()),
     ownerCompany: v.optional(v.string()),
     ownerEmail: v.optional(v.string()),
+    featured: v.boolean(),
   },
   handler: async (ctx, args) => {
     const slug = args.title
@@ -222,7 +303,6 @@ export const createListing = mutation({
       slug,
       coverImage: args.images[0],
       status: "pending",
-      featured: false,
       views: 0,
       createdAt: Date.now(),
       updatedAt: Date.now(),
@@ -249,252 +329,36 @@ export const submitInquiry = mutation({
   },
 });
 
-// ─── SEED SAMPLE DATA ─────────────────────────────────────────────────────────
-export const seedListings = mutation({
-  args: {},
-  handler: async (ctx) => {
-    // Clear existing data for a fresh seed with images
-    const existing = await ctx.db.query("listings").collect();
-    for (const doc of existing) {
-      await ctx.db.delete(doc._id);
-    }
+// ─── DELETE LISTING ───────────────────────────────────────────────────────────
+export const deleteListing = mutation({
+  args: { id: v.id("listings") },
+  handler: async (ctx, args) => {
+    await ctx.db.delete(args.id);
+  },
+});
 
-    const samples = [
-      {
-        title: "Premium Commercial Plot - Sandton",
-        slug: "premium-commercial-plot-sandton",
-        description: "A highly sought-after commercial plot in the heart of Sandton, perfect for a high-rise development.",
-        highlights: ["Zoned Commercial", "2 Hectares", "Prime Location"],
-        commodity: "Commercial Land",
-        commoditySector: "Real Estate",
-        commodityTags: ["Zoned Commercial", "2 Hectares"],
-        country: "South Africa",
-        region: "Johannesburg",
-        continent: "Africa",
-        intention: "Sell",
-        stage: "Development",
-        priceMin: 4500000,
-        currency: "USD",
-        images: ["/generated/plot_sandton_1776410063875.png"],
-        coverImage: "/generated/plot_sandton_1776410063875.png",
-        status: "active",
-        featured: true,
-        views: 120,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      },
-      {
-        title: "Citrus Export Farm",
-        slug: "citrus-export-farm-cape",
-        description: "A sprawling citrus export farm with secured irrigation rights.",
-        highlights: ["Export Ready", "Irrigation Rights", "Operational"],
-        commodity: "Agricultural",
-        commoditySector: "Farming",
-        commodityTags: ["Export Ready", "Irrigation Rights"],
-        country: "South Africa",
-        region: "Western Cape",
-        continent: "Africa",
-        intention: "Sell",
-        stage: "Production",
-        priceMin: 12200000,
-        currency: "USD",
-        images: ["/generated/citrus_farm_1776410081613.png"],
-        coverImage: "/generated/citrus_farm_1776410081613.png",
-        status: "active",
-        featured: true,
-        views: 340,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      },
-      {
-        title: "Caterpillar 797F Haul Truck",
-        slug: "cat-797f-haul-truck",
-        description: "Well-maintained 2018 model Caterpillar 797F.",
-        highlights: ["2018 Model", "12,000 hrs", "Full Service History"],
-        commodity: "Heavy Machinery",
-        commoditySector: "Mining Equipment",
-        commodityTags: ["2018 Model", "12,000 hrs"],
-        country: "Australia",
-        region: "Pilbara",
-        continent: "Australia",
-        intention: "Sell",
-        stage: "Production", 
-        priceMin: 2100000,
-        currency: "USD",
-        images: ["/generated/haul_truck_1776410101512.png"],
-        coverImage: "/generated/haul_truck_1776410101512.png",
-        status: "active",
-        featured: true,
-        views: 89,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      },
-      {
-        title: "Komatsu PC200 Excavator",
-        slug: "komatsu-pc200",
-        description: "Ready to deploy 2021 model excavator.",
-        highlights: ["2021 Model", "Ready to deploy"],
-        commodity: "Construction Fleet",
-        commoditySector: "Heavy Equipment",
-        commodityTags: ["2021 Model", "Ready to deploy"],
-        country: "UAE",
-        region: "Dubai",
-        continent: "Asia",
-        intention: "Sell",
-        stage: "Production",
-        priceMin: 145000,
-        currency: "USD",
-        images: ["/generated/excavator_1776410118063.png"],
-        coverImage: "/generated/excavator_1776410118063.png",
-        status: "active",
-        featured: true,
-        views: 210,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      },
-      {
-        title: "Logistics Hub Land",
-        slug: "logistics-hub-land-nairobi",
-        description: "Flat terrain near highway, perfect for logistics hub.",
-        highlights: ["Near Highway", "Flat Terrain"],
-        commodity: "Commercial Land",
-        commoditySector: "Real Estate",
-        commodityTags: ["Near Highway", "Flat Terrain"],
-        country: "Kenya",
-        region: "Nairobi",
-        continent: "Africa",
-        intention: "Sell",
-        stage: "Development",
-        priceMin: 8900000,
-        currency: "USD",
-        images: ["/generated/logistics_land_1776410134835.png"],
-        coverImage: "/generated/logistics_land_1776410134835.png",
-        status: "active",
-        featured: false,
-        views: 15,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      },
-      {
-        title: "Sandvik Underground Drill",
-        slug: "sandvik-drill",
-        description: "Electric drill, very low hours.",
-        highlights: ["Electric", "Low hours"],
-        commodity: "Heavy Machinery",
-        commoditySector: "Mining Equipment",
-        commodityTags: ["Electric", "Low hours"],
-        country: "Canada",
-        region: "Sudbury",
-        continent: "North America",
-        intention: "Sell",
-        stage: "Production",
-        priceMin: 850000,
-        currency: "USD",
-        images: ["/generated/sandvik_drill_1776410162092.png"],
-        coverImage: "/generated/sandvik_drill_1776410162092.png",
-        status: "active",
-        featured: false,
-        views: 42,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      },
-      {
-        title: "Macadamia Nut Orchard",
-        slug: "macadamia-orchard",
-        description: "High yield orchard with processing plant.",
-        highlights: ["High Yield", "Processing Plant"],
-        commodity: "Agricultural",
-        commoditySector: "Farming",
-        commodityTags: ["High Yield", "Processing Plant"],
-        country: "South Africa",
-        region: "Mpumalanga",
-        continent: "Africa",
-        intention: "Sell",
-        stage: "Production",
-        priceMin: 6500000,
-        currency: "USD",
-        images: ["/generated/macadamia_orchard_1776410186750.png"],
-        coverImage: "/generated/macadamia_orchard_1776410186750.png",
-        status: "active",
-        featured: true,
-        views: 110,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      },
-      {
-        title: "Volvo A45G Articulated Hauler",
-        slug: "volvo-a45g",
-        description: "High payload hauler.",
-        highlights: ["2020 Model", "41,000 kg Payload"],
-        commodity: "Heavy Machinery",
-        commoditySector: "Mining Equipment",
-        commodityTags: ["2020 Model", "41,000 kg Payload"],
-        country: "Kenya",
-        region: "Mombasa",
-        continent: "Africa",
-        intention: "Sell",
-        stage: "Production",
-        priceMin: 320000,
-        currency: "USD",
-        images: ["/generated/volvo_hauler_1776410203989.png"],
-        coverImage: "/generated/volvo_hauler_1776410203989.png",
-        status: "active",
-        featured: false,
-        views: 22,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      },
-      {
-        title: "Coastal Resort Development Land",
-        slug: "coastal-resort-land",
-        description: "Beachfront property with approved plans.",
-        highlights: ["Beachfront", "Approved Plans"],
-        commodity: "Commercial Land",
-        commoditySector: "Real Estate",
-        commodityTags: ["Beachfront", "Approved Plans"],
-        country: "Tanzania",
-        region: "Zanzibar",
-        continent: "Africa",
-        intention: "Sell",
-        stage: "Development",
-        priceMin: 18500000,
-        currency: "USD",
-        images: ["/generated/coastal_land_1776410221906.png"],
-        coverImage: "/generated/coastal_land_1776410221906.png",
-        status: "active",
-        featured: false,
-        views: 450,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      },
-      {
-        title: "Atlas Copco Pit Viper",
-        slug: "atlas-copco-pit-viper",
-        description: "Rotary Drill in excellent condition.",
-        highlights: ["Rotary Drill", "Excellent Condition"],
-        commodity: "Heavy Machinery",
-        commoditySector: "Mining Equipment",
-        commodityTags: ["Rotary Drill", "Excellent Condition"],
-        country: "Chile",
-        region: "Atacama",
-        continent: "South America",
-        intention: "Sell",
-        stage: "Production",
-        priceMin: 1400000,
-        currency: "USD",
-        images: ["/generated/pit_viper_1776410237655.png"],
-        coverImage: "/generated/pit_viper_1776410237655.png",
-        status: "active",
-        featured: false,
-        views: 12,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      }
-    ];
-
-    for (const sample of samples) {
-      await ctx.db.insert("listings", sample as any);
-    }
-    return `Seeded ${samples.length} listings successfully`;
+// ─── UPDATE LISTING ───────────────────────────────────────────────────────────
+export const updateListing = mutation({
+  args: {
+    id: v.id("listings"),
+    title: v.optional(v.string()),
+    description: v.optional(v.string()),
+    status: v.optional(v.string()),
+    priceMin: v.optional(v.float64()),
+    priceMax: v.optional(v.float64()),
+    featured: v.optional(v.boolean()),
+    stage: v.optional(v.string()),
+    intention: v.optional(v.string()),
+    region: v.optional(v.string()),
+    country: v.optional(v.string()),
+    ownerPhone: v.optional(v.string()),
+    phoneNumber: v.optional(v.string()), // temporarily keep for transition
+  },
+  handler: async (ctx, args) => {
+    const { id, ...fields } = args;
+    const patch = Object.fromEntries(
+      Object.entries(fields).filter(([, val]) => val !== undefined)
+    );
+    await ctx.db.patch(id, { ...patch, updatedAt: Date.now() });
   },
 });

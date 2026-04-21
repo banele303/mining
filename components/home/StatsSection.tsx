@@ -36,7 +36,7 @@ function StatCard({ stat, started }: { stat: typeof stats[0]; started: boolean }
   const display = Number(raw.toFixed(stat.end < 10 ? 1 : 0)).toLocaleString();
 
   return (
-    <div className="flex flex-col items-center justify-center py-16 px-8 bg-white rounded-3xl shadow-xl border border-gray-100 hover:border-emerald-500 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center w-full mx-auto">
+    <div className="flex flex-col items-center justify-center py-16 px-8 bg-white rounded-3xl shadow-xl border border-gray-100 hover:border-emerald-500 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center w-full mx-auto" style={{ padding: '4rem 2rem' }}>
       {/* Icon Wrapper */}
       <div className="flex items-center justify-center w-24 h-24 rounded-full bg-emerald-50 mb-10">
         {stat.icon}
@@ -71,8 +71,8 @@ export default function StatsSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-40 bg-gray-50 flex flex-col items-center justify-center w-full">
-      <div className="max-w-7xl mx-auto px-8 lg:px-12 flex flex-col items-center justify-center w-full">
+    <section ref={sectionRef} className="bg-gray-50 flex flex-col items-center justify-center w-full relative border-b border-gray-100" style={{ paddingTop: '6rem', paddingBottom: '6rem' }}>
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col items-center justify-center w-full">
         
         {/* Header Section */}
         <div className="flex flex-col items-center justify-center text-center mb-32 mx-auto w-full">
@@ -83,7 +83,7 @@ export default function StatsSection() {
             Numbers That <br className="hidden md:block"/><span className="text-emerald-500">Define Our Market</span>
           </h2>
           <p className="text-2xl text-gray-500 max-w-3xl leading-loose">
-            Southern Africa's most comprehensive and verified mining asset network.
+            The global industry's most comprehensive and verified mining asset network.
           </p>
         </div>
 
@@ -93,18 +93,6 @@ export default function StatsSection() {
             <StatCard key={s.label} stat={s} started={started} />
           ))}
         </div>
-
-        {/* Footer Section */}
-        <div className="mt-32 pt-16 border-t border-gray-200 w-full flex justify-center">
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-10 text-base font-bold text-gray-400 uppercase tracking-widest text-center leading-loose">
-            <span>Updated in real-time</span>
-            <span className="hidden sm:block text-emerald-300">•</span>
-            <span>Verified listings only</span>
-            <span className="hidden sm:block text-emerald-300">•</span>
-            <span>SADC-wide coverage</span>
-          </div>
-        </div>
-
       </div>
     </section>
   );

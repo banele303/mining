@@ -23,7 +23,7 @@ const locationLinks = [
 
 const companyLinks = [
   { label: "About Us", href: "/about" },
-  { label: "List an Asset", href: "/sell" },
+  { label: "List an Asset", href: "/dashboard/list-asset" },
   { label: "Explore Map", href: "/explore" },
   { label: "Sign In", href: "/auth/sign-in" },
   { label: "Join Free", href: "/auth/sign-up" },
@@ -48,20 +48,14 @@ export default function Footer() {
         }} className="footer-grid">
           {/* Brand */}
           <div>
-            <Link href="/" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem" }}>
-              <div style={{
-                width: "40px", height: "40px",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                overflow: "hidden"
-              }}>
-                <img src="/images/logo.png" alt="Southern Mines Logo" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
-              </div>
-              <span style={{ fontWeight: 800, fontSize: "1.15rem", letterSpacing: "-0.01em" }}>
-                Southern <span className="text-gold">Mines</span>
+            <Link href="/" style={{ display: "inline-flex", flexDirection: "column", gap: "1rem", marginBottom: "1.5rem" }}>
+              <img src="/miningExchange.png" alt="Mining Exchange Logo" className="rounded-md" style={{ height: "64px", width: "auto", objectFit: "contain" }} />
+              <span style={{ fontWeight: 800, fontSize: "1.35rem", letterSpacing: "-0.02em" }}>
+                Mining <span className="text-emerald-500">Exchange</span>
               </span>
             </Link>
-            <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", lineHeight: 1.7, maxWidth: "300px" }}>
-              The world's leading platform for mining asset transactions. Connecting buyers, sellers and investors across the global mining industry.
+            <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", lineHeight: 1.7, maxWidth: "320px" }}>
+              The world's leading institutional marketplace for mining asset transactions. Connecting global capital to high-growth mineral and agricultural opportunities.
             </p>
             <div style={{ display: "flex", gap: "0.75rem", marginTop: "1.5rem" }}>
               {[
@@ -162,7 +156,7 @@ export default function Footer() {
           gap: "1rem",
         }}>
           <p style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>
-            © {new Date().getFullYear()} Southern Mines. All rights reserved.
+            © {new Date().getFullYear()} Mining Exchange. All rights reserved.
           </p>
           <div style={{ display: "flex", gap: "1.5rem" }}>
             {["Privacy Policy", "Terms of Service", "Cookie Policy"].map((t) => (

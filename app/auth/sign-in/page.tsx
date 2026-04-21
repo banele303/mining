@@ -24,6 +24,7 @@ export default function SignInPage() {
       alignItems: "center",
       justifyContent: "center",
       padding: "2rem",
+      paddingTop: "clamp(6rem, 10vw, 8rem)",
       position: "relative",
       overflow: "hidden",
     }}>

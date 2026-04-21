@@ -31,7 +31,7 @@ export default function SignUpPage() {
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-base)", display: "flex", alignItems: "stretch", position: "relative", overflow: "hidden" }}>
       {/* Left panel - only on large screens */}
-      <div style={{ flex: "0 0 420px", background: "linear-gradient(135deg, #0A1628 0%, #0F1E35 100%)", borderRight: "1px solid var(--border)", display: "flex", flexDirection: "column", justifyContent: "center", padding: "3rem", position: "relative" }} className="signup-left">
+      <div style={{ flex: "0 0 420px", background: "linear-gradient(135deg, #0A1628 0%, #0F1E35 100%)", borderRight: "1px solid var(--border)", display: "flex", flexDirection: "column", justifyContent: "center", padding: "3rem", paddingTop: "clamp(7rem, 12vw, 9rem)", position: "relative" }} className="signup-left">
         {/* Glow */}
         <div style={{ position: "absolute", top: "30%", right: "-50px", width: "300px", height: "300px", background: "radial-gradient(circle, rgba(212,132,10,0.12) 0%, transparent 70%)", pointerEvents: "none" }} />
 
@@ -60,7 +60,7 @@ export default function SignUpPage() {
       </div>
 
       {/* Right panel - form */}
-      <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }}>
+      <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem", paddingTop: "clamp(7rem, 12vw, 9rem)" }}>
         <div style={{ width: "100%", maxWidth: "480px" }}>
           <h1 style={{ fontSize: "1.75rem", marginBottom: "0.5rem" }}>Create your account</h1>
           <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginBottom: "2rem" }}>

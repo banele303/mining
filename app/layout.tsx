@@ -17,15 +17,15 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Southern Mines | Southern Africa's Leading Mining Asset Marketplace",
+  title: "Mining Exchange | The Premier Marketplace for Verified Mining Assets",
   description:
-    "The specialized marketplace for buying, selling and leasing mining projects in Southern Africa. Browse verified mining assets in South Africa, Namibia, Botswana, Zimbabwe, and Mozambique.",
-  keywords: "mining assets South Africa, mines for sale Namibia, gold mines Botswana, mining projects Southern Africa, Southern Africa mining marketplace",
+    "The institutional-grade marketplace for buying, selling, and investing in mining projects across the globe. Browse verified mineral assets, agricultural land, and heavy equipment.",
+  keywords: "mining assets, mines for sale, mining investment, mineral rights, commercial plots, Mining Exchange",
   openGraph: {
-    title: "Southern Mines | Southern Africa Mining Marketplace",
-    description: "Browse thousands of mining projects across Southern Africa.",
+    title: "Mining Exchange | Global Mining & Asset Marketplace",
+    description: "Browse verified mining projects and premium commercial assets globally.",
     type: "website",
-    url: "https://southernmines.com",
+    url: "https://miningexchange.com",
   },
 };
 

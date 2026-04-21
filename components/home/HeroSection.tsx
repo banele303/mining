@@ -36,7 +36,7 @@ export default function HeroSection() {
         {/* Floating Badge */}
         <div className="animate-fadeIn flex items-center gap-3 px-4 py-1.5 rounded-full border border-white/5 bg-white/5 backdrop-blur-md text-emerald-400 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] mb-12 shadow-sm">
           <Globe size={14} className="animate-pulse" />
-          Connecting Global Capital to Southern Africa
+          Connecting Global Capital to High-Growth Assets
         </div>
 
         {/* Master Headline */}
@@ -49,7 +49,7 @@ export default function HeroSection() {
 
         {/* Minimal Subhead */}
         <p className="text-slate-400 text-base md:text-xl max-w-2xl mb-24 leading-relaxed font-medium">
-          The SADC region's premier institutional marketplace for verified mineral assets, agricultural farms, and heavy equipment.
+          The world's premier institutional marketplace for verified mineral assets, agricultural farms, and heavy equipment.
         </p>
 
         {/* ── UNIFIED SLEEK SEARCH BAR (Marketplace style) ── */}

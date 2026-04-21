@@ -1,11 +1,12 @@
 'use client';
 
 import Link from "next/link";
-import { MapPin, Layers, Pickaxe, DollarSign, ArrowUpRight } from "lucide-react";
+import { MapPin, Layers, Pickaxe, Coins, ArrowUpRight, ShieldCheck } from "lucide-react";
 
 type Listing = {
   _id: string;
   title: string;
+  category: string;
   commodity: string;
   commoditySector: string;
   commodityTags: string[];
@@ -22,9 +23,9 @@ type Listing = {
   featured: boolean;
 };
 
-function formatPrice(min?: number, max?: number, currency = "USD") {
+function formatPrice(min?: number, max?: number, currency = "ZAR") {
   const symbolMap: Record<string, string> = { ZAR: "R", USD: "$", AUD: "A$", CAD: "C$", GBP: "£", EUR: "€" };
-  const symbol = symbolMap[currency] || "$";
+  const symbol = symbolMap[currency] || "R";
   const fmt = (n: number) => {
     if (n >= 1_000_000_000) return `${symbol}${(n / 1_000_000_000).toFixed(1)}B`;
     if (n >= 1_000_000) return `${symbol}${(n / 1_000_000).toFixed(1)}M`;
@@ -173,21 +174,33 @@ export default function ListingCard({ listing }: { listing: Listing }) {
               <StatusBadge status={listing.status} />
             </div>
 
-            {/* Featured badge */}
-            {listing.featured && (
-              <div style={{ position: "absolute", top: "0.75rem", right: "0.75rem" }}>
-                <span className="badge" style={{ background: "rgba(212,132,10,0.9)", color: "#fff", backdropFilter: "blur(4px)" }}>
-                  ⭐ Featured
-                </span>
-              </div>
-            )}
+            {/* Category tag */}
+            <div style={{ position: "absolute", top: "0.75rem", right: "0.75rem" }}>
+              <span style={{ 
+                background: "rgba(255,255,255,0.9)", 
+                backdropFilter: "blur(4px)", 
+                color: "#111", 
+                fontSize: "0.65rem", 
+                fontWeight: 800, 
+                padding: "0.3rem 0.6rem", 
+                borderRadius: "99px",
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+                border: "1px solid rgba(0,0,0,0.1)",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.25rem"
+              }}>
+                <ShieldCheck size={10} className="text-emerald-500" /> {listing.category || "General"}
+              </span>
+            </div>
 
             {/* Intention badge */}
             <div style={{ position: "absolute", bottom: "0.75rem", right: "0.75rem" }}>
               <span style={{
                 background: "rgba(0,0,0,0.7)",
                 backdropFilter: "blur(4px)",
-                color: "var(--text-secondary)",
+                color: "#fff",
                 fontSize: "0.7rem",
                 fontWeight: 600,
                 padding: "0.2rem 0.5rem",
@@ -227,7 +240,7 @@ export default function ListingCard({ listing }: { listing: Listing }) {
             <MetaRow icon={<Layers size={14} />} value={listing.commodity} />
             <MetaRow icon={<MapPin size={14} />} value={location} />
             <MetaRow icon={<Pickaxe size={14} />} value={listing.stage} />
-            <MetaRow icon={<DollarSign size={14} />} value={price} highlight />
+            <MetaRow icon={<Coins size={14} />} value={price} highlight />
           </div>
 
           {/* View details */}

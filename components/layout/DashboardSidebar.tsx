@@ -13,7 +13,6 @@ import {
   Map as MapIcon,
   Menu,
   X,
-  ChevronsUpDown,
   Compass
 } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -27,7 +26,7 @@ const sidebarLinks = [
   ]},
   { group: "My Assets", links: [
     { label: "Asset Portfolio", href: "/dashboard/my-assets", icon: Database },
-    { label: "List New Asset", href: "/sell", icon: PlusCircle },
+    { label: "List New Asset", href: "/dashboard/list-asset", icon: PlusCircle },
   ]},
   { group: "Account", links: [
     { label: "Profile", href: "/dashboard/profile", icon: UserCircle },
@@ -48,26 +47,17 @@ export default function DashboardSidebar() {
   const SidebarContent = () => (
     <div className="flex flex-col h-full bg-slate-50 text-[#111827]">
       {/* Workspace Switcher / Header */}
-      <div className="px-6 pt-8 pb-4">
-        <div className="flex items-center justify-between w-full px-4 py-3 hover:bg-gray-200/50 rounded-lg cursor-pointer transition-colors border border-transparent hover:border-gray-200">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-lg bg-black shadow-sm flex items-center justify-center shrink-0">
-              <Compass size={20} className="text-white" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-base font-bold tracking-tight text-gray-900 leading-none">Southern Mines</span>
-              <span className="text-[13px] font-medium text-gray-500 mt-1">Institutional</span>
-            </div>
+        <div style={{ padding: '1.5rem' }}>
+          <div className="flex items-center justify-center">
+            <img src="/miningExchange.png" alt="Mining Exchange" className="h-20 w-auto object-contain rounded-md shadow-sm" />
           </div>
-          <ChevronsUpDown size={18} className="text-gray-400" />
         </div>
-      </div>
 
       {/* Navigation Links */}
-      <div className="flex-1 px-6 py-4 flex flex-col gap-8 overflow-y-auto">
+      <div className="flex-1 py-4 flex flex-col gap-8 overflow-y-auto" style={{ paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
         {sidebarLinks.map((section, idx) => (
           <div key={idx} className="flex flex-col gap-2">
-            <p className="px-4 text-[13px] font-bold text-gray-400 uppercase tracking-wider mb-2">
+            <p className="text-[13px] font-bold text-gray-400 uppercase tracking-wider mb-2" style={{ paddingLeft: '1rem', paddingRight: '1rem' }}>
               {section.group}
             </p>
             
@@ -78,16 +68,17 @@ export default function DashboardSidebar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`flex items-center gap-4 px-4 py-3 rounded-lg transition-all text-[15px] font-semibold group
+                  className={`flex items-center rounded-lg transition-all text-[15px] font-bold group
                     ${isActive 
-                      ? "bg-gray-200/60 text-black shadow-sm" 
+                      ? "bg-gray-200/80 text-black shadow-sm" 
                       : "text-gray-600 hover:bg-gray-200/40 hover:text-gray-900"
                     }
                   `}
+                  style={{ padding: '0.875rem 1.25rem', gap: '1.125rem' }}
                 >
                   <Icon 
                     size={20} 
-                    className={`transition-colors ${isActive ? "text-black" : "text-gray-400 group-hover:text-gray-600"}`} 
+                    className={`transition-colors ${isActive ? "text-emerald-600" : "text-gray-400 group-hover:text-gray-600"}`} 
                     strokeWidth={isActive ? 2.5 : 2}
                   />
                   {link.label}
@@ -102,7 +93,8 @@ export default function DashboardSidebar() {
       <div className="p-6">
         <button
           onClick={() => void signOut()}
-          className="w-full flex items-center gap-4 px-4 py-3 text-[15px] font-semibold text-gray-500 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors group"
+          className="w-full flex items-center text-[15px] font-bold text-gray-500 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors group"
+          style={{ padding: '0.875rem 1.25rem', gap: '1.125rem' }}
         >
           <LogOut size={20} className="text-gray-400 group-hover:text-red-500 transition-colors" />
           <span>Sign out</span>
@@ -114,12 +106,10 @@ export default function DashboardSidebar() {
   return (
     <>
       {/* Mobile Top Nav */}
-      <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 z-50">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-md bg-black flex items-center justify-center shrink-0">
-            <Compass size={16} className="text-white" />
-          </div>
-          <span className="text-[15px] font-semibold text-gray-900 tracking-tight">Southern Mines</span>
+      <div className="md:hidden fixed top-0 left-0 right-0 h-20 bg-white border-b border-gray-200 flex items-center justify-between px-6 z-50">
+        <div className="flex items-center gap-4">
+          <img src="/miningExchange.png" alt="Mining Exchange" className="h-14 w-auto object-contain rounded-md" />
+          <span className="text-[14px] font-bold text-gray-900 tracking-tight">Marketplace</span>
         </div>
         <button 
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -139,7 +129,7 @@ export default function DashboardSidebar() {
 
       {/* Mobile Sidebar */}
       <aside 
-        className={`fixed top-16 left-0 bottom-0 w-[280px] bg-slate-50 z-40 transform transition-transform duration-200 ease-in-out md:hidden border-r border-gray-200 shadow-xl
+        className={`fixed top-20 left-0 bottom-0 w-[280px] bg-slate-50 z-40 transform transition-transform duration-200 ease-in-out md:hidden border-r border-gray-200 shadow-xl
           ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >

@@ -5,11 +5,12 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useSearchParams, useRouter } from "next/navigation";
 import ListingCard from "@/components/listings/ListingCard";
-import { Search, SlidersHorizontal, Map, Star, ChevronDown, X } from "lucide-react";
+import { Search, SlidersHorizontal, Map, Star, ChevronDown, X, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 
 // ─── Filter types ──────────────────────────────────────────────────────────────
 type Filters = {
+  category: string;
   continent: string;
   commoditySector: string;
   intention: string;
@@ -20,6 +21,7 @@ type Filters = {
 };
 
 const defaultFilters: Filters = {
+  category: "",
   continent: "",
   commoditySector: "",
   intention: "",
@@ -29,6 +31,7 @@ const defaultFilters: Filters = {
   search: "",
 };
 
+const categories = ["Investment", "Acquisition", "Minerals", "Land", "Plots"];
 const continents = ["Africa", "Asia", "Australia", "Europe", "North America", "South America"];
 const sectors = ["All Sectors", "Real Estate", "Farming", "Mining Equipment", "Heavy Equipment", "Base Metals", "Precious Metals", "Battery Metals"];
 const intentions = ["Sell", "Buy", "Joint Venture", "Farm-In/Out", "Lease"];
@@ -64,6 +67,32 @@ function FilterModal({
           </div>
 
           <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "2rem" }}>
+            {/* Category */}
+            <FilterSection title="Asset Category">
+              <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                {categories.map((c) => (
+                  <button
+                    key={c}
+                    onClick={() => toggle("category", c)}
+                    style={{
+                      padding: "0.4rem 0.875rem",
+                      borderRadius: "99px",
+                      border: `1px solid ${local.category === c ? "var(--primary)" : "var(--border)"}`,
+                      background: local.category === c ? "var(--primary)" : "var(--bg-surface-2)",
+                      color: local.category === c ? "#fff" : "var(--text-secondary)",
+                      fontSize: "0.82rem",
+                      fontWeight: 500,
+                      cursor: "pointer",
+                      transition: "all var(--transition)",
+                      fontFamily: "inherit",
+                    }}
+                  >{c}</button>
+                ))}
+              </div>
+            </FilterSection>
+
+            <div className="divider" style={{ margin: 0 }} />
+
             {/* Location */}
             <FilterSection title="Location">
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "0.75rem" }}>
@@ -125,11 +154,11 @@ function FilterModal({
             <div className="divider" style={{ margin: 0 }} />
 
             {/* Price Range */}
-            <FilterSection title="Price Range (USD)">
+            <FilterSection title="Price Range (R)">
               <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
                 <input
                   type="number"
-                  placeholder="Min price"
+                  placeholder="Min Rands"
                   value={local.priceMin ?? ""}
                   onChange={(e) => setLocal((p) => ({ ...p, priceMin: e.target.value ? Number(e.target.value) : undefined }))}
                   className="input"
@@ -138,7 +167,7 @@ function FilterModal({
                 <span style={{ color: "var(--text-muted)", flexShrink: 0 }}>to</span>
                 <input
                   type="number"
-                  placeholder="Max price"
+                  placeholder="Max Rands"
                   value={local.priceMax ?? ""}
                   onChange={(e) => setLocal((p) => ({ ...p, priceMax: e.target.value ? Number(e.target.value) : undefined }))}
                   className="input"
@@ -196,18 +225,21 @@ function CheckboxItem({ label, checked, onChange }: { label: string; checked: bo
 }
 
 // ─── Main Marketplace Page ────────────────────────────────────────────────────────────
-function MarketplaceContent() {
+export function MarketplaceContent({ initialCategory, initialIntention }: { initialCategory?: string, initialIntention?: string }) {
   const searchParams = useSearchParams();
   const searchQ = searchParams.get("search");
 
   const [filters, setFilters] = useState<Filters>({
     ...defaultFilters,
     search: searchQ || "",
+    category: initialCategory || searchParams.get("category") || "",
+    intention: initialIntention || searchParams.get("intention") || "",
   });
   const [searchInput, setSearchInput] = useState(searchQ || "");
   const [modalOpen, setModalOpen] = useState(false);
 
   const listings = useQuery(api.listings.getListings, {
+    category: filters.category || undefined,
     continent: filters.continent || undefined,
     commoditySector: filters.commoditySector || undefined,
     intention: filters.intention || undefined,
@@ -218,6 +250,7 @@ function MarketplaceContent() {
   });
 
   const activeFilterCount = [
+    filters.category,
     filters.continent,
     filters.commoditySector,
     filters.intention,
@@ -246,16 +279,16 @@ function MarketplaceContent() {
         zIndex: 90,
       }}>
         <div className="container">
-          {/* Breadcrumb */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: "0.875rem" }}>
-            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--primary)", display: "inline-block" }} />
-            <Link href="/" style={{ color: "var(--text-muted)" }}>Home</Link>
-            <span>›</span>
-            <span style={{ color: "var(--text-secondary)", fontWeight: 500 }}>Marketplace</span>
-          </div>
-
           {/* Pill filter buttons */}
           <div className="scroll-x" style={{ display: "flex", gap: "0.5rem", alignItems: "center", paddingBottom: "0.25rem" }}>
+            <PillDropdown
+              label="Asset Type"
+              value={filters.category}
+              options={categories}
+              onSelect={(v) => setFilters((p) => ({ ...p, category: v }))}
+              onClear={() => clearFilter("category")}
+              icon={<ShieldCheck size={14} />}
+            />
             <PillDropdown
               label="Location"
               value={filters.continent}
@@ -277,25 +310,7 @@ function MarketplaceContent() {
               onSelect={(v) => setFilters((p) => ({ ...p, intention: v }))}
               onClear={() => clearFilter("intention")}
             />
-            <PillDropdown
-              label="Stage"
-              value={filters.stage}
-              options={stages}
-              onSelect={(v) => setFilters((p) => ({ ...p, stage: v }))}
-              onClear={() => clearFilter("stage")}
-            />
-            <PillDropdown
-              label="Price range"
-              value={filters.priceMin || filters.priceMax ? `R${(filters.priceMin || 0).toLocaleString()} – R${(filters.priceMax || 0).toLocaleString()}` : ""}
-              options={[]}
-              onSelect={() => {}}
-              onClear={() => setFilters((p) => ({ ...p, priceMin: undefined, priceMax: undefined }))}
-              isPrice
-              onPriceChange={(min, max) => setFilters((p) => ({ ...p, priceMin: min, priceMax: max }))}
-              priceMin={filters.priceMin}
-              priceMax={filters.priceMax}
-            />
-
+            
             <div style={{ width: "1px", height: "28px", background: "var(--border)", flexShrink: 0 }} />
 
             <button
@@ -336,7 +351,7 @@ function MarketplaceContent() {
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                placeholder="Search premium assets, heavy machinery, and real estate..."
+                placeholder="Search premium assets, mining opportunities, and commercial plots..."
                 style={{
                   flex: 1,
                   background: "transparent",
@@ -357,9 +372,6 @@ function MarketplaceContent() {
             </div>
             <button id="listings-search-btn" className="btn btn-primary" onClick={handleSearch}>
               Search
-            </button>
-            <button id="save-search-btn" className="btn btn-ghost" style={{ gap: "0.4rem", display: "flex", alignItems: "center" }}>
-              <Star size={14} /> Save Search
             </button>
           </div>
         </div>
@@ -388,24 +400,6 @@ function MarketplaceContent() {
             </button>
           )}
         </div>
-
-        {/* Loading */}
-        {listings === undefined && (
-          <div className="grid-listings">
-            {[...Array(6)].map((_, i) => (
-              <div key={i} style={{ borderRadius: "var(--radius-lg)", overflow: "hidden" }}>
-                <div className="skeleton" style={{ height: "200px" }} />
-                <div style={{ padding: "1.25rem", background: "var(--bg-card)", border: "1px solid var(--border)", borderTop: "none", borderBottomLeftRadius: "var(--radius-lg)", borderBottomRightRadius: "var(--radius-lg)" }}>
-                  <div className="skeleton" style={{ height: "14px", width: "50%", marginBottom: "0.75rem" }} />
-                  <div className="skeleton" style={{ height: "20px", width: "90%", marginBottom: "0.75rem" }} />
-                  <div className="skeleton" style={{ height: "13px", width: "70%", marginBottom: "0.4rem" }} />
-                  <div className="skeleton" style={{ height: "13px", width: "60%", marginBottom: "0.4rem" }} />
-                  <div className="skeleton" style={{ height: "13px", width: "80%" }} />
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
 
         {/* Grid */}
         {listings && listings.length > 0 && (
@@ -444,7 +438,7 @@ function MarketplaceContent() {
 
 // ─── Pill Dropdown component ───────────────────────────────────────────────────
 function PillDropdown({
-  label, value, options, onSelect, onClear, isPrice, onPriceChange, priceMin, priceMax,
+  label, value, options, onSelect, onClear, isPrice, onPriceChange, priceMin, priceMax, icon
 }: {
   label: string;
   value: string;
@@ -455,6 +449,7 @@ function PillDropdown({
   onPriceChange?: (min: number | undefined, max: number | undefined) => void;
   priceMin?: number;
   priceMax?: number;
+  icon?: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
   const isActive = Boolean(value);
@@ -466,6 +461,7 @@ function PillDropdown({
         onClick={() => setOpen(!open)}
         style={isActive ? { background: "var(--primary)", borderColor: "var(--primary)", color: "#fff" } : {}}
       >
+        {icon && <span style={{ marginRight: "0.4rem", display: "flex", alignItems: "center" }}>{icon}</span>}
         {isActive ? value : label}
         {isActive
           ? <span onClick={(e) => { e.stopPropagation(); onClear(); setOpen(false); }} style={{ marginLeft: "0.25rem", opacity: 0.7 }}>×</span>
@@ -475,7 +471,7 @@ function PillDropdown({
 
       {open && (
         <>
-          <div style={{ position: "fixed", inset: 0, zIndex: 40 }} onClick={() => setOpen(false)} />
+          <div style={{ position: "fixed", inset: 0, zIndex: 199 }} onClick={() => setOpen(false)} />
           <div className="animate-slideDown" style={{
             position: "absolute", top: "calc(100% + 8px)", left: 0,
             background: "var(--bg-surface)",
@@ -483,12 +479,12 @@ function PillDropdown({
             borderRadius: "var(--radius-lg)",
             minWidth: isPrice ? "280px" : "200px",
             boxShadow: "var(--shadow-elevated)",
-            zIndex: 50,
+            zIndex: 200,
             overflow: "hidden",
           }}>
             {isPrice ? (
               <div style={{ padding: "1rem" }}>
-                <p style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginBottom: "0.75rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>Price Range (ZAR)</p>
+                <p style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginBottom: "0.75rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>Price Range (R)</p>
                 <div style={{ display: "flex", gap: "0.5rem", alignItems: "center", marginBottom: "0.75rem" }}>
                   <input type="number" placeholder="Min" value={priceMin ?? ""} onChange={(e) => onPriceChange?.(e.target.value ? Number(e.target.value) : undefined, priceMax)} className="input" style={{ flex: 1, padding: "0.5rem 0.75rem", fontSize: "0.82rem" }} />
                   <span style={{ color: "var(--text-muted)", fontSize: "0.8rem" }}>–</span>

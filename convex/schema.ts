@@ -7,6 +7,7 @@ export default defineSchema({
   listings: defineTable({
     title: v.string(),
     slug: v.string(),
+    category: v.optional(v.string()), // "Investment" | "Acquisition" | "Minerals" | "Land" | "Plots"
     description: v.string(),
     highlights: v.array(v.string()),
 
@@ -45,6 +46,8 @@ export default defineSchema({
     ownerName: v.optional(v.string()),
     ownerCompany: v.optional(v.string()),
     ownerEmail: v.optional(v.string()),
+    ownerPhone: v.optional(v.string()),
+    phoneNumber: v.optional(v.string()),
 
     // Timestamps
     createdAt: v.number(),
