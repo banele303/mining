@@ -1,8 +1,12 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Linkedin, Twitter, Mail } from 'lucide-react';
+import { 
+  ArrowRight, 
+  Linkedin, 
+  Twitter, 
+  Mail 
+} from 'lucide-react';
 
 const teamMembers = [
   {

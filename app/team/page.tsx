@@ -1,7 +1,15 @@
 'use client';
 
-import React from 'react';
-import { Linkedin, Twitter, Mail, ChevronRight, Globe, Award, Shield, Users } from 'lucide-react';
+import { 
+  Linkedin, 
+  Twitter, 
+  Mail, 
+  ChevronRight, 
+  Globe, 
+  Award, 
+  Shield, 
+  Users 
+} from 'lucide-react';
 import Link from 'next/link';
 
 const teamMembers = [
