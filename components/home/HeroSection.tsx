@@ -54,25 +54,25 @@ export default function HeroSection() {
 
         {/* ── UNIFIED SLEEK SEARCH BAR (Marketplace style) ── */}
         <div className="w-full max-w-4xl relative px-4 mt-8 mb-8">
-          <div className="max-w-[580px] mx-auto bg-white/[0.08] border border-white/20 rounded-full flex items-center justify-center backdrop-blur-xl shadow-2xl h-16 relative overflow-hidden">
+          <div className="max-w-[600px] mx-auto bg-white/[0.08] border border-white/20 rounded-full flex items-center justify-center backdrop-blur-xl shadow-2xl h-16 relative">
             
-            {/* Search Icon (Absolute Left) */}
-            <div className="absolute left-2 flex items-center justify-center w-12 h-12 rounded-full bg-white/5 text-emerald-500">
-              <Search size={20} />
+            {/* Search Icon */}
+            <div className="absolute left-4 flex items-center justify-center text-emerald-500">
+              <Search size={22} />
             </div>
 
-            {/* Centered Input */}
+            {/* Mathematically Centered Input */}
             <input 
               type="text" 
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-              placeholder="Search by asset, location..." 
-              className="w-full h-full bg-transparent border-none text-white outline-none text-base text-center placeholder:text-slate-500 px-16"
+              placeholder="Search assets, locations..." 
+              className="w-full h-full bg-transparent border-none text-white outline-none text-base text-center placeholder:text-center placeholder:text-slate-500 px-32"
             />
 
-            {/* Search Button (Absolute Right) */}
-            <div className="absolute right-1.5 p-1">
+            {/* Search Button */}
+            <div className="absolute right-2">
               <button 
                 onClick={handleSearch}
                 className="bg-sky-400 hover:bg-sky-300 text-[#020617] font-black h-12 px-8 rounded-full transition-all active:scale-[0.98] shadow-lg shadow-sky-500/20 text-sm whitespace-nowrap"
