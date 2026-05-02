@@ -54,21 +54,21 @@ export default function HeroSection() {
 
         {/* ── UNIFIED SLEEK SEARCH BAR (Marketplace style) ── */}
         <div className="w-full max-w-4xl relative px-4 mt-8 mb-8">
-          <div className="max-w-[750px] mx-auto bg-white/[0.03] border border-white/10 rounded-[32px] sm:rounded-full p-2 sm:p-3 flex flex-col sm:flex-row gap-4 sm:gap-2 backdrop-blur-xl shadow-2xl">
-            <div className="flex-1 flex items-center px-4 sm:pl-6 gap-3 text-slate-400">
-              <Search size={20} className="shrink-0" />
+          <div className="max-w-[620px] mx-auto bg-white/[0.05] border border-white/20 rounded-[32px] sm:rounded-full p-3 sm:p-4 flex flex-col sm:flex-row gap-4 sm:gap-3 backdrop-blur-xl shadow-2xl">
+            <div className="flex-1 flex items-center px-4 sm:pl-8 gap-4 text-slate-300">
+              <Search size={22} className="shrink-0" />
               <input 
                 type="text" 
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                 placeholder="Search by asset type, location or keyword..." 
-                className="w-full bg-transparent border-none text-white outline-none text-sm sm:text-base py-3 sm:py-0"
+                className="w-full bg-transparent border-none text-white outline-none text-sm sm:text-base py-4 sm:py-2 placeholder:text-slate-500"
               />
             </div>
             <button 
               onClick={handleSearch}
-              className="bg-sky-400 hover:bg-sky-300 text-[#020617] font-bold py-3 sm:py-4 px-8 rounded-[24px] sm:rounded-full transition-all active:scale-[0.98] shadow-lg shadow-sky-500/20"
+              className="bg-sky-400 hover:bg-sky-300 text-[#020617] font-black py-4 sm:py-4 px-10 rounded-[24px] sm:rounded-full transition-all active:scale-[0.98] shadow-lg shadow-sky-500/20 text-base"
             >
               Search
             </button>
