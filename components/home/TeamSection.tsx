@@ -3,8 +3,7 @@
 import Link from 'next/link';
 import { 
   ArrowRight, 
-  Linkedin, 
-  Twitter, 
+  Globe, 
   Mail 
 } from 'lucide-react';
 
@@ -79,10 +78,10 @@ const TeamSection = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
                   <div className="flex gap-4">
                     <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-emerald-500 transition-colors cursor-pointer">
-                      <Linkedin size={18} />
+                      <Globe size={18} />
                     </div>
                     <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-emerald-500 transition-colors cursor-pointer">
-                      <Twitter size={18} />
+                      <Mail size={18} />
                     </div>
                   </div>
                 </div>

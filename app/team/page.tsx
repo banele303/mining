@@ -1,8 +1,6 @@
 'use client';
 
 import { 
-  Linkedin, 
-  Twitter, 
   Mail, 
   ChevronRight, 
   Globe, 
@@ -95,7 +93,7 @@ export default function TeamPage() {
                     {/* Decorative Elements */}
                     <div className="absolute top-8 right-8 flex flex-col gap-4">
                       <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white">
-                        <Linkedin size={20} />
+                        <Globe size={20} />
                       </div>
                       <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white">
                         <Mail size={20} />
