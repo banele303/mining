@@ -54,24 +54,28 @@ export default function HeroSection() {
 
         {/* ── UNIFIED SLEEK SEARCH BAR (Marketplace style) ── */}
         <div className="w-full max-w-4xl relative px-4 mt-8 mb-8">
-          <div className="max-w-[620px] mx-auto bg-white/[0.08] border border-white/20 rounded-[32px] sm:rounded-full px-2 py-2 sm:pr-2 sm:pl-8 flex flex-col sm:flex-row items-center gap-4 sm:gap-0 backdrop-blur-xl shadow-2xl min-h-[70px] sm:h-20">
-            <div className="flex-1 flex items-center w-full gap-4 text-slate-300">
-              <Search size={24} className="shrink-0 text-emerald-500" />
+          <div className="max-w-[580px] mx-auto bg-white/[0.08] border border-white/20 rounded-full px-2 flex items-center backdrop-blur-xl shadow-2xl h-16 sm:h-16">
+            <div className="flex items-center justify-center px-4 text-emerald-500">
+              <Search size={20} />
+            </div>
+            <div className="flex-1 h-full">
               <input 
                 type="text" 
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                placeholder="Search by asset type, location or keyword..." 
-                className="w-full bg-transparent border-none text-white outline-none text-base sm:text-lg py-4 placeholder:text-slate-500"
+                placeholder="Search by asset, location..." 
+                className="w-full h-full bg-transparent border-none text-white outline-none text-base text-center placeholder:text-slate-500 px-2"
               />
             </div>
-            <button 
-              onClick={handleSearch}
-              className="w-full sm:w-auto bg-sky-400 hover:bg-sky-300 text-[#020617] font-black h-12 sm:h-16 px-10 rounded-[24px] sm:rounded-full transition-all active:scale-[0.98] shadow-lg shadow-sky-500/20 text-lg flex items-center justify-center whitespace-nowrap"
-            >
-              Search
-            </button>
+            <div className="px-1">
+              <button 
+                onClick={handleSearch}
+                className="bg-sky-400 hover:bg-sky-300 text-[#020617] font-black h-12 px-8 rounded-full transition-all active:scale-[0.98] shadow-lg shadow-sky-500/20 text-sm whitespace-nowrap"
+              >
+                Search
+              </button>
+            </div>
           </div>
         </div>
 
