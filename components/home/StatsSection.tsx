@@ -71,8 +71,8 @@ export default function StatsSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-gray-50 flex flex-col items-center justify-center w-full relative border-b border-gray-100 py-24 md:py-32 px-6">
-      <div className="max-w-7xl mx-auto lg:px-8 flex flex-col items-center justify-center w-full">
+    <section ref={sectionRef} className="bg-gray-50 flex flex-col items-center justify-center w-full relative border-b border-gray-100 py-32 md:py-44 px-10 lg:px-8">
+      <div className="max-w-7xl mx-auto flex flex-col items-center justify-center w-full">
         
         {/* Header Section */}
         <div className="flex flex-col items-center justify-center text-center mb-32 mx-auto w-full">

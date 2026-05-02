@@ -82,25 +82,25 @@ export default function TeamPage() {
                 className={`flex flex-col lg:flex-row gap-12 lg:gap-24 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
               >
                 {/* Image Container */}
-                <div className="w-full lg:w-5/12">
-                  <div className="relative aspect-[4/5] rounded-[48px] overflow-hidden bg-slate-900 group shadow-2xl">
-                    <div className="absolute inset-0 bg-black flex items-center justify-center">
-                      <span className="text-white/10 font-black text-6xl uppercase tracking-tighter select-none rotate-12">
+                <div className="w-full lg:w-5/12 mb-12 lg:mb-0">
+                  <div className="relative aspect-[4/5] rounded-[48px] overflow-hidden bg-white border border-slate-100 group shadow-2xl">
+                    <div className="absolute inset-0 bg-white flex items-center justify-center">
+                      <span className="text-slate-100 font-black text-6xl uppercase tracking-tighter select-none rotate-12">
                         Portrait Coming
                       </span>
                     </div>
                     
                     {/* Decorative Elements */}
                     <div className="absolute top-8 right-8 flex flex-col gap-4">
-                      <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white">
+                      <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-slate-400 border border-slate-200">
                         <Globe size={20} />
                       </div>
-                      <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white">
+                      <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-slate-400 border border-slate-200">
                         <Mail size={20} />
                       </div>
                     </div>
                     
-                    <div className="absolute bottom-0 left-0 right-0 p-12 bg-gradient-to-t from-black to-transparent">
+                    <div className="absolute bottom-0 left-0 right-0 p-12 bg-gradient-to-t from-white via-white/20 to-transparent">
                       <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500 rounded-full text-white text-sm font-bold uppercase tracking-wider">
                         <Award size={14} />
                         {member.experience} Experience

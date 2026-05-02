@@ -66,21 +66,21 @@ const TeamSection = () => {
               className="group animate-in fade-in slide-in-from-bottom-4 duration-500"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="relative aspect-[4/5] rounded-[32px] overflow-hidden bg-slate-900 mb-6 group-hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2">
-                {/* Black placeholder for image */}
-                <div className="absolute inset-0 bg-black flex items-center justify-center">
-                  <span className="text-white/20 font-black text-4xl uppercase tracking-tighter select-none">
+              <div className="relative aspect-[4/5] rounded-[32px] overflow-hidden bg-slate-50 border border-slate-100 mb-10 group-hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2">
+                {/* Light placeholder for image */}
+                <div className="absolute inset-0 bg-white flex items-center justify-center">
+                  <span className="text-slate-200 font-black text-4xl uppercase tracking-tighter select-none">
                     Image Coming
                   </span>
                 </div>
                 
                 {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
                   <div className="flex gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-emerald-500 transition-colors cursor-pointer">
+                    <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-emerald-500 transition-colors cursor-pointer border border-white/30">
                       <Globe size={18} />
                     </div>
-                    <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-emerald-500 transition-colors cursor-pointer">
+                    <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-emerald-500 transition-colors cursor-pointer border border-white/30">
                       <Mail size={18} />
                     </div>
                   </div>
