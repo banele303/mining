@@ -46,7 +46,7 @@ export default function TeamPage() {
   return (
     <main className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden bg-slate-900">
+      <section className="relative pt-44 pb-20 overflow-hidden bg-slate-900">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.1),transparent)]" />
         <div className="container relative z-10 px-6 lg:px-8">
           <nav className="flex items-center gap-2 text-slate-400 text-sm mb-8 font-medium">

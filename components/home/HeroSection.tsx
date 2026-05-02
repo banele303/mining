@@ -15,7 +15,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative w-full min-h-screen flex flex-col items-center justify-center bg-[#020617] overflow-hidden pt-[140px] pb-20 md:pt-44 md:pb-32">
+    <section className="relative w-full min-h-screen flex flex-col items-center justify-center bg-[#020617] overflow-hidden pt-[180px] pb-20 md:pt-44 md:pb-32">
       
       {/* ── Background Layer ── */}
       <div className="absolute inset-0 z-0">
