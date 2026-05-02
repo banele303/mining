@@ -23,6 +23,7 @@ const locationLinks = [
 
 const companyLinks = [
   { label: "About Us", href: "/about" },
+  { label: "Our Team", href: "/team" },
   { label: "List an Asset", href: "/dashboard/list-asset" },
   { label: "Explore Map", href: "/explore" },
   { label: "Sign In", href: "/auth/sign-in" },

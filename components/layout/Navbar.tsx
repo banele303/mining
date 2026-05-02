@@ -19,6 +19,7 @@ export default function Navbar() {
     { label: "Marketplace", href: "/marketplace" },
     { label: "Buy Mine & Equipment", href: "/for-sale" },
     { label: "Invest", href: "/invest" },
+    { label: "Our Team", href: "/team" },
   ];
 
   const isListAsset = pathname === "/list-asset";

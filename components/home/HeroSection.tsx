@@ -15,7 +15,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center bg-[#020617] overflow-hidden pt-20">
+    <section className="relative w-full min-h-screen flex flex-col items-center justify-center bg-[#020617] overflow-hidden pt-[140px] pb-20 md:pt-44 md:pb-32">
       
       {/* ── Background Layer ── */}
       <div className="absolute inset-0 z-0">
@@ -53,23 +53,22 @@ export default function HeroSection() {
         </p>
 
         {/* ── UNIFIED SLEEK SEARCH BAR (Marketplace style) ── */}
-        <div className="w-full max-w-4xl relative px-4" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-          <div style={{ maxWidth: "700px", margin: "0 auto", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "100px", padding: "0.75rem", display: "flex", gap: "1rem", backdropFilter: "blur(12px)" }}>
-            <div style={{ flex: 1, display: "flex", alignItems: "center", paddingLeft: "1.25rem", gap: "1rem", color: "#64748b" }}>
-              <Search size={22} />
+        <div className="w-full max-w-4xl relative px-4 mt-8 mb-8">
+          <div className="max-w-[750px] mx-auto bg-white/[0.03] border border-white/10 rounded-[32px] sm:rounded-full p-2 sm:p-3 flex flex-col sm:flex-row gap-4 sm:gap-2 backdrop-blur-xl shadow-2xl">
+            <div className="flex-1 flex items-center px-4 sm:pl-6 gap-3 text-slate-400">
+              <Search size={20} className="shrink-0" />
               <input 
                 type="text" 
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                 placeholder="Search by asset type, location or keyword..." 
-                style={{ width: "100%", background: "transparent", border: "none", color: "white", outline: "none", fontSize: "1.05rem", padding: "0.5rem 0" }} 
+                className="w-full bg-transparent border-none text-white outline-none text-sm sm:text-base py-3 sm:py-0"
               />
             </div>
             <button 
               onClick={handleSearch}
-              style={{ background: "#38BDF8", color: "#020617", border: "none", borderRadius: "100px", padding: "0.75rem 2rem", fontWeight: 700, fontSize: "1rem", cursor: "pointer", transition: "all 0.2s" }} 
-              className="hover:bg-sky-400"
+              className="bg-sky-400 hover:bg-sky-300 text-[#020617] font-bold py-3 sm:py-4 px-8 rounded-[24px] sm:rounded-full transition-all active:scale-[0.98] shadow-lg shadow-sky-500/20"
             >
               Search
             </button>
@@ -77,7 +76,7 @@ export default function HeroSection() {
         </div>
 
         {/* Location Hints */}
-        <div className="mb-10 flex flex-wrap justify-center gap-8 opacity-60 hover:opacity-100 transition-opacity">
+        <div className="mb-12 flex flex-wrap justify-center gap-4 sm:gap-8 opacity-60 hover:opacity-100 transition-opacity">
           {["South Africa", "Namibia", "Botswana", "Zimbabwe", "Zambia"].map((loc) => (
             <button 
               key={loc}
@@ -91,7 +90,7 @@ export default function HeroSection() {
         </div>
 
         {/* ── Bottom Section: Minimal Trust ── */}
-        <div className="w-full pt-10 border-t border-white/5 flex flex-wrap justify-center gap-x-16 gap-y-6 mt-10">
+        <div className="w-full pt-12 border-t border-white/5 flex flex-wrap justify-center gap-x-8 sm:gap-x-16 gap-y-8 mt-12 mb-10">
           <div className="flex flex-col items-center">
             <span className="text-2xl font-black text-white">4.2K+</span>
             <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 mt-1">Verified Assets</span>

@@ -6,6 +6,7 @@ import FeaturedListings from "@/components/home/FeaturedListings";
 import BlogSection from "@/components/home/BlogSection";
 import CommodityBrowser from "@/components/home/CommodityBrowser";
 import MapPreview from "@/components/home/MapPreview";
+import TeamSection from "@/components/home/TeamSection";
 import Link from "next/link";
 import { ArrowRight, Shield, Zap, Globe } from "lucide-react";
 
@@ -63,6 +64,7 @@ export default function HomePage() {
       </section>
 
       <BlogSection />
+      <TeamSection />
 
       {/* CTA Banner */}
       <section className="relative bg-slate-900 overflow-hidden border-t border-white/5" style={{ paddingTop: '8rem', paddingBottom: '8rem' }}>
